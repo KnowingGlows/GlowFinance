@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "659999499020",
+    "project_id": "glowfinance-28cb8",
+    "storage_bucket": "glowfinance-28cb8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:659999499020:android:8de2162b7b701f2ac6df29",
+        "android_client_info": {
+          "package_name": "com.knowingglows.glowfinance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "659999499020-commqfhr40668elsj8s3m4pqmcqk5agu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCppgt5O-dm8rnWpROg1Q-BLwEPHi_Gz_g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "659999499020-commqfhr40668elsj8s3m4pqmcqk5agu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
