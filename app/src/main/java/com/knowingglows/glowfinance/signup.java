@@ -105,7 +105,8 @@ public class signup extends AppCompatActivity {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
+    {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_SIGN_IN) {
@@ -143,7 +144,6 @@ public class signup extends AppCompatActivity {
                 });
 
     }
-
      @Override
     public void onStart()
     {
@@ -156,3 +156,5 @@ public class signup extends AppCompatActivity {
         }
     }
 }
+
+

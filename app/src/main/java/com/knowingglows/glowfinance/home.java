@@ -1,12 +1,16 @@
 package com.knowingglows.glowfinance;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Date;
 import java.util.Objects;
@@ -14,27 +18,68 @@ import java.util.Objects;
 public class home extends AppCompatActivity
 {
     //creating variables
-    String income_des, expense_des, income_src, expense_src, income_name, expense_name;
-    Integer income_amount, expense_amount;
-    Date income_src_date, expense_src_date;
+
 
     FirebaseUser firebaseUser;
     FirebaseAuth firebaseAuth;
+    FirebaseFirestore db;
+    AppCompatButton profile_btn,glowcoins_btn,user_selectdatachart, user_addrecords;
+    AppCompatTextView user_profilename, user_balance, user_expense;
 
-    AppCompatTextView testtxtemail;
-
+    AppCompatImageView user_spendbehaviour;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        testtxtemail = findViewById(R.id.testtxtemail);
+        //firebase api connection
         firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-        String email = firebaseUser.getEmail().toString();
-        testtxtemail.setText(email);
+        db = FirebaseFirestore.getInstance();
+
+        //instantiating activities
+        profile_btn = findViewById(R.id.user_profile);
+        glowcoins_btn = findViewById(R.id.user_glowcoins);
+        user_selectdatachart = findViewById(R.id.btn_selectcharttype);
+        user_addrecords = findViewById(R.id.btn_adddata);
+        user_profilename = findViewById(R.id.user_name);
+        user_balance = findViewById(R.id.user_balance);
+        user_expense= findViewById(R.id.user_expense);
+        user_spendbehaviour = findViewById(R.id.user_spendbehaviour);
+
+        profile_btn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+            }
+        });
+
+        glowcoins_btn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+            }
+        });
+
+        user_addrecords.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+            }
+        });
+
+        BasicUserImplementation();
+    }
 
 
+    public void BasicUserImplementation()
+    {
+        user_profilename.setText(firebaseAuth.getCurrentUser().getDisplayName().toString());
     }
 }
