@@ -25,11 +25,16 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class signup extends AppCompatActivity {
     FirebaseAuth auth;
+    FirebaseFirestore db;
     public static final int RC_SIGN_IN = 100;
     GoogleSignInClient googleSignInClient;
 
@@ -38,8 +43,13 @@ public class signup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
+
+        Map<String, Object> users = new HashMap<>();
+
+
         // Firebase link
         auth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         // Calling activity
         AppCompatButton signupbtn = findViewById(R.id.user_signupbtn);
@@ -93,6 +103,22 @@ public class signup extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(signup.this, "Signup Successful!", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(signup.this, home.class));
+                                        users.put("user_name", user_name);
+                                        db.collection("users").add(users).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                            @Override
+                                            public void onSuccess(DocumentReference documentReference)
+                                            {
+                                                Toast.makeText(signup.this, "User Created!", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener()
+                                        {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e)
+                                            {
+                                                Toast.makeText(signup.this, "User Creation Failed", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+
                                     } else {
                                         Toast.makeText(signup.this, "Signup Failed. Please Try Again!" +
                                                 Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
@@ -109,36 +135,49 @@ public class signup extends AppCompatActivity {
     {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == RC_SIGN_IN) {
+        if (requestCode == RC_SIGN_IN)
+        {
             Task<GoogleSignInAccount> accountTask = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
+            try
+            {
                 GoogleSignInAccount signInAccount = accountTask.getResult(ApiException.class);
                 firebaseAuthWithGoogle(signInAccount);
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount googleSignInAccount) {
+    private void firebaseAuthWithGoogle(GoogleSignInAccount googleSignInAccount)
+    {
         AuthCredential credential = GoogleAuthProvider.getCredential(googleSignInAccount.getIdToken(), null);
         auth.signInWithCredential(credential)
-                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>()
+                {
                     @Override
-                    public void onSuccess(AuthResult authResult) {
+                    public void onSuccess(AuthResult authResult)
+                    {
                         FirebaseUser firebaseUser = auth.getCurrentUser();
-                        if (authResult.getAdditionalUserInfo().isNewUser()) {
+                        if (authResult.getAdditionalUserInfo().isNewUser())
+                        {
                             Toast.makeText(signup.this, "Account Created!", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(signup.this, home.class));
-                        } else {
+
+                        }
+                        else
+                        {
                             Toast.makeText(signup.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(signup.this, login.class));
                         }
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
+                .addOnFailureListener(new OnFailureListener()
+                {
                     @Override
-                    public void onFailure(@NonNull Exception e) {
+                    public void onFailure(@NonNull Exception e)
+                    {
                         Toast.makeText(signup.this, "Signup Failed!", Toast.LENGTH_SHORT).show();
                     }
                 });
