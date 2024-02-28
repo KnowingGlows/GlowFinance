@@ -3,5 +3,23 @@
     <array name="preloaded_fonts" translatable="false">
         <item>@font/playfair_display_black</item>
         <item>@font/playfair_display_sc_bold</item>
+        <item>@font/poppins</item>
+        <item>@font/poppins_black</item>
+        <item>@font/poppins_black_italic</item>
+        <item>@font/poppins_bold</item>
+        <item>@font/poppins_bold_italic</item>
+        <item>@font/poppins_extrabold</item>
+        <item>@font/poppins_extrabold_italic</item>
+        <item>@font/poppins_extralight</item>
+        <item>@font/poppins_extralight_italic</item>
+        <item>@font/poppins_italic</item>
+        <item>@font/poppins_light</item>
+        <item>@font/poppins_light_italic</item>
+        <item>@font/poppins_medium</item>
+        <item>@font/poppins_medium_italic</item>
+        <item>@font/poppins_semibold</item>
+        <item>@font/poppins_semibold_italic</item>
+        <item>@font/poppins_thin</item>
+        <item>@font/poppins_thin_italic</item>
     </array>
 </resources>

@@ -26,7 +26,7 @@ public class home extends AppCompatActivity
     //creating variables
 
 
-    FirebaseUser firebaseUser;
+    FirebaseUser firebaseUer;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore db;
     AppCompatButton profile_btn,glowcoins_btn,user_selectdatachart, user_addrecords;
