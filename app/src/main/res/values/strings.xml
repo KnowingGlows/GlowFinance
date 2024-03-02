@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">GlowFinance</string>
     <string name="default_web_client_id">659999499020-commqfhr40668elsj8s3m4pqmcqk5agu.apps.googleusercontent.com</string>
-    <color name="modern_green">#0DA6C2</color>
-    <color name="bright_green">#61DE70</color>
+    <color name="colourpalette_moderngreen">#0DA6C2</color>
+    <color name="colourpalette_lightgreen">#61DE70</color>
     <color name="unselected_txt_btn">#7B78AA</color>
-    <color name="selected_txt_btn">#FFFFFF</color>
+    <color name="dark_bg">#19173D</color>
+    <color name="light_bg">#262450</color>
+    <color name="colourpalette_purple">#9327F0</color>
+    <color name="colourpalette_darkblue">#320DAF</color>
+    <color name="colourpalette_blue">#0E39C6</color>
+    <color name="colourpalette_white">#FFFFFF</color>
 </resources>

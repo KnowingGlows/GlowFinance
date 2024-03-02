@@ -3,6 +3,7 @@ package com.knowingglows.glowfinance;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.ButtonBarLayout;
 
 import android.content.Intent;
@@ -25,6 +26,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+
+import java.util.Objects;
 
 public class login extends AppCompatActivity {
 
@@ -49,9 +52,19 @@ public class login extends AppCompatActivity {
         username = findViewById(R.id.user_username);
         userpassword = findViewById(R.id.user_password);
         useremail = findViewById(R.id.user_email);
-        Button loginbtn = findViewById(R.id.user_loginbtn);
-        Button login_google = findViewById(R.id.login_google);
+        AppCompatButton redirect_signup_page = findViewById(R.id.redirect_signup_page);
+        AppCompatButton loginbtn = findViewById(R.id.user_loginbtn);
+        AppCompatButton login_google = findViewById(R.id.login_google);
 
+
+        redirect_signup_page.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(login.this, signup.class));
+            }
+        });
         login_google.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,7 +123,7 @@ public class login extends AppCompatActivity {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         FirebaseUser firebaseUser = login.getCurrentUser();
-                        if (authResult.getAdditionalUserInfo().isNewUser()) {
+                        if (Objects.requireNonNull(authResult.getAdditionalUserInfo()).isNewUser()) {
                             Toast.makeText(login.this, "Account Created!", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(login.this, home.class));
                         } else {

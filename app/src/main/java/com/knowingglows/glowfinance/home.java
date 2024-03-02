@@ -61,7 +61,7 @@ public class home extends AppCompatActivity
         });
 
         //instantiating activities
-        profile_btn = findViewById(R.id.user_profile);
+     /*   profile_btn = findViewById(R.id.user_profile);
         glowcoins_btn = findViewById(R.id.user_glowcoins);
         user_selectdatachart = findViewById(R.id.btn_selectcharttype);
         user_addrecords = findViewById(R.id.btn_adddata);
@@ -69,7 +69,7 @@ public class home extends AppCompatActivity
         user_balance = findViewById(R.id.user_balance);
         user_expense= findViewById(R.id.user_expense);
         user_spendbehaviour = findViewById(R.id.user_spendbehaviour);
-
+*/
         profile_btn.setOnClickListener(new View.OnClickListener()
         {
             @Override
