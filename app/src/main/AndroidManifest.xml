@@ -16,15 +16,6 @@
             android:name=".report"
             android:exported="false" />
         <activity
-            android:name=".report_30"
-            android:exported="false" />
-        <activity
-            android:name=".report_14"
-            android:exported="false" />
-        <activity
-            android:name=".report_7"
-            android:exported="false" />
-        <activity
             android:name=".expense_description"
             android:exported="false" />
         <activity
@@ -43,13 +34,13 @@
             android:name=".glowcoinspage"
             android:exported="false" />
         <activity
-            android:name=".addrecords"
-            android:exported="false" />
-        <activity
             android:name=".home"
             android:exported="false" />
         <activity
             android:name=".login"
+            android:exported="false" />
+        <activity
+            android:name=".profile"
             android:exported="false" />
         <activity
             android:name=".signup"

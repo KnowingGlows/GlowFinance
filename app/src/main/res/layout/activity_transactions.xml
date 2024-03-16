@@ -83,7 +83,7 @@
 
     </androidx.appcompat.widget.AppCompatTextView>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <ImageView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="80dp"
@@ -94,74 +94,99 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.992"
+        android:focusable="true">
+
+    </ImageView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="43dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/addrecords_page_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:backgroundTint="@color/unselected_txt_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.961">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="57dp"
+        android:layout_height="43dp"
+        android:background="@drawable/bg_3deffect"
+        android:outlineAmbientShadowColor="@color/colourpalette_moderngreen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.262"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.962">
 
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="16dp"
-            android:background="@drawable/bg_3deffect">
+    </androidx.appcompat.widget.AppCompatImageView>
 
-        </ImageView>
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="43dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/transaction_page_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="@color/colourpalette_moderngreen"
+        app:layout_constraintHorizontal_bias="0.271"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.961">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/home_btn"
-            android:layout_width="43dp"
-            android:layout_height="43dp"
-            android:layout_margin="16dp"
-            android:background="@drawable/home_page_icon"
-            android:backgroundTint="@color/colourpalette_moderngreen"
-            android:elevation="10dp"></androidx.appcompat.widget.AppCompatButton>
+    </androidx.appcompat.widget.AppCompatButton>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/transactionpage_btn"
-            android:layout_width="43dp"
-            android:layout_height="43dp"
-            android:layout_marginVertical="16dp"
-            android:layout_marginLeft="105dp"
-            android:background="@drawable/transaction_page_icon"
-            android:backgroundTint="@color/colourpalette_white"
-            android:elevation="10dp">
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="43dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/home_page_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.054"
+        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="@color/unselected_txt_btn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.96">
 
-        </androidx.appcompat.widget.AppCompatButton>
+    </androidx.appcompat.widget.AppCompatButton>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/addrecordspage_btn"
-            android:layout_width="43dp"
-            android:layout_height="43dp"
-            android:layout_marginVertical="16dp"
-            android:layout_marginLeft="187dp"
-            android:background="@drawable/addrecords_page_icon"
-            android:backgroundTint="@color/colourpalette_white"
-            android:elevation="10dp">
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="43dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/financialreport_page_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="@color/unselected_txt_btn"
+        app:layout_constraintHorizontal_bias="0.97"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.961">
 
-        </androidx.appcompat.widget.AppCompatButton>
+    </androidx.appcompat.widget.AppCompatButton>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/reportpage_btn"
-            android:layout_width="43dp"
-            android:layout_height="43dp"
-            android:layout_marginVertical="16dp"
-            android:layout_marginLeft="360dp"
-            android:background="@drawable/financialreport_page_icon"
-            android:backgroundTint="@color/colourpalette_white"
-            android:elevation="10dp">
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="43dp"
+        android:layout_height="43dp"
+        android:backgroundTint="@color/unselected_txt_btn"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/profile_page_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.744"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.961">
 
-        </androidx.appcompat.widget.AppCompatButton>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/profilepage_btn"
-            android:layout_width="43dp"
-            android:layout_height="43dp"
-            android:layout_marginVertical="16dp"
-            android:layout_marginLeft="275dp"
-            android:background="@drawable/profile_page_icon"
-            android:backgroundTint="@color/colourpalette_white"
-            android:elevation="10dp">
-
-        </androidx.appcompat.widget.AppCompatButton>
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+    </androidx.appcompat.widget.AppCompatButton>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

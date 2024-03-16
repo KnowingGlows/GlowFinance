@@ -136,7 +136,7 @@
             android:layout_marginVertical="16dp"
             android:layout_marginLeft="105dp"
             android:background="@drawable/transaction_page_icon"
-            android:backgroundTint="@color/colourpalette_white"
+            android:backgroundTint="@color/unselected_txt_btn"
             android:elevation="10dp">
 
         </androidx.appcompat.widget.AppCompatButton>
@@ -147,7 +147,7 @@
             android:id="@+id/addrecordspage_btn"
             android:layout_marginLeft="187dp"
             android:background="@drawable/addrecords_page_icon"
-            android:backgroundTint="@color/colourpalette_white"
+            android:backgroundTint="@color/unselected_txt_btn"
             android:elevation="10dp">
 
         </androidx.appcompat.widget.AppCompatButton>
@@ -159,7 +159,7 @@
             android:layout_marginLeft="360dp"
             android:id="@+id/reportpage_btn"
             android:background="@drawable/financialreport_page_icon"
-            android:backgroundTint="@color/colourpalette_white"
+            android:backgroundTint="@color/unselected_txt_btn"
             android:elevation="10dp">
 
         </androidx.appcompat.widget.AppCompatButton>
@@ -170,7 +170,7 @@
             android:id="@+id/profilepage_btn"
             android:layout_marginLeft="275dp"
             android:background="@drawable/profile_page_icon"
-            android:backgroundTint="@color/colourpalette_white"
+            android:backgroundTint="@color/unselected_txt_btn"
             android:elevation="10dp">
 
         </androidx.appcompat.widget.AppCompatButton>
