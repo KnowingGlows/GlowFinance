@@ -16,6 +16,27 @@
             android:name=".report"
             android:exported="false" />
         <activity
+            android:name=".report_30"
+            android:exported="false" />
+        <activity
+            android:name=".report_14"
+            android:exported="false" />
+        <activity
+            android:name=".report_7"
+            android:exported="false" />
+        <activity
+            android:name=".expense_description"
+            android:exported="false" />
+        <activity
+            android:name=".income_description"
+            android:exported="false" />
+        <activity
+            android:name=".addrecord_expense"
+            android:exported="false" />
+        <activity
+            android:name=".addrecord_income"
+            android:exported="false" />
+        <activity
             android:name=".transactions"
             android:exported="false" />
         <activity

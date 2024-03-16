@@ -2,10 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:background="@color/dark_bg"
-    tools:context=".glowcoinspage">
+    android:layout_height="match_parent"
+    tools:context=".addrecord_income">
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="54dp"
@@ -38,6 +39,7 @@
 
     </androidx.appcompat.widget.AppCompatTextView>
 
+
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="54dp"
         android:layout_height="54dp"
@@ -51,7 +53,6 @@
         app:layout_constraintVertical_bias="0.0">
 
     </androidx.appcompat.widget.AppCompatButton>
-
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="113dp"
@@ -161,6 +162,5 @@
 
         </androidx.appcompat.widget.AppCompatButton>
     </com.google.android.material.bottomnavigation.BottomNavigationView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

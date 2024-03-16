@@ -4,8 +4,164 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:background="@color/light_bg"
+    android:background="@color/dark_bg"
     android:layout_height="match_parent"
     tools:context=".transactions">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="54dp"
+        android:layout_height="55dp"
+        android:id="@+id/user_profile"
+        android:background="@drawable/pfp_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.011">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="22dp"
+        android:layout_height="25dp"
+        android:id="@+id/user_glowcoins_num"
+        android:fontFamily="@font/poppins_bold"
+        android:text="70"
+        android:textColor="@color/colourpalette_white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.861"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.022">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:background="@drawable/glowcoin"
+        android:id="@+id/glowcoin_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="113dp"
+        android:layout_height="29dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Welcome Back!"
+        android:textColor="@color/colourpalette_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.211"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.012">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/user_username"
+        android:layout_width="115dp"
+        android:layout_height="18dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Knowing Glows"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.212"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.042">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/bottomnavigationtoolbar_bg"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="16dp"
+            android:background="@drawable/bg_3deffect">
+
+        </ImageView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/home_btn"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:layout_margin="16dp"
+            android:background="@drawable/home_page_icon"
+            android:backgroundTint="@color/colourpalette_moderngreen"
+            android:elevation="10dp"></androidx.appcompat.widget.AppCompatButton>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/transactionpage_btn"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:layout_marginVertical="16dp"
+            android:layout_marginLeft="105dp"
+            android:background="@drawable/transaction_page_icon"
+            android:backgroundTint="@color/colourpalette_white"
+            android:elevation="10dp">
+
+        </androidx.appcompat.widget.AppCompatButton>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/addrecordspage_btn"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:layout_marginVertical="16dp"
+            android:layout_marginLeft="187dp"
+            android:background="@drawable/addrecords_page_icon"
+            android:backgroundTint="@color/colourpalette_white"
+            android:elevation="10dp">
+
+        </androidx.appcompat.widget.AppCompatButton>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/reportpage_btn"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:layout_marginVertical="16dp"
+            android:layout_marginLeft="360dp"
+            android:background="@drawable/financialreport_page_icon"
+            android:backgroundTint="@color/colourpalette_white"
+            android:elevation="10dp">
+
+        </androidx.appcompat.widget.AppCompatButton>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/profilepage_btn"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:layout_marginVertical="16dp"
+            android:layout_marginLeft="275dp"
+            android:background="@drawable/profile_page_icon"
+            android:backgroundTint="@color/colourpalette_white"
+            android:elevation="10dp">
+
+        </androidx.appcompat.widget.AppCompatButton>
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

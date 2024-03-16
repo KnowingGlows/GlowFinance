@@ -117,7 +117,7 @@ public class home extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                startActivity(new Intent(home.this, addrecords.class));
+                startActivity(new Intent(home.this, addrecord_income.class));
             }
         });
 
