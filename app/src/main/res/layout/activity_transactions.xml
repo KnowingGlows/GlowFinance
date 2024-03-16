@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
+    android:background="@color/light_bg"
     android:layout_height="match_parent"
-    tools:context=".profile">
+    tools:context=".transactions">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

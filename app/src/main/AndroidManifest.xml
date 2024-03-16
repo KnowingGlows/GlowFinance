@@ -13,10 +13,13 @@
         android:theme="@style/GlowFTheme"
         tools:targetApi="31">
         <activity
-            android:name=".glowcoinspage"
+            android:name=".report"
             android:exported="false" />
         <activity
-            android:name=".profile"
+            android:name=".transactions"
+            android:exported="false" />
+        <activity
+            android:name=".glowcoinspage"
             android:exported="false" />
         <activity
             android:name=".addrecords"

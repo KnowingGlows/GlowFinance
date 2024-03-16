@@ -6,8 +6,15 @@
     <color name="unselected_txt_btn">#7B78AA</color>
     <color name="dark_bg">#19173D</color>
     <color name="light_bg">#262450</color>
+    <color name="colourpalette_red">#FF0000</color>
     <color name="colourpalette_purple">#9327F0</color>
     <color name="colourpalette_darkblue">#320DAF</color>
     <color name="colourpalette_blue">#0E39C6</color>
     <color name="colourpalette_white">#FFFFFF</color>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
 </resources>
