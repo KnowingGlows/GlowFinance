@@ -104,6 +104,7 @@
         android:layout_width="43dp"
         android:layout_height="43dp"
         android:layout_marginTop="20dp"
+        android:id="@+id/bottom_navigation_addrecords"
         android:background="@drawable/addrecords_page_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         android:backgroundTint="@color/unselected_txt_btn"
@@ -118,6 +119,7 @@
         android:layout_width="43dp"
         android:layout_height="43dp"
         android:layout_marginTop="20dp"
+        android:id="@+id/bottom_navigation_transactions"
         android:background="@drawable/transaction_page_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -132,6 +134,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="43dp"
         android:layout_height="43dp"
+        android:id="@+id/bottom_navigation_home"
         android:layout_marginTop="20dp"
         android:background="@drawable/home_page_icon"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -147,6 +150,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="43dp"
         android:layout_height="43dp"
+        android:id="@+id/bottom_navigation_report"
         android:layout_marginTop="20dp"
         android:background="@drawable/financialreport_page_icon"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -162,6 +166,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="43dp"
         android:layout_height="43dp"
+        android:id="@+id/bottom_navigation_profile"
         android:backgroundTint="@color/unselected_txt_btn"
         android:layout_marginTop="20dp"
         android:background="@drawable/profile_page_icon"
