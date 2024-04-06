@@ -15,8 +15,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class addrecord_income extends AppCompatActivity
 {
-
-
     AppCompatButton
             bottom_navigation_home,
             bottom_navigation_transactions, bottom_navigation_addrecords,
