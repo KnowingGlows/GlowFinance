@@ -56,7 +56,7 @@ public class glowcoinspage extends AppCompatActivity
         bottom_navigation_addrecords.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(glowcoinspage.this, addrecord_income.class));
+                startActivity(new Intent(glowcoinspage.this, income_description.class));
             }
         });
 

@@ -57,7 +57,7 @@ public class expense_description extends AppCompatActivity
         bottom_navigation_addrecords.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(expense_description.this, addrecord_income.class));
+                startActivity(new Intent(expense_description.this, income_description.class));
             }
         });
 

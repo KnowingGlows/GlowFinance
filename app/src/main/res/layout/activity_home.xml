@@ -100,7 +100,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="70dp"
         android:background="@drawable/bottomnavigationtoolbar_bg"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -120,8 +120,8 @@
         </ImageView>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="43dp"
-            android:layout_height="43dp"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
             android:id="@+id/home_btn"
             android:layout_margin="16dp"
             android:backgroundTint="@color/colourpalette_moderngreen"
@@ -130,8 +130,8 @@
         </androidx.appcompat.widget.AppCompatButton>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="43dp"
-            android:layout_height="43dp"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
             android:id="@+id/transactionpage_btn"
             android:layout_marginVertical="16dp"
             android:layout_marginLeft="105dp"
@@ -141,8 +141,8 @@
 
         </androidx.appcompat.widget.AppCompatButton>
         <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="43dp"
-            android:layout_height="43dp"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
             android:layout_marginVertical="16dp"
             android:id="@+id/addrecordspage_btn"
             android:layout_marginLeft="187dp"
@@ -153,8 +153,8 @@
         </androidx.appcompat.widget.AppCompatButton>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="43dp"
-            android:layout_height="43dp"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
             android:layout_marginVertical="16dp"
             android:layout_marginLeft="360dp"
             android:id="@+id/reportpage_btn"
@@ -164,8 +164,8 @@
 
         </androidx.appcompat.widget.AppCompatButton>
         <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="43dp"
-            android:layout_height="43dp"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
             android:layout_marginVertical="16dp"
             android:id="@+id/profilepage_btn"
             android:layout_marginLeft="275dp"

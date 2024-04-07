@@ -2,6 +2,8 @@ package com.knowingglows.glowfinance;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 
@@ -162,17 +164,18 @@ public class transactions extends AppCompatActivity
 
     public void TransactionsFunctionality()
     {
-
         seven_days_data.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
 
             }
         });
 
         fourteen_days_data.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
 
             }
         });
