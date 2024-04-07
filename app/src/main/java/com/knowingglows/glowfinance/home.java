@@ -74,8 +74,46 @@ public class home extends AppCompatActivity
             }
         });
 
-        //instantiating activities
+        Initialize();
+        BasicUserImplementation();
+        homePage();
+        DynamicPieChart();
 
+    }
+
+    public void BasicUserImplementation()
+    {
+        user_profilename.setText(firebaseUser.getDisplayName());
+    }
+
+    public void DynamicPieChart()
+    {
+        ArrayList<PieEntry> test_data = new ArrayList<>();
+        test_data.add(new PieEntry(10f, "Income"));
+        test_data.add(new PieEntry(20f, "Expense"));
+
+        PieDataSet dataSet = new PieDataSet(test_data, "PieEntry");
+        List<Integer> customColors = new ArrayList<>();
+        customColors.add(Color.parseColor("#61DE70"));
+        customColors.add(Color.parseColor("#FF0000"));
+        PieData data = new PieData(dataSet);
+        dataSet.setColors(customColors);
+        userspendchart.setData(data);
+
+        userspendchart.getDescription().setEnabled(false);
+        userspendchart.setDrawHoleEnabled(true);
+        userspendchart.setTransparentCircleRadius(61f);
+        userspendchart.setHoleRadius(70f);
+        userspendchart.animateY(1000, Easing.EaseInOutCubic);
+
+        userspendchart.invalidate();
+
+
+    }
+
+
+    public void Initialize()
+    {
         profile_btn = findViewById(R.id.user_profile);
         glowcoins_btn = findViewById(R.id.glowcoin_btn);
         user_profilename = findViewById(R.id.user_username);
@@ -88,11 +126,9 @@ public class home extends AppCompatActivity
         userspendchart = findViewById(R.id.user_spend_chart);
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseAuth = FirebaseAuth.getInstance();
-
-
-        BasicUserImplementation();
-
-
+    }
+    public void homePage()
+    {
         home_btn.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -117,7 +153,7 @@ public class home extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                startActivity(new Intent(home.this, addrecord_income.class));
+                startActivity(new Intent(home.this, income_description.class));
             }
         });
 
@@ -156,38 +192,5 @@ public class home extends AppCompatActivity
                 startActivity(new Intent(home.this, glowcoinspage.class));
             }
         });
-
-        DynamicPieChart();
-
-    }
-
-    public void BasicUserImplementation()
-    {
-        user_profilename.setText(firebaseUser.getDisplayName());
-    }
-
-    public void DynamicPieChart()
-    {
-        ArrayList<PieEntry> test_data = new ArrayList<>();
-        test_data.add(new PieEntry(10f, "Income"));
-        test_data.add(new PieEntry(20f, "Expense"));
-
-        PieDataSet dataSet = new PieDataSet(test_data, "PieEntry");
-        List<Integer> customColors = new ArrayList<>();
-        customColors.add(Color.parseColor("#61DE70"));
-        customColors.add(Color.parseColor("#FF0000"));
-        PieData data = new PieData(dataSet);
-        dataSet.setColors(customColors);
-        userspendchart.setData(data);
-
-        userspendchart.getDescription().setEnabled(false);
-        userspendchart.setDrawHoleEnabled(true);
-        userspendchart.setTransparentCircleRadius(61f);
-        userspendchart.setHoleRadius(70f);
-        userspendchart.animateY(1000, Easing.EaseInOutCubic);
-
-        userspendchart.invalidate();
-
-
     }
 }

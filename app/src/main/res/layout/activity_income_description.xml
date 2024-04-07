@@ -9,9 +9,9 @@
     tools:context=".income_description">
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/user_profile"
         android:layout_width="54dp"
         android:layout_height="55dp"
-        android:id="@+id/user_profile"
         android:background="@drawable/pfp_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,9 +23,9 @@
     </androidx.appcompat.widget.AppCompatButton>
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/user_glowcoins_num"
         android:layout_width="22dp"
         android:layout_height="25dp"
-        android:id="@+id/user_glowcoins_num"
         android:fontFamily="@font/poppins_bold"
         android:text="70"
         android:textColor="@color/colourpalette_white"
@@ -40,10 +40,10 @@
     </androidx.appcompat.widget.AppCompatTextView>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/glowcoin_btn"
         android:layout_width="54dp"
         android:layout_height="54dp"
         android:background="@drawable/glowcoin"
-        android:id="@+id/glowcoin_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -87,97 +87,187 @@
     <ImageView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="70dp"
         android:background="@drawable/bottomnavigationtoolbar_bg"
         android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.992"
-        android:focusable="true">
+        app:layout_constraintVertical_bias="1.0">
 
     </ImageView>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="43dp"
-        android:layout_height="43dp"
         android:id="@+id/bottom_navigation_addrecords"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/addrecords_page_icon"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:backgroundTint="@color/unselected_txt_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.961">
+        app:layout_constraintVertical_bias="0.976">
 
     </androidx.appcompat.widget.AppCompatButton>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="43dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="20dp"
         android:id="@+id/bottom_navigation_transactions"
-        android:background="@drawable/transaction_page_icon"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:backgroundTint="@color/colourpalette_moderngreen"
-        app:layout_constraintHorizontal_bias="0.271"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.961">
-
-    </androidx.appcompat.widget.AppCompatButton>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="43dp"
-        android:layout_height="43dp"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
         android:layout_marginTop="20dp"
-        android:id="@+id/bottom_navigation_home"
-        android:background="@drawable/home_page_icon"
+        android:background="@drawable/transaction_page_icon"
+        android:backgroundTint="@color/colourpalette_moderngreen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.054"
+        app:layout_constraintHorizontal_bias="0.267"
         app:layout_constraintStart_toStartOf="parent"
-        android:backgroundTint="@color/unselected_txt_btn"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.96">
+        app:layout_constraintVertical_bias="0.976">
 
     </androidx.appcompat.widget.AppCompatButton>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="43dp"
-        android:layout_height="43dp"
+        android:id="@+id/bottom_navigation_home"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/home_page_icon"
+        android:backgroundTint="@color/unselected_txt_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.048"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bottom_navigation_report"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/financialreport_page_icon"
+        android:backgroundTint="@color/unselected_txt_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:backgroundTint="@color/unselected_txt_btn"
-        app:layout_constraintHorizontal_bias="0.97"
+        app:layout_constraintHorizontal_bias="0.957"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.961">
+        app:layout_constraintVertical_bias="0.976">
 
     </androidx.appcompat.widget.AppCompatButton>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="43dp"
-        android:layout_height="43dp"
         android:id="@+id/bottom_navigation_profile"
-        android:backgroundTint="@color/unselected_txt_btn"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/profile_page_icon"
+        android:backgroundTint="@color/unselected_txt_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.744"
+        app:layout_constraintHorizontal_bias="0.745"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.961">
+        app:layout_constraintVertical_bias="0.976">
 
     </androidx.appcompat.widget.AppCompatButton>
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="348dp"
+        android:layout_height="386dp"
+        android:background="@drawable/card_3d_effect"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498">
+
+    </ImageView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="200dp"
+        android:layout_height="26dp"
+        android:layout_marginBottom="7dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Add Transactions"
+        android:textColor="@color/colourpalette_white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.549"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.103">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="302dp"
+        android:layout_height="55dp"
+        android:background="@drawable/topnavigation_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.159"
+        app:layout_constraintWidth_default="wrap">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/income_chart_btn"
+            android:layout_width="150dp"
+            android:layout_height="53dp"
+            android:background="@drawable/topnavigation_highlight"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Add Income"
+            android:textAllCaps="false"
+            android:textColor="@color/colourpalette_white"
+            android:translationX="-15dp"
+            app:layout_constraintWidth_default="wrap">
+
+        </androidx.appcompat.widget.AppCompatButton>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/expense_chart_btn"
+            android:layout_width="150dp"
+            android:layout_height="42dp"
+            android:background="@drawable/topnavigation_highlight"
+            android:backgroundTint="@color/dark_bg"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Add Expense"
+            android:textAllCaps="false"
+            android:textColor="@color/colourpalette_white"
+            android:translationX="-15dp">
+
+        </androidx.appcompat.widget.AppCompatButton>
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="149dp"
+        android:layout_height="62dp"
+        android:text="Confirm"
+        android:paddingTop="3dp"
+        android:fontFamily="@font/poppins_bold"
+        android:textColor="@color/colourpalette_white"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:background="@drawable/income_confirm_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.859" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

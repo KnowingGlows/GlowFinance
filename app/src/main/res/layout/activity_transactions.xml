@@ -104,10 +104,9 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/seven_days_btn"
             android:layout_width="133dp"
-            android:layout_height="53dp"
+            android:textAllCaps="false"
+            android:layout_height="50dp"
             android:background="@drawable/topnavigation_highlight"
-            android:backgroundTint="@color/dark_bg"
-            android:backgroundTintMode="disable"
             android:fontFamily="@font/poppins_medium"
             android:text="7 Days"
             android:textColor="@color/colourpalette_white"
@@ -119,6 +118,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/fourteen_days_btn"
             android:layout_width="133dp"
+            android:textAllCaps="false"
             android:layout_height="50dp"
             android:background="@drawable/topnavigation_highlight"
             android:translationX="-13dp"
@@ -131,6 +131,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/thirty_days_btn"
+            android:textAllCaps="false"
             android:layout_width="133dp"
             android:layout_height="50dp"
             android:background="@drawable/topnavigation_highlight"
@@ -332,22 +333,27 @@
         app:layout_constraintVertical_bias="0.358">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/income_select_btn_chart"
-            android:layout_width="110dp"
-            android:layout_height="44dp"
-            android:background="@drawable/topnavigation_highlight"
-            android:fontFamily="@font/poppins_bold"
+            android:id="@+id/income_chart_btn"
+            android:layout_width="100dp"
+            android:layout_height="42dp"
+            android:textAllCaps="false"
             android:text="Income"
+            android:fontFamily="@font/poppins_bold"
             android:textColor="@color/colourpalette_white"
-            android:textSize="15sp"
-            android:translationX="-16dp">
-
+            android:background="@drawable/topnavigation_highlight"
+            android:translationX="-15dp">
         </androidx.appcompat.widget.AppCompatButton>
 
+
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/expense_select_btn_chart"
+            android:id="@+id/expense_chart_btn"
             android:layout_width="100dp"
-            android:layout_height="44dp"
+            android:textAllCaps="false"
+            android:layout_height="42dp"
+            android:text="Expense"
+            android:backgroundTint="@color/dark_bg"
+            android:fontFamily="@font/poppins_bold"
+            android:textColor="@color/colourpalette_white"
             android:background="@drawable/topnavigation_highlight"
             android:translationX="-15dp">
 

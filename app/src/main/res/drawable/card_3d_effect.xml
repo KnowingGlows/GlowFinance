@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="16dp" />
+    <gradient
+        android:startColor="#17126D"
+        android:centerColor="#242157"
+        android:endColor="#1E1D43"
+        android:angle="270" />
+    <gradient
+        android:startColor="#312E69"
+        android:endColor="#25234E">
+    </gradient>
+    <stroke
+        android:color="@color/unselected_txt_btn"
+        android:width="3dp">
+
+    </stroke>
+</shape>

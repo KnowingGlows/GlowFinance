@@ -21,6 +21,8 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.checkerframework.checker.initialization.qual.Initialized;
+
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -28,8 +30,11 @@ public class transactions extends AppCompatActivity
 {
 
     LineChart lineChart;
+
     AppCompatButton
             bottom_navigation_home,
+            seven_days_data, fourteen_days_data, thirty_days_data,
+            income_chart_btn, expense_chart_btn,
             bottom_navigation_transactions, bottom_navigation_addrecords,
             bottom_navigation_profile, bottom_navigation_report;
 
@@ -40,13 +45,9 @@ public class transactions extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transactions);
 
-        bottom_navigation_home = findViewById(R.id.bottom_navigation_home);
-        bottom_navigation_transactions = findViewById(R.id.bottom_navigation_transactions);
-        bottom_navigation_addrecords = findViewById(R.id.bottom_navigation_addrecords);
-        bottom_navigation_profile = findViewById(R.id.bottom_navigation_profile);
-        bottom_navigation_report = findViewById(R.id.bottom_navigation_report);
-        lineChart = findViewById(R.id.transactions_chart);
+        Initialize();
         BottomNavigationBarFunctionality();
+        TransactionsFunctionality();
         LineChartTest();
 
     }
@@ -76,7 +77,7 @@ public class transactions extends AppCompatActivity
                     @Override
                     public void onClick(View v)
                     {
-                        startActivity(new Intent(transactions.this, addrecord_income.class));
+                        startActivity(new Intent(transactions.this, income_description.class));
                     }
                 });
 
@@ -141,5 +142,63 @@ public class transactions extends AppCompatActivity
         lineChart.animateX(1500, Easing.EaseInOutExpo); // X-axis animation
         lineChart.animateY(1500, Easing.EaseInOutExpo); // Y-axis animation
         lineChart.invalidate(); // Refresh the chart// Refresh the chart
+    }
+
+
+    public void Initialize()
+    {
+        income_chart_btn = findViewById(R.id.income_chart_btn);
+        expense_chart_btn = findViewById(R.id.expense_chart_btn);
+        bottom_navigation_home = findViewById(R.id.bottom_navigation_home);
+        bottom_navigation_transactions = findViewById(R.id.bottom_navigation_transactions);
+        bottom_navigation_addrecords = findViewById(R.id.bottom_navigation_addrecords);
+        bottom_navigation_profile = findViewById(R.id.bottom_navigation_profile);
+        bottom_navigation_report = findViewById(R.id.bottom_navigation_report);
+        seven_days_data = findViewById(R.id.seven_days_btn);
+        fourteen_days_data = findViewById(R.id.fourteen_days_btn);
+        thirty_days_data = findViewById(R.id.thirty_days_btn);
+        lineChart = findViewById(R.id.transactions_chart);
+    }
+
+    public void TransactionsFunctionality()
+    {
+
+        seven_days_data.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        fourteen_days_data.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        thirty_days_data.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        income_chart_btn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+            }
+        });
+
+        expense_chart_btn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+            }
+        });
     }
 }
