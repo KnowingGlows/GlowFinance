@@ -1,9 +1,9 @@
 package com.knowingglows.glowfinance;
 
-import android.animation.AnimatorSet;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,46 +12,44 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class income_description extends AppCompatActivity
+public class add_expense extends AppCompatActivity
 {
 
     AppCompatButton
 
-
-            add_income_btn,
+            save_expense,
             addincome_toolbar_btn,addexpense_toolbar_btn,
             bottom_navigation_home,
             bottom_navigation_transactions, bottom_navigation_addrecords,
             bottom_navigation_profile, bottom_navigation_report;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_income_description);
+        setContentView(R.layout.add_expense);
 
         Instantiate();
-        Toolbar();
-        AddRecord();
         BottomNavigationBarFunctionality();
-
+        Toolbar();
+        SaveRecord();
     }
 
-
-    public void AddRecord()
+    public void SaveRecord()
     {
-        add_income_btn.setOnClickListener(new View.OnClickListener()
+        save_expense.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                startActivity(new Intent(income_description.this, add_income.class));
+                Toast.makeText(add_expense.this, "Record Added Successfully!", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
     public void Instantiate()
     {
-
-        add_income_btn=findViewById(R.id.add_income_record);
+        save_expense = findViewById(R.id.add_expense_record);
         addexpense_toolbar_btn=findViewById(R.id.addexpense_toolbar_btn);
         addincome_toolbar_btn = findViewById(R.id.addincome_toolbar_btn);
         bottom_navigation_home = findViewById(R.id.bottom_navigation_home);
@@ -68,7 +66,7 @@ public class income_description extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                startActivity(new Intent(income_description.this, income_description.class));
+                startActivity(new Intent(add_expense.this, add_income.class));
             }
         });
 
@@ -77,7 +75,7 @@ public class income_description extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                startActivity(new Intent(income_description.this, expense_description.class));
+                startActivity(new Intent(add_expense.this, add_expense.class));
             }
         });
     }
@@ -86,36 +84,37 @@ public class income_description extends AppCompatActivity
         bottom_navigation_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(income_description.this, home.class));
+                startActivity(new Intent(add_expense.this, home.class));
             }
         });
 
         bottom_navigation_transactions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(income_description.this, transactions.class));
+                startActivity(new Intent(add_expense.this, transactions.class));
             }
         });
 
         bottom_navigation_addrecords.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(income_description.this, income_description.class));
+                startActivity(new Intent(add_expense.this, income_description.class));
             }
         });
 
         bottom_navigation_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(income_description.this, profile.class));
+                startActivity(new Intent(add_expense.this, profile.class));
             }
         });
 
         bottom_navigation_report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(income_description.this, report.class));
+                startActivity(new Intent(add_expense.this, report.class));
             }
         });
     }
+
 }

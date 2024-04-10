@@ -483,6 +483,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="134dp"
         android:text="Add"
+        android:id="@+id/add_expense_record"
         android:fontFamily="@font/poppins_bold"
         android:textSize="25sp"
         android:paddingTop="7dp"

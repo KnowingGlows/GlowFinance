@@ -485,11 +485,13 @@
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="134dp"
         android:text="Add"
+        android:id="@+id/add_income_record"
         android:fontFamily="@font/poppins_bold"
         android:textSize="25sp"
         android:paddingTop="7dp"
         android:textColor="@color/colourpalette_white"
         android:layout_height="60dp"
+        android:textAllCaps="false"
         android:background="@drawable/add_income_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

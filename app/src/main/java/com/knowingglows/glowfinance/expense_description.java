@@ -15,6 +15,8 @@ public class expense_description extends AppCompatActivity
 {
 
     AppCompatButton
+
+            addexpense,
             addincome_toolbar_btn,addexpense_toolbar_btn,
             bottom_navigation_home,
             bottom_navigation_transactions, bottom_navigation_addrecords,
@@ -31,8 +33,20 @@ public class expense_description extends AppCompatActivity
         BottomNavigationBarFunctionality();
     }
 
+    public void AddRecord()
+    {
+        addexpense.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(expense_description.this, add_expense.class));
+            }
+        });
+    }
     public void Instantiate()
     {
+        addexpense=findViewById(R.id.add_expense_record);
         addexpense_toolbar_btn = findViewById(R.id.addexpense_toolbar_btn);
         addincome_toolbar_btn = findViewById(R.id.addincome_toolbar_btn);
         bottom_navigation_home = findViewById(R.id.bottom_navigation_home);

@@ -179,7 +179,124 @@
 
     </androidx.appcompat.widget.AppCompatButton>
 
-    
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/appCompatImageView3"
+
+        android:layout_width="366dp"
+        android:layout_height="492dp"
+        android:background="@drawable/background_box_filled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.497">
+
+
+    </androidx.appcompat.widget.AppCompatImageView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="315dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/background_box_filled"
+        android:fontFamily="@font/poppins_semibold"
+        android:paddingTop="4dp"
+        android:text="Create Spending Report"
+        android:textAllCaps="false"
+        android:textColor="@color/colourpalette_white"
+        android:textColorHint="@color/unselected_txt_btn"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.236">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="315dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/background_box_filled"
+        android:fontFamily="@font/poppins_semibold"
+        android:paddingTop="2dp"
+        android:text="Glow Coins"
+        android:textAllCaps="false"
+        android:textColor="@color/colourpalette_white"
+        android:textColorHint="@color/unselected_txt_btn"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.367">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="315dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/background_box_filled"
+        android:fontFamily="@font/poppins_semibold"
+        android:paddingTop="2dp"
+        android:text="Contact Us"
+        android:textAllCaps="false"
+        android:textColor="@color/colourpalette_white"
+        android:textColorHint="@color/unselected_txt_btn"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.497">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="315dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/background_box_filled"
+        android:fontFamily="@font/poppins_semibold"
+        android:paddingTop="2dp"
+        android:text="GlowFinance Roadmap"
+        android:textAllCaps="false"
+        android:textColor="@color/colourpalette_white"
+        android:textColorHint="@color/unselected_txt_btn"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.625">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="315dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/background_box_filled"
+        android:fontFamily="@font/poppins_semibold"
+        android:paddingTop="2dp"
+        android:text="About Us"
+        android:textAllCaps="false"
+        android:textColor="@color/colourpalette_white"
+        android:textColorHint="@color/unselected_txt_btn"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.763">
+
+    </androidx.appcompat.widget.AppCompatButton>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
