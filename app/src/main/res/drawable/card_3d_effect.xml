@@ -6,7 +6,7 @@
         android:endColor="#25234E"
         android:angle="45" />
     <stroke
-        android:color="@color/colourpalette_white"
+        android:color="@color/unselected_txt_btn"
         android:width="1.6dp">
     </stroke>
 </shape>

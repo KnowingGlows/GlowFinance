@@ -15,6 +15,8 @@ public class income_description extends AppCompatActivity
 {
 
     AppCompatButton
+
+            addincome_toolbar_btn,addexpense_toolbar_btn,
             bottom_navigation_home,
             bottom_navigation_transactions, bottom_navigation_addrecords,
             bottom_navigation_profile, bottom_navigation_report;
@@ -25,16 +27,41 @@ public class income_description extends AppCompatActivity
         setContentView(R.layout.activity_income_description);
 
         Instantiate();
+        Toolbar();
         BottomNavigationBarFunctionality();
 
     }
 
-    public void Instantiate() {
+    public void Instantiate()
+    {
+        addexpense_toolbar_btn=findViewById(R.id.addexpense_toolbar_btn);
+        addincome_toolbar_btn = findViewById(R.id.addincome_toolbar_btn);
         bottom_navigation_home = findViewById(R.id.bottom_navigation_home);
         bottom_navigation_transactions = findViewById(R.id.bottom_navigation_transactions);
         bottom_navigation_addrecords = findViewById(R.id.bottom_navigation_addrecords);
         bottom_navigation_profile = findViewById(R.id.bottom_navigation_profile);
         bottom_navigation_report = findViewById(R.id.bottom_navigation_report);
+    }
+
+    public void Toolbar()
+    {
+        addincome_toolbar_btn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(income_description.this, income_description.class));
+            }
+        });
+
+        addexpense_toolbar_btn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(income_description.this, expense_description.class));
+            }
+        });
     }
 
     public void BottomNavigationBarFunctionality() {

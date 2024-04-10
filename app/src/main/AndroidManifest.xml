@@ -13,6 +13,9 @@
         android:theme="@style/GlowFTheme"
         tools:targetApi="31">
         <activity
+            android:name=".new_record_income"
+            android:exported="false" />
+        <activity
             android:name=".report"
             android:exported="false" />
         <activity
