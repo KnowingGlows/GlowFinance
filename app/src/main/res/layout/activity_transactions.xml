@@ -191,20 +191,6 @@
 
     </androidx.appcompat.widget.AppCompatButton>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="37dp"
-        android:layout_height="37dp"
-        android:background="@drawable/bg_3deffect"
-        android:outlineAmbientShadowColor="@color/colourpalette_moderngreen"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.262"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.962">
-
-
-    </androidx.appcompat.widget.AppCompatImageView>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="159dp"

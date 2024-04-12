@@ -41,15 +41,15 @@
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/user_spend_chart"
-        android:layout_width="344dp"
-        android:layout_height="324dp"
+        android:layout_width="430dp"
+        android:layout_height="306dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintCircleRadius="7dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.115">
+        app:layout_constraintVertical_bias="0.148">
 
     </com.github.mikephil.charting.charts.PieChart>
 
@@ -111,22 +111,16 @@
         app:layout_constraintVertical_bias="0.992">
 
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_margin="16dp"
-            android:background="@drawable/bg_3deffect"
-            android:layout_height="50dp">
-
-        </ImageView>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/home_btn"
             android:layout_width="37dp"
             android:layout_height="37dp"
-            android:id="@+id/home_btn"
             android:layout_margin="16dp"
+            android:background="@drawable/home_page_icon"
             android:backgroundTint="@color/colourpalette_moderngreen"
-            android:elevation="10dp"
-            android:background="@drawable/home_page_icon">
+            android:elevation="10dp">
+
         </androidx.appcompat.widget.AppCompatButton>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -187,17 +181,18 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.729">
+        app:layout_constraintVertical_bias="0.817">
 
     </ImageView>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="196dp"
+        android:layout_width="180dp"
         android:layout_height="33dp"
         android:fontFamily="@font/poppins_bold"
         android:text="Transactions"
+        android:layout_marginTop="34dp"
         android:textColor="@color/colourpalette_white"
-        android:textSize="20sp"
+        android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.074"
@@ -207,4 +202,308 @@
 
     </androidx.appcompat.widget.AppCompatTextView>
 
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/appCompatImageView4"
+        android:layout_width="348dp"
+        android:layout_height="79dp"
+        android:background="@drawable/background_box_filled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.588">
+
+
+    </androidx.appcompat.widget.AppCompatImageView>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/money_icon"
+        android:backgroundTint="@color/colourpalette_lightgreen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.149"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.581">
+
+    </androidx.appcompat.widget.AppCompatImageView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="169dp"
+        android:layout_height="33dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Grilled Chicken"
+        android:textColor="@color/colourpalette_white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.567">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="106dp"
+        android:layout_height="29dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="13-4-2024"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/unselected_txt_btn"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.396"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.594">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="76dp"
+        android:layout_height="43dp"
+        android:text="$16"
+        android:textColor="@color/colourpalette_white"
+        android:fontFamily="@font/poppins_bold"
+        android:paddingLeft="27dp"
+        android:paddingTop="10dp"
+        android:background="@drawable/background_box_filled_dark_outlined"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.865"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.585">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/money_icon"
+        android:backgroundTint="@color/colourpalette_red"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.149"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.581">
+
+    </androidx.appcompat.widget.AppCompatImageView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="169dp"
+        android:layout_height="33dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Grilled Chicken"
+        android:textColor="@color/colourpalette_white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.567">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="106dp"
+        android:layout_height="29dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="13-4-2024"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/unselected_txt_btn"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.396"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.594">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="76dp"
+        android:layout_height="43dp"
+        android:text="$16"
+        android:textColor="@color/colourpalette_white"
+        android:fontFamily="@font/poppins_bold"
+        android:gravity="center"
+        android:paddingTop="3dp"
+        android:background="@drawable/background_box_filled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.865"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.585">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/appCompatImageView5"
+        android:layout_width="348dp"
+        android:layout_height="79dp"
+        android:background="@drawable/background_box_filled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.725">
+
+
+    </androidx.appcompat.widget.AppCompatImageView>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/money_icon"
+        android:backgroundTint="@color/colourpalette_lightgreen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.149"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.715">
+
+    </androidx.appcompat.widget.AppCompatImageView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="106dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="13-4-2024"
+        android:textColor="@color/unselected_txt_btn"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.396"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.721">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="169dp"
+        android:layout_height="33dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Bonus"
+        android:textColor="@color/colourpalette_white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.697">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="76dp"
+        android:layout_height="43dp"
+        android:background="@drawable/background_box_filled"
+        android:fontFamily="@font/poppins_bold"
+        android:gravity="center"
+        android:paddingTop="3dp"
+        android:text="$16"
+        android:textColor="@color/colourpalette_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.865"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.718">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/appCompatImageView9"
+        android:layout_width="348dp"
+        android:layout_height="79dp"
+        android:background="@drawable/background_box_filled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.863">
+
+
+    </androidx.appcompat.widget.AppCompatImageView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="169dp"
+        android:layout_height="33dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Big Sale"
+        android:textColor="@color/colourpalette_white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.826">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/money_icon"
+        android:backgroundTint="@color/colourpalette_lightgreen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.149"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.847">
+
+    </androidx.appcompat.widget.AppCompatImageView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="106dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="13-4-2024"
+        android:textColor="@color/unselected_txt_btn"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.396"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.853">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="76dp"
+        android:layout_height="43dp"
+        android:background="@drawable/background_box_filled"
+        android:fontFamily="@font/poppins_bold"
+        android:gravity="center"
+        android:paddingTop="3dp"
+        android:text="$200"
+        android:textColor="@color/colourpalette_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.865"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.848">
+
+    </androidx.appcompat.widget.AppCompatTextView>
 </androidx.constraintlayout.widget.ConstraintLayout>

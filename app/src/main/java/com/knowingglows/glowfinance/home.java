@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 
@@ -98,12 +101,23 @@ public class home extends AppCompatActivity
         customColors.add(Color.parseColor("#FF0000"));
         PieData data = new PieData(dataSet);
         dataSet.setColors(customColors);
+        userspendchart.setTransparentCircleColor(Color.TRANSPARENT); // Set the color of the transparent circle to transparent
+        userspendchart.setTransparentCircleAlpha(0);
         userspendchart.setData(data);
 
         userspendchart.getDescription().setEnabled(false);
         userspendchart.setDrawHoleEnabled(true);
-        userspendchart.setTransparentCircleRadius(61f);
-        userspendchart.setHoleRadius(70f);
+        userspendchart.setTransparentCircleRadius(150f);
+        userspendchart.setHoleRadius(75f);
+        userspendchart.setDrawCenterText(true);
+        int holecolour = ContextCompat.getColor(home.this, R.color.dark_bg);
+        userspendchart.setHoleColor(holecolour);
+        userspendchart.setCenterText("777.70 \n Available Balance");
+        int centre_text_colour = ContextCompat.getColor(home.this, R.color.colourpalette_white);
+        userspendchart.setCenterTextColor(centre_text_colour);
+        userspendchart.setCenterTextSize(16);
+        Typeface centre_text_font = ResourcesCompat.getFont(home.this, R.font.poppins_bold);
+        userspendchart.setCenterTextTypeface(centre_text_font);
         userspendchart.animateY(1000, Easing.EaseInOutCubic);
 
         userspendchart.invalidate();
@@ -134,6 +148,8 @@ public class home extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+
+                home_btn.setBackgroundTintList(ContextCompat.getColorStateList(home.this, R.color.colourpalette_moderngreen));
                 startActivity(new Intent(home.this, home.class));
             }
         });
@@ -144,6 +160,7 @@ public class home extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                transactions_btn.setBackgroundTintList(ContextCompat.getColorStateList(home.this, R.color.colourpalette_moderngreen));
                 startActivity(new Intent(home.this, transactions.class));
             }
         });
@@ -153,6 +170,7 @@ public class home extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                addrecords_btn.setBackgroundTintList(ContextCompat.getColorStateList(home.this, R.color.colourpalette_moderngreen));
                 startActivity(new Intent(home.this, income_description.class));
             }
         });
@@ -162,6 +180,8 @@ public class home extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+
+                profilepage_btn.setBackgroundTintList(ContextCompat.getColorStateList(home.this, R.color.colourpalette_moderngreen));
                 startActivity(new Intent(home.this, profile.class));
             }
         });
@@ -171,6 +191,8 @@ public class home extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+
+                report_btn.setBackgroundTintList(ContextCompat.getColorStateList(home.this, R.color.colourpalette_moderngreen));
                 startActivity(new Intent(home.this, report.class));
             }
         });
