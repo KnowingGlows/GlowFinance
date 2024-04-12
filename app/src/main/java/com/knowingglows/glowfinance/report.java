@@ -1,23 +1,36 @@
 package com.knowingglows.glowfinance;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.google.protobuf.NullValue;
 
 public class report extends AppCompatActivity
 {
 
     AppCompatButton
+
+            create_report_btn,
+            report_7_days, report_14_days, report_30_days,
             bottom_navigation_home,
             bottom_navigation_transactions, bottom_navigation_addrecords,
             bottom_navigation_profile, bottom_navigation_report;
+
+    AppCompatTextView
+            report_cost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -26,10 +39,17 @@ public class report extends AppCompatActivity
         setContentView(R.layout.activity_report);
         Instantiate();
         BottomNavigationBarFunctionality();
+        FinancialReport();
     }
 
     public void Instantiate()
     {
+
+        report_cost = findViewById(R.id.report_cost);
+        create_report_btn = findViewById(R.id.create_report_btn);
+        report_7_days = findViewById(R.id.seven_days_btn);
+        report_14_days = findViewById(R.id.fourteen_days_btn);
+        report_30_days = findViewById(R.id.thirty_days_btn);
         bottom_navigation_home = findViewById(R.id.bottom_navigation_home);
         bottom_navigation_transactions = findViewById(R.id.bottom_navigation_transactions);
         bottom_navigation_addrecords = findViewById(R.id.bottom_navigation_addrecords);
@@ -71,6 +91,49 @@ public class report extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(report.this, report.class));
+            }
+        });
+    }
+
+    public void FinancialReport()
+    {
+        report_7_days.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                report_cost.setText("Cost = 250");
+                report_7_days.setBackgroundTintList(null);
+                report_14_days.setBackgroundTintList(ContextCompat.getColorStateList(report.this, R.color.dark_bg));
+                report_30_days.setBackgroundTintList(ContextCompat.getColorStateList(report.this, R.color.dark_bg));
+            }
+        });
+
+        report_14_days.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                report_cost.setText("Cost = 500");
+                report_14_days.setBackgroundTintList(null);
+                report_7_days.setBackgroundTintList(ContextCompat.getColorStateList(report.this, R.color.dark_bg));
+                report_30_days.setBackgroundTintList(ContextCompat.getColorStateList(report.this, R.color.dark_bg));
+            }
+        });
+
+        report_30_days.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                report_cost.setText("Cost = 700");
+                report_30_days.setBackgroundTintList(null);
+                report_7_days.setBackgroundTintList(ContextCompat.getColorStateList(report.this, R.color.dark_bg));
+                report_14_days.setBackgroundTintList(ContextCompat.getColorStateList(report.this, R.color.dark_bg));
+            }
+        });
+
+        create_report_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(report.this, "Report Is Being Created!", Toast.LENGTH_SHORT).show();
             }
         });
     }

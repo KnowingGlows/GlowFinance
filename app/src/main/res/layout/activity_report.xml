@@ -179,10 +179,10 @@
     </androidx.appcompat.widget.AppCompatButton>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="149dp"
+        android:layout_width="187dp"
         android:layout_height="26dp"
         android:fontFamily="@font/poppins_bold"
-        android:text="Transactions"
+        android:text="Financial Report"
         android:textColor="@color/colourpalette_white"
         android:layout_marginBottom="7dp"
         android:textSize="20sp"
@@ -288,16 +288,17 @@
     </androidx.appcompat.widget.AppCompatTextView>
 
     <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/appCompatEditText2"
         android:layout_width="315dp"
         android:layout_height="57dp"
+        android:layout_marginTop="2dp"
         android:background="@drawable/background_box_filled"
         android:fontFamily="@font/poppins_semibold"
+        android:hint="What's Your Name?"
         android:paddingLeft="20dp"
         android:paddingTop="2dp"
-        android:textColorHint="@color/unselected_txt_btn"
-        android:hint="What's Your Name?"
-        android:layout_marginTop="2dp"
         android:textColor="@color/colourpalette_white"
+        android:textColorHint="@color/unselected_txt_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -350,28 +351,31 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="201dp"
         android:layout_height="62dp"
-        android:layout_marginTop="2dp"
         android:background="@drawable/background_box_filled"
         android:fontFamily="@font/poppins_semibold"
         android:gravity="center"
-        android:hint="Cost = 150"
-        android:textSize="16sp"
-        android:paddingTop="2dp"
-        android:paddingRight="57dp"
-        android:textColor="@color/colourpalette_white"
+        android:id="@+id/report_cost"
+        android:hint="Cost = 250"
+        android:paddingLeft="3dp"
+        android:paddingTop="3dp"
+        android:paddingRight="50dp"
+        android:textColor="@color/unselected_txt_btn"
         android:textColorHint="@color/unselected_txt_btn"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.706">
+        app:layout_constraintVertical_bias="0.707">
 
     </androidx.appcompat.widget.AppCompatTextView>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="45dp"
         android:layout_height="42dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginLeft="6dp"
         android:background="@drawable/glowcoin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -382,4 +386,25 @@
 
 
     </androidx.appcompat.widget.AppCompatImageView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="160dp"
+        android:layout_height="61dp"
+        android:id="@+id/create_report_btn"
+        android:background="@drawable/add_income_btn"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Create Report!"
+        android:textAllCaps="false"
+        android:layout_marginRight="7dp"
+        android:textSize="17sp"
+        android:textColor="@color/colourpalette_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.549"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.883">
+
+
+    </androidx.appcompat.widget.AppCompatButton>
 </androidx.constraintlayout.widget.ConstraintLayout>

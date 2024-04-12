@@ -7,96 +7,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark_bg"
-    tools:context=".signup">
+    tools:context=".signup"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="5dp">
 
     <ImageView
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:background="@drawable/glowfinance_logo"
-        android:outlineAmbientShadowColor="@color/colourpalette_moderngreen"
+        android:outlineAmbientShadowColor="@color/colourpalette_white"
+        android:outlineProvider="background"
+        android:outlineSpotShadowColor="@color/colourpalette_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+
         app:layout_constraintVertical_bias="0.105" />
 
-    <ImageView
-        android:layout_width="370dp"
-        android:layout_height="557dp"
-        android:background="@drawable/base_3d_box"
-        android:backgroundTint="@color/light_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.536"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.81">
-
-    </ImageView>
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/user_email"
-        android:layout_width="277dp"
-        android:layout_height="56dp"
-        android:background="@drawable/generic_button_bg"
-        android:fontFamily="@font/poppins_bold"
-        android:hint="Enter Email"
-        android:textAlignment="center"
-        android:textColor="@color/colourpalette_white"
-        android:textColorHint="@color/colourpalette_white"
-        android:textSize="17sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.29">
-
-
-    </androidx.appcompat.widget.AppCompatEditText>
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/user_password"
-        android:layout_width="277dp"
-        android:layout_height="56dp"
-        android:background="@drawable/generic_button_bg"
-        android:fontFamily="@font/poppins_bold"
-        android:hint="Enter Password"
-        android:textAlignment="center"
-        android:textColor="@color/colourpalette_white"
-        android:textColorHint="@color/colourpalette_white"
-        android:textSize="17sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.411">
-
-
-    </androidx.appcompat.widget.AppCompatEditText>
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/user_username"
-        android:layout_width="277dp"
-        android:layout_height="56dp"
-        android:background="@drawable/generic_button_bg"
-        android:fontFamily="@font/poppins_bold"
-        android:hint="Enter Username"
-        android:textAlignment="center"
-        android:textColor="@color/colourpalette_white"
-        android:textColorHint="@color/colourpalette_white"
-        android:textSize="17sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.536">
-
-
-    </androidx.appcompat.widget.AppCompatEditText>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/appCompatTextView2"
@@ -116,66 +45,147 @@
 
     </androidx.appcompat.widget.AppCompatTextView>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/user_signupbtn"
-        android:layout_width="135dp"
-        android:layout_height="62dp"
-        android:background="@drawable/signup_btn"
-        android:fontFamily="@font/poppins_bold"
-        android:hint="Sign Up!"
-        android:textAlignment="center"
-        android:textColor="@color/colourpalette_white"
-        android:textColorHint="@color/colourpalette_white"
-        android:textSize="17sp"
-        android:textStyle="bold"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/appCompatImageView3"
+
+        android:layout_width="382dp"
+        android:layout_height="564dp"
+        android:background="@drawable/background_box_filled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.674">
+        app:layout_constraintVertical_bias="0.832">
 
-    </androidx.appcompat.widget.AppCompatButton>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/google_signupbtn"
-        android:layout_width="280dp"
-        android:layout_height="60dp"
-        android:background="@drawable/generic_button_bg"
-        android:fontFamily="@font/poppins_bold"
-        android:hint="Sign Up Via Google"
-        android:textAlignment="center"
-        android:textColor="@color/colourpalette_white"
-        android:textColorHint="@color/colourpalette_white"
-        android:textSize="17sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.511"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.807">
-
-    </androidx.appcompat.widget.AppCompatButton>
+    </androidx.appcompat.widget.AppCompatImageView>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/signin_btn"
-        android:layout_width="280dp"
-        android:layout_height="60dp"
-        android:background="@drawable/generic_button_bg"
-        android:fontFamily="@font/poppins_bold"
+        android:layout_width="315dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/background_box_filled"
+        android:fontFamily="@font/poppins_semibold"
         android:hint="Have An Account? Login!"
-        android:textAlignment="center"
+        android:paddingTop="2dp"
+        android:paddingRight="7dp"
         android:textColor="@color/colourpalette_white"
-        android:textColorHint="@color/colourpalette_white"
-        android:textSize="17sp"
-        android:textStyle="bold"
+        android:textColorHint="@color/unselected_txt_btn"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.919">
+        app:layout_constraintVertical_bias="0.864">
 
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/user_email"
+        android:layout_width="315dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/background_box_filled"
+        android:fontFamily="@font/poppins_semibold"
+        android:hint="Enter Email"
+        android:paddingLeft="20dp"
+        android:paddingTop="2dp"
+        android:textColor="@color/colourpalette_white"
+        android:textColorHint="@color/unselected_txt_btn"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.315">
+
+    </androidx.appcompat.widget.AppCompatEditText>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/user_username"
+        android:layout_width="315dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/background_box_filled"
+        android:fontFamily="@font/poppins_semibold"
+        android:hint="Enter Username"
+        android:paddingLeft="20dp"
+        android:paddingTop="2dp"
+        android:textColor="@color/colourpalette_white"
+        android:textColorHint="@color/unselected_txt_btn"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.425">
+
+    </androidx.appcompat.widget.AppCompatEditText>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/user_password"
+        android:layout_width="315dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/background_box_filled"
+        android:fontFamily="@font/poppins_semibold"
+        android:hint="Enter Password"
+        android:paddingLeft="20dp"
+        android:paddingTop="2dp"
+        android:textColor="@color/colourpalette_white"
+        android:textColorHint="@color/unselected_txt_btn"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.538">
+
+    </androidx.appcompat.widget.AppCompatEditText>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/user_signupbtn"
+        android:layout_width="196dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/background_box_filled"
+        android:fontFamily="@font/poppins_semibold"
+        android:hint="Sign Up!"
+        android:paddingTop="2dp"
+        android:textColor="@color/colourpalette_white"
+        android:textColorHint="@color/unselected_txt_btn"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.649">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/google_signupbtn"
+        android:layout_width="315dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/background_box_filled"
+        android:fontFamily="@font/poppins_semibold"
+        android:hint="Sign Up Via Google"
+        android:paddingTop="2dp"
+        android:paddingRight="12dp"
+        android:textColor="@color/colourpalette_white"
+        android:textColorHint="@color/unselected_txt_btn"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.764">
     </androidx.appcompat.widget.AppCompatButton>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
