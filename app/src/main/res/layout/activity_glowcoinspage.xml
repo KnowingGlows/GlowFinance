@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -175,6 +177,121 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.976">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/appCompatImageView3"
+
+        android:layout_width="363dp"
+        android:layout_height="409dp"
+        android:background="@drawable/background_box_filled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.561">
+
+
+    </androidx.appcompat.widget.AppCompatImageView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="300dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins_bold"
+        android:gravity="left"
+        android:text="Purchase Glow Coins"
+        android:textColor="@color/colourpalette_white"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.432"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.293">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="315dp"
+        android:layout_height="57dp"
+        android:background="@drawable/background_box_filled"
+        android:fontFamily="@font/poppins_bold"
+        android:paddingLeft="10dp"
+        android:paddingTop="3dp"
+        android:textSize="16sp"
+        android:textColorHint="@color/unselected_txt_btn"
+        android:textAllCaps="false"
+        android:text="Free Glow Coins! (Earn By Ads)"
+        android:layout_marginTop="2dp"
+        android:textColor="@color/unselected_txt_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.396">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="315dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/background_box_filled"
+        android:fontFamily="@font/poppins_bold"
+        android:text="50 Glow Coins = 0.69$"
+        android:paddingTop="3dp"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:textColor="@color/unselected_txt_btn"
+        android:textColorHint="@color/unselected_txt_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="315dp"
+        android:layout_height="57dp"
+        android:background="@drawable/background_box_filled"
+        android:fontFamily="@font/poppins_bold"
+        android:paddingTop="2dp"
+        android:textAllCaps="false"
+        android:text="250 Glow Coins = 1.7$"
+        android:layout_marginTop="2dp"
+        android:textSize="16sp"
+        android:textColor="@color/unselected_txt_btn"
+        android:textColorHint="@color/unselected_txt_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.599">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="315dp"
+        android:layout_height="57dp"
+        android:background="@drawable/background_box_filled"
+        android:fontFamily="@font/poppins_bold"
+        android:textSize="16sp"
+        android:textAllCaps="false"
+        android:text="500 Glow Coins = 2.5$"
+        android:paddingTop="2dp"
+        android:layout_marginTop="2dp"
+        android:textColor="@color/unselected_txt_btn"
+        android:textColorHint="@color/unselected_txt_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.697">
 
     </androidx.appcompat.widget.AppCompatButton>
 

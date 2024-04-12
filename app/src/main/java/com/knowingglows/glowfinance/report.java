@@ -59,9 +59,14 @@ public class report extends AppCompatActivity
 
     public void BottomNavigationBarFunctionality()
     {
+
+
+        bottom_navigation_report.setBackgroundTintList(ContextCompat.getColorStateList(report.this,R.color.colourpalette_moderngreen));
         bottom_navigation_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                bottom_navigation_home.setBackgroundTintList(ContextCompat.getColorStateList(report.this, R.color.colourpalette_moderngreen));
                 startActivity(new Intent(report.this, home.class));
             }
         });
@@ -69,6 +74,7 @@ public class report extends AppCompatActivity
         bottom_navigation_transactions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                bottom_navigation_transactions.setBackgroundTintList(ContextCompat.getColorStateList(report.this, R.color.colourpalette_moderngreen));
                 startActivity(new Intent(report.this, transactions.class));
             }
         });
@@ -76,6 +82,7 @@ public class report extends AppCompatActivity
         bottom_navigation_addrecords.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                bottom_navigation_addrecords.setBackgroundTintList(ContextCompat.getColorStateList(report.this, R.color.colourpalette_moderngreen));
                 startActivity(new Intent(report.this, income_description.class));
             }
         });
@@ -83,6 +90,7 @@ public class report extends AppCompatActivity
         bottom_navigation_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                bottom_navigation_profile.setBackgroundTintList(ContextCompat.getColorStateList(report.this, R.color.colourpalette_moderngreen));
                 startActivity(new Intent(report.this, profile.class));
             }
         });
@@ -90,6 +98,7 @@ public class report extends AppCompatActivity
         bottom_navigation_report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                bottom_navigation_report.setBackgroundTintList(ContextCompat.getColorStateList(report.this, R.color.colourpalette_moderngreen));
                 startActivity(new Intent(report.this, report.class));
             }
         });

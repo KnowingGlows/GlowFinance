@@ -193,14 +193,15 @@
 
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="159dp"
+        android:layout_width="200dp"
         android:layout_height="22dp"
-        android:fontFamily="@font/poppins_medium"
+        android:fontFamily="@font/poppins_semibold"
         android:text="Spending Behaviour : "
         android:textColor="@color/unselected_txt_btn"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.238">
@@ -208,39 +209,38 @@
 
     </androidx.appcompat.widget.AppCompatTextView>
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/appCompatTextView"
+        android:layout_width="120dp"
+        android:layout_height="32dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="$7770.70"
+        android:textColor="@color/colourpalette_white"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.288">
 
+    </androidx.appcompat.widget.AppCompatTextView>
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/spend_behaviour_indicator"
         android:layout_width="24dp"
         android:layout_height="22dp"
+        android:layout_marginLeft="20dp"
         android:background="@drawable/spendbehaviour_happy_icon"
         android:backgroundTint="@color/colourpalette_moderngreen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/spend_behaviour_indicator"
-        app:layout_constraintHorizontal_bias="0.671"
+        app:layout_constraintHorizontal_bias="0.715"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.238">
 
     </androidx.appcompat.widget.AppCompatImageView>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/appCompatTextView"
-        android:layout_width="95dp"
-        android:layout_height="32dp"
-        android:fontFamily="@font/poppins_medium"
-        android:text="$7770.70"
-        android:textColor="@color/colourpalette_white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.474"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.283">
-
-    </androidx.appcompat.widget.AppCompatTextView>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bottom_navigation_transactions"
@@ -308,54 +308,56 @@
     </androidx.appcompat.widget.AppCompatButton>
 
     <androidx.appcompat.widget.Toolbar
-        android:layout_width="212dp"
-        android:layout_height="44dp"
+        android:layout_width="324dp"
+        android:layout_height="62dp"
         android:background="@drawable/topnavigation_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.467"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.358">
+        app:layout_constraintVertical_bias="0.397">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/income_chart_btn"
-            android:layout_width="100dp"
-            android:layout_height="42dp"
-            android:textAllCaps="false"
-            android:text="Income"
-            android:fontFamily="@font/poppins_bold"
-            android:textColor="@color/colourpalette_white"
+            android:layout_width="162dp"
+            android:layout_height="60dp"
             android:background="@drawable/topnavigation_highlight"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Income"
+            android:textAllCaps="false"
+            android:textColor="@color/colourpalette_white"
             android:translationX="-15dp">
+
         </androidx.appcompat.widget.AppCompatButton>
 
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/expense_chart_btn"
-            android:layout_width="100dp"
-            android:textAllCaps="false"
-            android:layout_height="42dp"
-            android:text="Expense"
+            android:layout_width="158dp"
+            android:layout_height="56dp"
+            android:background="@drawable/topnavigation_highlight"
             android:backgroundTint="@color/dark_bg"
             android:fontFamily="@font/poppins_bold"
+            android:text="Expense"
+            android:textAllCaps="false"
             android:textColor="@color/colourpalette_white"
-            android:background="@drawable/topnavigation_highlight"
-            android:translationX="-15dp">
+            android:translationX="-14dp">
 
         </androidx.appcompat.widget.AppCompatButton>
     </androidx.appcompat.widget.Toolbar>
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/transactions_chart"
-        android:layout_width="352dp"
-        android:layout_height="266dp"
+        android:layout_width="406dp"
+        android:layout_height="308dp"
         android:background="@color/dark_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.748">
+        app:layout_constraintVertical_bias="0.829">
 
     </com.github.mikephil.charting.charts.LineChart>
 

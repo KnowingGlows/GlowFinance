@@ -11,6 +11,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -61,6 +62,7 @@ public class transactions extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                bottom_navigation_home.setBackgroundTintList(ContextCompat.getColorStateList(transactions.this, R.color.colourpalette_moderngreen));
                 startActivity(new Intent(transactions.this, home.class));
             }
         });
@@ -70,6 +72,7 @@ public class transactions extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                bottom_navigation_transactions.setBackgroundTintList(ContextCompat.getColorStateList(transactions.this, R.color.colourpalette_moderngreen));
                 startActivity(new Intent(transactions.this, transactions.class));
             }
         });
@@ -79,6 +82,7 @@ public class transactions extends AppCompatActivity
                     @Override
                     public void onClick(View v)
                     {
+                        bottom_navigation_addrecords.setBackgroundTintList(ContextCompat.getColorStateList(transactions.this, R.color.colourpalette_moderngreen));
                         startActivity(new Intent(transactions.this, income_description.class));
                     }
                 });
@@ -88,6 +92,7 @@ public class transactions extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                bottom_navigation_profile.setBackgroundTintList(ContextCompat.getColorStateList(transactions.this, R.color.colourpalette_moderngreen));
                 startActivity(new Intent(transactions.this, profile.class));
             }
         });
@@ -97,6 +102,7 @@ public class transactions extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                bottom_navigation_report.setBackgroundTintList(ContextCompat.getColorStateList(transactions.this, R.color.colourpalette_moderngreen));
                 startActivity(new Intent(transactions.this, report.class));
             }
         });

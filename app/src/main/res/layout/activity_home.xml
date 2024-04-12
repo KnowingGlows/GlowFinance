@@ -41,7 +41,7 @@
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/user_spend_chart"
-        android:layout_width="430dp"
+        android:layout_width="400dp"
         android:layout_height="306dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintCircleRadius="7dp"

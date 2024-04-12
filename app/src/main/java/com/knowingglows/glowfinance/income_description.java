@@ -8,6 +8,7 @@ import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -83,9 +84,13 @@ public class income_description extends AppCompatActivity
     }
 
     public void BottomNavigationBarFunctionality() {
+
+        bottom_navigation_addrecords.setBackgroundTintList(ContextCompat.getColorStateList(income_description.this, R.color.colourpalette_moderngreen));
         bottom_navigation_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                bottom_navigation_home.setBackgroundTintList(ContextCompat.getColorStateList(income_description.this, R.color.colourpalette_moderngreen));
                 startActivity(new Intent(income_description.this, home.class));
             }
         });
@@ -93,6 +98,7 @@ public class income_description extends AppCompatActivity
         bottom_navigation_transactions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                bottom_navigation_transactions.setBackgroundTintList(ContextCompat.getColorStateList(income_description.this, R.color.colourpalette_moderngreen));
                 startActivity(new Intent(income_description.this, transactions.class));
             }
         });
@@ -100,6 +106,8 @@ public class income_description extends AppCompatActivity
         bottom_navigation_addrecords.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                bottom_navigation_addrecords.setBackgroundTintList(ContextCompat.getColorStateList(income_description.this, R.color.colourpalette_moderngreen));
                 startActivity(new Intent(income_description.this, income_description.class));
             }
         });
@@ -107,6 +115,8 @@ public class income_description extends AppCompatActivity
         bottom_navigation_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                bottom_navigation_profile.setBackgroundTintList(ContextCompat.getColorStateList(income_description.this, R.color.colourpalette_moderngreen));
                 startActivity(new Intent(income_description.this, profile.class));
             }
         });
@@ -114,6 +124,8 @@ public class income_description extends AppCompatActivity
         bottom_navigation_report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                bottom_navigation_report.setBackgroundTintList(ContextCompat.getColorStateList(income_description.this, R.color.colourpalette_moderngreen));
                 startActivity(new Intent(income_description.this, report.class));
             }
         });
