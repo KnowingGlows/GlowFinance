@@ -7,12 +7,14 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
-
+import com.google.android.gms.tasks.Task;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
@@ -20,11 +22,13 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.lang.reflect.Array;
@@ -32,62 +36,119 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
-public class home extends AppCompatActivity
-{
+public class home extends AppCompatActivity {
     //creating variables
 
 
     FirebaseUser firebaseUser;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore db;
-    AppCompatButton profile_btn,glowcoins_btn,home_btn,transactions_btn,addrecords_btn,profilepage_btn,report_btn;
+    AppCompatButton profile_btn, glowcoins_btn, home_btn, transactions_btn, addrecords_btn, profilepage_btn, report_btn;
     AppCompatTextView user_profilename, user_glowcoins_num;
 
     PieChart userspendchart;
 
-
-    HashMap<String, Object> user = new HashMap<>();
-
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        //firebase api connection
-        firebaseAuth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
-
-        //firestore linking
-        user.put("user_name", user_profilename);
-        db.collection("users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
-        {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-
-            }
-        }).addOnFailureListener(new OnFailureListener()
-        {
-            @Override
-            public void onFailure(@NonNull Exception e)
-            {
-
-            }
-        });
 
         Initialize();
-        BasicUserImplementation();
         homePage();
         DynamicPieChart();
-
+        BasicUserImplementation();
     }
 
     public void BasicUserImplementation()
     {
-        user_profilename.setText(firebaseUser.getDisplayName());
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser != null) {
+            String userId = firebaseUser.getUid();
+            String username = firebaseUser.getDisplayName(); // Get the real-time username
+
+            db = FirebaseFirestore.getInstance(); // Initialize FirebaseFirestore instance
+
+            // Create a HashMap to represent the user's data
+            HashMap<String, Object> userData = new HashMap<>();
+            userData.put("username", username);
+            userData.put("balance", 0.0);
+
+            // Add the user document with username and balance fields
+            db.collection("users").document(userId)
+                    .set(userData)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Toast.makeText(home.this, "User document created successfully!", Toast.LENGTH_SHORT).show();
+                            createSubcollections(userId);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(home.this, "Failed to create user document: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        } else {
+            // Handle the case where the user is not authenticated
+            Toast.makeText(home.this, "User not authenticated!", Toast.LENGTH_SHORT).show();
+        }
     }
+
+    private void createSubcollections(String userId) {
+
+        Map<String, Object> initialIncome = new HashMap<>();
+        initialIncome.put("name", "Initial Income");
+        initialIncome.put("date", new Date());
+        initialIncome.put("amount", 0.0);
+        initialIncome.put("description", "");
+
+       db.collection("users").document(userId).collection("Income")
+               .add(initialIncome)
+               .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                   @Override
+                   public void onSuccess(DocumentReference documentReference)
+                   {
+                       Toast.makeText(home.this, "Successful!", Toast.LENGTH_SHORT).show();
+                   }
+               }).addOnFailureListener(new OnFailureListener() {
+                   @Override
+                   public void onFailure(@NonNull Exception e)
+                   {
+                       Toast.makeText(home.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                   }
+               });
+
+        Map<String, Object> initialExpense = new HashMap<>();
+        initialExpense.put("name", "Initial Expense");
+        initialExpense.put("date", new Date());
+        initialExpense.put("amount", 0.0);
+        initialExpense.put("description", "");
+
+        db.collection("users").document(userId).collection("Expense")
+                .add(initialExpense)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference)
+                    {
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e)
+                    {
+
+                    }
+                });
+
+    }
+
+
 
     public void DynamicPieChart()
     {
@@ -138,8 +199,9 @@ public class home extends AppCompatActivity
         report_btn = findViewById(R.id.reportpage_btn);
         addrecords_btn = findViewById(R.id.addrecordspage_btn);
         userspendchart = findViewById(R.id.user_spend_chart);
-        firebaseUser = firebaseAuth.getCurrentUser();
         firebaseAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        user_profilename.setText(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getDisplayName());
     }
     public void homePage()
     {

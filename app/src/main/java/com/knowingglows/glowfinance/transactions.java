@@ -4,10 +4,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -22,17 +26,25 @@ import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.checkerframework.checker.initialization.qual.Initialized;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 public class transactions extends AppCompatActivity
 {
 
+
+    FirebaseFirestore db;
     LineChart lineChart;
+    AppCompatTextView user_profilename;
 
     AppCompatButton
             bottom_navigation_home,
@@ -52,7 +64,8 @@ public class transactions extends AppCompatActivity
         BottomNavigationBarFunctionality();
         TransactionsFunctionality();
         LineChartTest();
-
+        UserSetup();
+        CreateUser(user_profilename.toString(), 0f);
     }
 
     public void BottomNavigationBarFunctionality()
@@ -155,6 +168,7 @@ public class transactions extends AppCompatActivity
 
     public void Initialize()
     {
+        user_profilename = findViewById(R.id.user_username);
         income_chart_btn = findViewById(R.id.income_chart_btn);
         expense_chart_btn = findViewById(R.id.expense_chart_btn);
         bottom_navigation_home = findViewById(R.id.bottom_navigation_home);
@@ -166,6 +180,7 @@ public class transactions extends AppCompatActivity
         fourteen_days_data = findViewById(R.id.fourteen_days_btn);
         thirty_days_data = findViewById(R.id.thirty_days_btn);
         lineChart = findViewById(R.id.transactions_chart);
+        db = FirebaseFirestore.getInstance();
     }
 
     public void TransactionsFunctionality()
@@ -209,5 +224,33 @@ public class transactions extends AppCompatActivity
 
             }
         });
+    }
+
+    public void UserSetup()
+    {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String firebaseUser = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getDisplayName();
+        user_profilename.setText(firebaseUser);
+    }
+
+    public Void CreateUser(String username, double balance)
+    {
+        Users user = new Users();
+        db.collection("users")
+                .add(user)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference)
+                    {
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+
+        return null;
     }
 }

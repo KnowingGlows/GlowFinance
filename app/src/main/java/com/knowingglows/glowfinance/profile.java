@@ -7,15 +7,22 @@ import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Objects;
+
 public class profile extends AppCompatActivity
 
 {
 
+    AppCompatTextView
+            user_profilename;
     AppCompatButton
             bottom_navigation_home,
             bottom_navigation_transactions, bottom_navigation_addrecords,
@@ -29,11 +36,13 @@ public class profile extends AppCompatActivity
         setContentView(R.layout.activity_profile);
         Instantiate();
         BottomNavigationBarFunctionality();
+        UserSetup();
     }
 
 
     public void Instantiate()
     {
+       user_profilename = findViewById(R.id.user_username);
         bottom_navigation_home = findViewById(R.id.bottom_navigation_home);
         bottom_navigation_transactions = findViewById(R.id.bottom_navigation_transactions);
         bottom_navigation_addrecords = findViewById(R.id.bottom_navigation_addrecords);
@@ -86,5 +95,12 @@ public class profile extends AppCompatActivity
                 startActivity(new Intent(profile.this, report.class));
             }
         });
+    }
+
+    public void UserSetup()
+    {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String firebaseUser = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getDisplayName();
+        user_profilename.setText(firebaseUser);
     }
 }

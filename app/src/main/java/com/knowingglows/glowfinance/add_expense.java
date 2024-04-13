@@ -8,13 +8,23 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.auth.User;
+
+import java.util.Objects;
+
 public class add_expense extends AppCompatActivity
 {
+
+
+    AppCompatTextView
+            user_profilename;
 
     AppCompatButton
 
@@ -34,6 +44,7 @@ public class add_expense extends AppCompatActivity
         BottomNavigationBarFunctionality();
         Toolbar();
         SaveRecord();
+        UserSetup();
     }
 
     public void SaveRecord()
@@ -50,6 +61,7 @@ public class add_expense extends AppCompatActivity
 
     public void Instantiate()
     {
+        user_profilename = findViewById(R.id.user_username);
         save_expense = findViewById(R.id.add_expense_record);
         addexpense_toolbar_btn=findViewById(R.id.addexpense_toolbar_btn);
         addincome_toolbar_btn = findViewById(R.id.addincome_toolbar_btn);
@@ -129,5 +141,10 @@ public class add_expense extends AppCompatActivity
             }
         });
     }
-
+    public void UserSetup()
+    {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String firebaseUser = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getDisplayName();
+        user_profilename.setText(firebaseUser);
+    }
 }

@@ -7,14 +7,23 @@ import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.auth.User;
+
+import java.util.Objects;
+
 public class expense_description extends AppCompatActivity
 {
 
+
+    AppCompatTextView
+            user_profilename;
     AppCompatButton
 
             addexpense,
@@ -32,6 +41,7 @@ public class expense_description extends AppCompatActivity
         Instantiate();
         Toolbar();
         BottomNavigationBarFunctionality();
+        UserSetup();
     }
 
     public void AddRecord()
@@ -47,7 +57,8 @@ public class expense_description extends AppCompatActivity
     }
     public void Instantiate()
     {
-        addexpense=findViewById(R.id.add_expense_record);
+        user_profilename = findViewById(R.id.user_username);
+        addexpense = findViewById(R.id.add_expense_record);
         addexpense_toolbar_btn = findViewById(R.id.addexpense_toolbar_btn);
         addincome_toolbar_btn = findViewById(R.id.addincome_toolbar_btn);
         bottom_navigation_home = findViewById(R.id.bottom_navigation_home);
@@ -122,5 +133,12 @@ public class expense_description extends AppCompatActivity
                 startActivity(new Intent(expense_description.this, expense_description.class));
             }
         });
+    }
+
+    public void UserSetup()
+    {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String firebaseUser = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getDisplayName();
+        user_profilename.setText(firebaseUser);
     }
 }

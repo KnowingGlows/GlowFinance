@@ -16,7 +16,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.protobuf.NullValue;
+
+import java.util.Objects;
 
 public class report extends AppCompatActivity
 {
@@ -30,6 +33,7 @@ public class report extends AppCompatActivity
             bottom_navigation_profile, bottom_navigation_report;
 
     AppCompatTextView
+            user_profilename,
             report_cost;
 
     @Override
@@ -37,14 +41,16 @@ public class report extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
+
         Instantiate();
         BottomNavigationBarFunctionality();
         FinancialReport();
+        UserSetup();
     }
 
     public void Instantiate()
     {
-
+        user_profilename = findViewById(R.id.user_username);
         report_cost = findViewById(R.id.report_cost);
         create_report_btn = findViewById(R.id.create_report_btn);
         report_7_days = findViewById(R.id.seven_days_btn);
@@ -145,5 +151,12 @@ public class report extends AppCompatActivity
                 Toast.makeText(report.this, "Report Is Being Created!", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void UserSetup()
+    {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String firebaseUser = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getDisplayName();
+        user_profilename.setText(firebaseUser);
     }
 }
