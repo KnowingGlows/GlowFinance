@@ -3,28 +3,31 @@ import com.google.firebase.firestore.PropertyName;
 import java.util.Date;
 
 public class Income {
-    @PropertyName("name")
-    private String name;
-
-    @PropertyName("date")
-    private Date date;
-
-    @PropertyName("amount")
-    private double amount;
-
-    @PropertyName("description")
+    private Double amount;
+    private String date;
+    private String source;
     private String description;
 
-    // Default constructor required for Firestore serialization
-    public Income() {
-    }
-
-    // Constructor with parameters
-    public Income(String name, Date date, double amount, String description) {
-        this.name = name;
-        this.date = date;
+    public Income(Double amount, String date, String source, String description) {
         this.amount = amount;
+        this.date = date;
+        this.source = source;
         this.description = description;
     }
-    // Constructors, getters, and setters
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

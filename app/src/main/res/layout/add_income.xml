@@ -278,6 +278,7 @@
     <androidx.appcompat.widget.AppCompatEditText
         android:layout_width="315dp"
         android:layout_height="57dp"
+        android:id="@+id/Income_amount"
         android:background="@drawable/background_box_filled"
         android:fontFamily="@font/poppins_semibold"
         android:paddingLeft="20dp"
@@ -297,6 +298,7 @@
     <androidx.appcompat.widget.AppCompatEditText
         android:layout_width="315dp"
         android:layout_height="57dp"
+        android:id="@+id/Income_date"
         android:background="@drawable/background_box_filled"
         android:fontFamily="@font/poppins_semibold"
         android:hint="Date"
@@ -319,6 +321,7 @@
         android:fontFamily="@font/poppins_semibold"
         android:hint="Source"
         android:paddingLeft="20dp"
+        android:id="@+id/Income_src"
         android:paddingTop="2dp"
         android:layout_marginTop="2dp"
         android:textColor="@color/colourpalette_white"
@@ -338,6 +341,7 @@
         android:fontFamily="@font/poppins_semibold"
         android:hint="Description (Optional)"
         android:paddingLeft="20dp"
+        android:id="@+id/Income_desc"
         android:paddingTop="2dp"
         android:layout_marginTop="2dp"
         android:textColor="@color/colourpalette_white"

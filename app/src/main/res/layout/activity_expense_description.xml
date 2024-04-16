@@ -331,12 +331,14 @@
                     android:background="@drawable/background_box_num_filled"
                     android:fontFamily="@font/poppins_bold"
                     android:paddingTop="4dp"
+                    android:id="@+id/btn1"
                     android:text="1"
                     android:textColor="@color/colourpalette_white"
                     android:textSize="20sp" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="3dp"
+                    android:id="@+id/btn2"
                     android:background="@drawable/background_box_num_filled"
                     android:fontFamily="@font/poppins_bold"
                     android:paddingTop="4dp"
@@ -346,6 +348,7 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="3dp"
+                    android:id="@+id/btn3"
                     android:background="@drawable/background_box_num_filled"
                     android:fontFamily="@font/poppins_bold"
                     android:paddingTop="4dp"
@@ -355,6 +358,7 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="3dp"
+                    android:id="@+id/btn_add"
                     android:background="@drawable/background_box_num_filled"
                     android:fontFamily="@font/poppins_bold"
                     android:paddingTop="4dp"
@@ -367,6 +371,7 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="3dp"
+                    android:id="@+id/btn4"
                     android:background="@drawable/background_box_num_filled"
                     android:fontFamily="@font/poppins_bold"
                     android:paddingTop="4dp"
@@ -376,6 +381,7 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="3dp"
+                    android:id="@+id/btn5"
                     android:background="@drawable/background_box_num_filled"
                     android:fontFamily="@font/poppins_bold"
                     android:paddingTop="4dp"
@@ -385,6 +391,7 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="3dp"
+                    android:id="@+id/btn6"
                     android:background="@drawable/background_box_num_filled"
                     android:fontFamily="@font/poppins_bold"
                     android:paddingTop="4dp"
@@ -394,6 +401,7 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="3dp"
+                    android:id="@+id/btn_substract"
                     android:background="@drawable/background_box_num_filled"
                     android:fontFamily="@font/poppins_bold"
                     android:paddingTop="4dp"
@@ -406,6 +414,7 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="3dp"
+                    android:id="@+id/btn7"
                     android:background="@drawable/background_box_num_filled"
                     android:fontFamily="@font/poppins_bold"
                     android:paddingTop="4dp"
@@ -415,6 +424,7 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="3dp"
+                    android:id="@+id/btn8"
                     android:background="@drawable/background_box_num_filled"
                     android:fontFamily="@font/poppins_bold"
                     android:paddingTop="4dp"
@@ -424,6 +434,7 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="3dp"
+                    android:id="@+id/btn9"
                     android:background="@drawable/background_box_num_filled"
                     android:fontFamily="@font/poppins_bold"
                     android:paddingTop="4dp"
@@ -433,6 +444,7 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="3dp"
+                    android:id="@+id/btn_multiply"
                     android:background="@drawable/background_box_num_filled"
                     android:fontFamily="@font/poppins_bold"
                     android:paddingTop="4dp"
@@ -445,6 +457,7 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="3dp"
+                    android:id="@+id/btn_decimal"
                     android:background="@drawable/background_box_num_filled"
                     android:fontFamily="@font/poppins_bold"
                     android:paddingTop="4dp"
@@ -454,6 +467,7 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="3dp"
+                    android:id="@+id/btn0"
                     android:background="@drawable/background_box_num_filled"
                     android:fontFamily="@font/poppins_bold"
                     android:paddingTop="4dp"
@@ -463,12 +477,15 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="3dp"
+                    android:id="@+id/btn_delete"
+                    android:textAllCaps="false"
                     android:background="@drawable/background_box_num_filled"
-                    android:text="="
+                    android:text="Delete"
                     android:textColor="@color/colourpalette_white" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="3dp"
+                    android:id="@+id/btn_divide"
                     android:background="@drawable/background_box_num_filled"
                     android:fontFamily="@font/poppins_bold"
                     android:paddingTop="4dp"

@@ -1,22 +1,37 @@
 package com.knowingglows.glowfinance;
 
+import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.widget.DatePicker;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.time.Duration;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class add_income extends AppCompatActivity
@@ -24,6 +39,10 @@ public class add_income extends AppCompatActivity
 
     AppCompatTextView
             user_profilename;
+
+    AppCompatEditText
+            Income_amount, Income_date, Income_src,Income_desc;
+
     AppCompatButton
 
             save_income,
@@ -31,6 +50,11 @@ public class add_income extends AppCompatActivity
             bottom_navigation_home,
             bottom_navigation_transactions, bottom_navigation_addrecords,
             bottom_navigation_profile, bottom_navigation_report;
+
+    FirebaseFirestore db;
+    FirebaseAuth User;
+
+    Double Amount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -41,25 +65,27 @@ public class add_income extends AppCompatActivity
         Instantiate();
         Toolbar();
         BottomNavigationBarFunctionality();
-        SaveRecord();
         UserSetup();
-    }
-
-    public void SaveRecord()
-    {
-        save_income.setOnClickListener(new View.OnClickListener()
-        {
+        IncomeRecord();
+        Intent intent = getIntent();
+        Income_amount.setText(intent.getStringExtra("AMOUNT_STRING"));
+        save_income.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                Toast.makeText(add_income.this, "Record Added Successfully!", Toast.LENGTH_SHORT).show();
+            public void onClick(View v) {
+                SaveRecord();
             }
         });
     }
 
     public void Instantiate()
     {
-
+        db = FirebaseFirestore.getInstance();
+        User = FirebaseAuth.getInstance();
+        Income_amount = findViewById(R.id.Income_amount);
+        Income_date = findViewById(R.id.Income_date);
+        Income_src = findViewById(R.id.Income_src);
+        Income_desc = findViewById(R.id.Income_desc);
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         user_profilename = findViewById(R.id.user_username);
         save_income = findViewById(R.id.add_income_record);
         addexpense_toolbar_btn=findViewById(R.id.addexpense_toolbar_btn);
@@ -69,6 +95,8 @@ public class add_income extends AppCompatActivity
         bottom_navigation_addrecords = findViewById(R.id.bottom_navigation_addrecords);
         bottom_navigation_profile = findViewById(R.id.bottom_navigation_profile);
         bottom_navigation_report = findViewById(R.id.bottom_navigation_report);
+        Income_date.setFocusable(false);
+        Income_date.setClickable(true);
     }
 
     public void Toolbar()
@@ -146,4 +174,78 @@ public class add_income extends AppCompatActivity
         String firebaseUser = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getDisplayName();
         user_profilename.setText(firebaseUser);
     }
-}
+
+    public void IncomeRecord()
+    {
+
+        Income_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePicker();
+            }
+        });
+    }
+
+    public void DatePicker() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+        // Create a DatePickerDialog and set initial date
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int selectedYear, int monthOfYear, int dayOfMonth) {
+                        // Update the EditText with the selected date
+                        @SuppressLint("DefaultLocale") String selectedDate = String.format("%d-%02d-%02d", selectedYear, monthOfYear + 1, dayOfMonth);
+                        Income_date.setText(selectedDate);
+                    }
+                },
+                year, month, dayOfMonth
+        );
+
+        // Show the DatePickerDialog
+        datePickerDialog.show();
+    }
+
+    public void SaveRecord()
+    {
+        String amountStr = Objects.requireNonNull(Income_amount.getText()).toString();
+        if (!amountStr.isEmpty()) {
+            Amount = Double.parseDouble(amountStr);
+        } else {
+
+        }
+        Double IncomeAmount = Amount;
+        String Income_Date = Objects.requireNonNull(Income_date.getText()).toString();
+        String Income_Src = Objects.requireNonNull(Income_src.getText()).toString();
+        String Income_Desc = Objects.requireNonNull(Income_desc.getText()).toString();
+
+        String UserId = User.getUid();
+        Income IncomeRecord = new Income(IncomeAmount,Income_Date,Income_Src,Income_Desc);
+        assert UserId != null;
+                db.collection("users")
+                        .document(UserId)
+                        .collection("Income")
+                        .add(IncomeRecord)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference)
+                            {
+                                Toast.makeText(add_income.this, "Added!", Toast.LENGTH_SHORT).show();
+                                Income_amount.setText("");
+                                Income_date.setText("");
+                                Income_desc.setText("");
+                                Income_src.setText("");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                            }
+                        });
+            }
+    }

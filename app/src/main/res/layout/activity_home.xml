@@ -204,7 +204,7 @@
 
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/appCompatImageView4"
+        android:id="@+id/transaction1"
         android:layout_width="348dp"
         android:layout_height="79dp"
         android:background="@drawable/background_box_filled"
@@ -349,7 +349,7 @@
 
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/appCompatImageView5"
+        android:id="@+id/transaction2"
         android:layout_width="348dp"
         android:layout_height="79dp"
         android:background="@drawable/background_box_filled"
@@ -429,7 +429,7 @@
 
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/appCompatImageView9"
+        android:id="@+id/transaction3"
         android:layout_width="348dp"
         android:layout_height="79dp"
         android:background="@drawable/background_box_filled"

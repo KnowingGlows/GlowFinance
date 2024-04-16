@@ -9,9 +9,11 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import com.google.android.gms.tasks.Task;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -39,10 +41,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class home extends AppCompatActivity {
+public class home extends AppCompatActivity
+
+{
     //creating variables
 
 
+    AppCompatImageView transaction1, transaction2, transaction3;
+    int count = 1;
     FirebaseUser firebaseUser;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore db;
@@ -61,6 +67,8 @@ public class home extends AppCompatActivity {
         homePage();
         DynamicPieChart();
         BasicUserImplementation();
+        count+=1;
+        uIstuff();
     }
 
     public void BasicUserImplementation()
@@ -84,7 +92,8 @@ public class home extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void unused) {
                             Toast.makeText(home.this, "User document created successfully!", Toast.LENGTH_SHORT).show();
-                            createSubcollections(userId);
+                            UserIncome(userId);
+                            UserExpense(userId);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -99,56 +108,59 @@ public class home extends AppCompatActivity {
         }
     }
 
-    private void createSubcollections(String userId) {
-
+    public void UserIncome(String userId)
+    {
         Map<String, Object> initialIncome = new HashMap<>();
         initialIncome.put("name", "Initial Income");
         initialIncome.put("date", new Date());
         initialIncome.put("amount", 0.0);
         initialIncome.put("description", "");
 
-       db.collection("users").document(userId).collection("Income")
-               .add(initialIncome)
-               .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                   @Override
-                   public void onSuccess(DocumentReference documentReference)
-                   {
-                       Toast.makeText(home.this, "Successful!", Toast.LENGTH_SHORT).show();
-                   }
-               }).addOnFailureListener(new OnFailureListener() {
-                   @Override
-                   public void onFailure(@NonNull Exception e)
-                   {
-                       Toast.makeText(home.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                   }
-               });
+        if (count==1)
+        {
+            db.collection("users").document(userId).collection("Income")
+                    .add(initialIncome)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
 
-        Map<String, Object> initialExpense = new HashMap<>();
-        initialExpense.put("name", "Initial Expense");
-        initialExpense.put("date", new Date());
-        initialExpense.put("amount", 0.0);
-        initialExpense.put("description", "");
-
-        db.collection("users").document(userId).collection("Expense")
-                .add(initialExpense)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference)
-                    {
-
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e)
-                    {
-
-                    }
-                });
-
+                            Toast.makeText(home.this, "Successful!", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(home.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
     }
 
+    public void UserExpense(String userId)
+    {
+        if (count==1)
+        {
+            Map<String, Object> initialExpense = new HashMap<>();
+            initialExpense.put("name", "Initial Expense");
+            initialExpense.put("date", new Date());
+            initialExpense.put("amount", 0.0);
+            initialExpense.put("description", "");
 
+            db.collection("users").document(userId).collection("Expense")
+                    .add(initialExpense)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                        }
+                    });
+        }
+    }
 
     public void DynamicPieChart()
     {
@@ -189,6 +201,9 @@ public class home extends AppCompatActivity {
 
     public void Initialize()
     {
+        transaction1 = findViewById(R.id.transaction1);
+        transaction2 = findViewById(R.id.transaction2);
+        transaction3 = findViewById(R.id.transaction3);
         profile_btn = findViewById(R.id.user_profile);
         glowcoins_btn = findViewById(R.id.glowcoin_btn);
         user_profilename = findViewById(R.id.user_username);
@@ -274,6 +289,30 @@ public class home extends AppCompatActivity {
             public void onClick(View v)
             {
                 startActivity(new Intent(home.this, glowcoinspage.class));
+            }
+        });
+    }
+
+    public void uIstuff()
+    {
+        transaction1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
+
+        transaction2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        transaction3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
