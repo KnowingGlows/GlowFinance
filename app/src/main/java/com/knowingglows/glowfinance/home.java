@@ -228,6 +228,24 @@ public class home extends AppCompatActivity {
         int expenseColor = ContextCompat.getColor(home.this, R.color.expense_piechart_colour2);
 
         AvailableBalance = totalIncome - totalExpense;
+        DocumentReference userRef = db.collection("users").document(Objects.requireNonNull(firebaseAuth.getUid()));
+        userRef.update("Balance", AvailableBalance)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @SuppressLint("RestrictedApi")
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // Handle success
+                        Log.d(TAG, "AvailableBalance updated successfully");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @SuppressLint("RestrictedApi")
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Handle failure
+                        Log.e(TAG, "Error updating AvailableBalance", e);
+                    }
+                });
         // Create PieDataSet
         PieDataSet dataSet = new PieDataSet(entries, "");
         // Create PieData and set it to the PieChart

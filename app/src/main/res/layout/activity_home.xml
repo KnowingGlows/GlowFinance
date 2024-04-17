@@ -254,7 +254,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/Expense_date_1"
-        android:layout_width="120dp"
+        android:layout_width="125dp"
         android:layout_marginBottom="3dp"
         android:layout_height="29dp"
         android:fontFamily="@font/poppins_medium"
@@ -319,12 +319,12 @@
     </androidx.appcompat.widget.AppCompatImageView>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="116dp"
+        android:layout_width="125dp"
         android:layout_height="29dp"
         android:id="@+id/Expense_date_2"
         android:layout_marginTop="5dp"
         android:fontFamily="@font/poppins_medium"
-        android:text="13-4-2024"
+        android:text=""
         android:textColor="@color/unselected_txt_btn"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -341,7 +341,7 @@
         android:layout_width="169dp"
         android:layout_height="33dp"
         android:fontFamily="@font/poppins_semibold"
-        android:text="Bonus"
+        android:text=""
         android:textColor="@color/colourpalette_white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -420,7 +420,7 @@
     </androidx.appcompat.widget.AppCompatImageView>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="116dp"
+        android:layout_width="125dp"
         android:layout_height="29dp"
         android:id="@+id/Income_date_1"
         android:layout_marginTop="5dp"

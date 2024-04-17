@@ -1,8 +1,12 @@
 package com.knowingglows.glowfinance;
 
+import static androidx.fragment.app.FragmentManager.TAG;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -16,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -23,20 +28,39 @@ import androidx.core.view.WindowInsetsCompat;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.checkerframework.checker.initialization.qual.Initialized;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class transactions extends AppCompatActivity
 {
@@ -44,7 +68,7 @@ public class transactions extends AppCompatActivity
 
     FirebaseFirestore db;
     LineChart lineChart;
-    AppCompatTextView user_profilename;
+    AppCompatTextView user_profilename,AvailableBalance;
 
     AppCompatButton
             bottom_navigation_home,
@@ -63,9 +87,8 @@ public class transactions extends AppCompatActivity
         Initialize();
         BottomNavigationBarFunctionality();
         TransactionsFunctionality();
-        LineChartTest();
         UserSetup();
-        CreateUser(user_profilename.toString(), 0f);
+        fetchDataForLineChart(7, "Income");
     }
 
     public void BottomNavigationBarFunctionality()
@@ -122,52 +145,9 @@ public class transactions extends AppCompatActivity
 
     }
 
-    public void LineChartTest()
-    {
-        int colour = Color.parseColor("#0DA6C2");
-        // Create data entries
-        ArrayList<Entry> entries = new ArrayList<>();
-        entries.add(new Entry(0, 4));
-        entries.add(new Entry(1, 8));
-        entries.add(new Entry(2, 6));
-        entries.add(new Entry(3, 2));
-        entries.add(new Entry(4, 7));
-
-        // Create a dataset with entries
-        LineDataSet dataSet = new LineDataSet(entries, "Label"); // Label for the dataset
-        dataSet.setColor(colour);
-        dataSet.setValueTextColor(Color.BLUE);
-
-        // Set curve line mode
-        dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        dataSet.setFillColor(colour);
-
-        // Set fill color
-        dataSet.setDrawFilled(true);// Custom fill drawable
-
-        // Create a LineData object with the dataset
-        LineData lineData = new LineData(dataSet);
-
-        // Set LineData to the chart
-        lineChart.setData(lineData);
-
-        // Customize chart appearance
-        Description desc = new Description();
-        desc.setText("Your Chart Description");
-        lineChart.setDescription(desc);
-        lineChart.getXAxis().setDrawGridLines(false); // Remove grid lines from X axis
-        lineChart.getAxisLeft().setDrawGridLines(false); // Remove grid lines from left Y axis
-        lineChart.getAxisRight().setDrawGridLines(false); // Remove grid lines from right Y axis
-
-        // Set animation
-        lineChart.animateX(1500, Easing.EaseInOutExpo); // X-axis animation
-        lineChart.animateY(1500, Easing.EaseInOutExpo); // Y-axis animation
-        lineChart.invalidate(); // Refresh the chart// Refresh the chart
-    }
-
-
     public void Initialize()
     {
+        AvailableBalance = findViewById(R.id.AvailableBalance);
         user_profilename = findViewById(R.id.user_username);
         income_chart_btn = findViewById(R.id.income_chart_btn);
         expense_chart_btn = findViewById(R.id.expense_chart_btn);
@@ -189,7 +169,10 @@ public class transactions extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-
+                fetchDataForLineChart(7,"Income");
+                seven_days_data.setBackgroundTintList(null);
+                fourteen_days_data.setBackgroundTintList(ContextCompat.getColorStateList(transactions.this, R.color.dark_bg));
+                thirty_days_data.setBackgroundTintList(ContextCompat.getColorStateList(transactions.this, R.color.dark_bg));
             }
         });
 
@@ -197,14 +180,21 @@ public class transactions extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-
+                fetchDataForLineChart(14,"Income");
+                seven_days_data.setBackgroundTintList(ContextCompat.getColorStateList(transactions.this, R.color.dark_bg));
+                fourteen_days_data.setBackgroundTintList(null);
+                thirty_days_data.setBackgroundTintList(ContextCompat.getColorStateList(transactions.this, R.color.dark_bg));
             }
         });
 
         thirty_days_data.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
+            public void onClick(View v)
+            {
+                fetchDataForLineChart(30,"Income");
+                seven_days_data.setBackgroundTintList(ContextCompat.getColorStateList(transactions.this, R.color.dark_bg));
+                fourteen_days_data.setBackgroundTintList(ContextCompat.getColorStateList(transactions.this, R.color.dark_bg));
+                thirty_days_data.setBackgroundTintList(null);
             }
         });
         income_chart_btn.setOnClickListener(new View.OnClickListener()
@@ -212,7 +202,9 @@ public class transactions extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-
+                fetchDataForLineChart(7,"Income");
+                income_chart_btn.setBackgroundTintList(null);
+                expense_chart_btn.setBackgroundTintList(ContextCompat.getColorStateList(transactions.this, R.color.dark_bg));
             }
         });
 
@@ -221,9 +213,12 @@ public class transactions extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-
+                fetchDataForLineChart(7,"Expense");
+                income_chart_btn.setBackgroundTintList(ContextCompat.getColorStateList(transactions.this, R.color.dark_bg));
+                expense_chart_btn.setBackgroundTintList(null);
             }
-        });
+        }
+        );
     }
 
     public void UserSetup()
@@ -231,26 +226,187 @@ public class transactions extends AppCompatActivity
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         String firebaseUser = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getDisplayName();
         user_profilename.setText(firebaseUser);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String currentUserId = firebaseAuth.getCurrentUser().getUid(); // Retrieve the UID of the current user
+        DocumentReference documentReference = db.collection("users").document(currentUserId);
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @SuppressLint("RestrictedApi")
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    // Document exists, retrieve the Balance field
+                    Double availableBalance = documentSnapshot.getDouble("Balance");
+                    if (availableBalance != null) {
+                        AvailableBalance.setText(String.valueOf(availableBalance));
+                    } else {
+                        Log.d(TAG, "Balance field is null");
+                    }
+                } else {
+                    Log.d(TAG, "No such document");
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @SuppressLint("RestrictedApi")
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e(TAG, "Error retrieving balance", e);
+            }
+        });
+
     }
 
-    public Void CreateUser(String username, double balance)
+    private void fetchDataForLineChart(int timeframeDays, String dataType)
     {
-        Users user = new Users();
-        db.collection("users")
-                .add(user)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        lineChart.getDescription().setEnabled(false);
+        lineChart.getLegend().setEnabled(false);
+        lineChart.setDrawGridBackground(false); // Disable drawing the grid background
+        lineChart.getXAxis().setDrawGridLines(false); // Disable vertical grid lines
+        lineChart.getAxisLeft().setDrawGridLines(false); // Disable horizontal grid lines
+        Typeface typeface = ResourcesCompat.getFont(this, R.font.poppins_bold);
+        lineChart.getXAxis().setTypeface(typeface);
+        lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                // Custom formatting for x-axis labels
+                // You can format the value as needed, e.g., convert float value to date
+                return String.valueOf((int)value); // Example: Convert float value to integer
+            }
+        });
+
+        YAxis leftAxis = lineChart.getAxisLeft();
+        leftAxis.setTypeface(typeface);
+
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setTypeface(typeface);
+        xAxis.setValueFormatter(new IndexAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+
+                return String.valueOf((int)value);
+            }
+        });
+        lineChart.getDescription().setTypeface(typeface);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(false);
+        lineChart.getAxisRight().setEnabled(false);
+        lineChart.getAxisLeft().setTextColor(Color.WHITE);
+
+        // Set animation
+        lineChart.animateX(1500, Easing.EaseInOutExpo); // X-axis animation
+        lineChart.animateY(1500, Easing.EaseInOutExpo); // Y-axis animation
+        Date currentDate = new Date();
+
+        // Calculate the start date based on the timeframe
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        calendar.add(Calendar.DAY_OF_YEAR, -timeframeDays);
+        Date startDate = calendar.getTime();
+
+        // Construct the Firestore query
+        CollectionReference dataCollection;
+        if (dataType.equals("Income")) {
+            dataCollection = FirebaseFirestore.getInstance().collection("users")
+                    .document(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+                    .collection("Income");
+        } else {
+            dataCollection = FirebaseFirestore.getInstance().collection("users")
+                    .document(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+                    .collection("Expense");
+        }
+
+        // Fetch data based on the query
+        dataCollection
+                .orderBy("date", Query.Direction.ASCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @SuppressLint("RestrictedApi")
                     @Override
-                    public void onSuccess(DocumentReference documentReference)
+                    public void onComplete(@NonNull Task<QuerySnapshot> task)
                     {
+                        if (task.isSuccessful()) {
+                            // Process the retrieved data
+                            List<Entry> entries = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                                // Parse string date to Date object
+                                String dateString = document.getString("date");
+                                Log.d(TAG, "Fetched date string: " + dateString); // Log the fetched date string
+                                Date dataDate = parseDate(dateString);
+                                if (dataDate != null) {
+                                    // Calculate x-value (time difference from start date)
+                                    long timeDifference = dataDate.getTime() - startDate.getTime();
+                                    float xValue = TimeUnit.MILLISECONDS.toDays(timeDifference);
+                                    // Extract amount value
+                                    float dataValue = document.getDouble("amount").floatValue();
+                                    // Add entry to the list
+                                    entries.add(new Entry(xValue, dataValue));
 
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
+                                }
+                            }
+                            int lineColor;
+                            int fillColor;
+                            if (dataType.equals("Income")) {
+                                lineColor = ContextCompat.getColor(transactions.this, R.color.income_piechart_colour1);
+                                fillColor =  ContextCompat.getColor(transactions.this, R.color.income_piechart_colour1);
+                            } else {
+                                lineColor = Color.parseColor("#FF5733"); // Orange-red color for expense
+                                fillColor = Color.parseColor("#FF4C00"); // Light orange-red fill color for expense
+                            }
 
+
+                            XAxis xAxis = lineChart.getXAxis();
+                            xAxis.setValueFormatter(new ValueFormatter() {
+                                @Override
+                                public String getFormattedValue(float value) {
+                                    // Convert value (days since start date) back to a Date object
+                                    Calendar calendar = Calendar.getInstance();
+                                    calendar.setTime(startDate);
+                                    calendar.add(Calendar.DAY_OF_YEAR, (int) value);
+                                    // Extract day part from the date
+                                    int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+                                    // Return day part as string
+                                    return String.valueOf(dayOfMonth);
+                                }
+                            });
+                            // Populate the line chart with the processed data
+                            LineDataSet dataSet = new LineDataSet(entries, dataType);
+                            lineChart.getXAxis().setTextColor(Color.WHITE); // Set X-axis text color to white
+                            lineChart.getAxisLeft().setTextColor(Color.WHITE); // Set left Y-axis text color to white
+                            lineChart.getAxisRight().setTextColor(Color.WHITE); // Set right Y-axis text color to white
+
+                            // Set animation
+                            lineChart.animateX(1500, Easing.EaseInOutExpo); // X-axis animation
+                            lineChart.animateY(1500, Easing.EaseInOutExpo); // Y-axis animation
+
+                            // Set curved lines
+                            dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+                            dataSet.setCubicIntensity(0.2f);
+                            LineData lineData = new LineData(dataSet);
+                            Description desc = new Description();
+                            desc.setText("");
+                             // Set curvature intensity (between 0 and 1)
+
+                            // Set fill color
+                            dataSet.setDrawFilled(true);
+                            dataSet.setFillColor(fillColor);
+                            lineChart.setData(lineData);
+                            dataSet.setColor(lineColor);
+                            lineChart.invalidate(); // Refresh chart
+                        } else {
+                            Log.e(TAG, "Error getting data for line chart", task.getException());
+                        }
                     }
                 });
-
-        return null;
     }
+
+    @SuppressLint("RestrictedApi")
+    private Date parseDate(String dateString) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        try {
+            return dateFormat.parse(dateString);
+        } catch (ParseException e) {
+            Log.e(TAG, "Error parsing date: " + dateString, e);
+            return null;
+        }
+    }
+
 }

@@ -17,12 +17,15 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.protobuf.NullValue;
 
 import java.util.Objects;
 
 public class report extends AppCompatActivity
 {
+
 
     AppCompatButton
 
@@ -156,6 +159,7 @@ public class report extends AppCompatActivity
     public void UserSetup()
     {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseFirestore db =FirebaseFirestore.getInstance();
         String firebaseUser = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getDisplayName();
         user_profilename.setText(firebaseUser);
     }

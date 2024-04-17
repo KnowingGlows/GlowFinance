@@ -210,11 +210,11 @@
     </androidx.appcompat.widget.AppCompatTextView>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/appCompatTextView"
+        android:id="@+id/AvailableBalance"
         android:layout_width="120dp"
         android:layout_height="32dp"
         android:fontFamily="@font/poppins_bold"
-        android:text="$7770.70"
+        android:text=""
         android:textColor="@color/colourpalette_white"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -349,8 +349,8 @@
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/transactions_chart"
-        android:layout_width="406dp"
-        android:layout_height="308dp"
+        android:layout_width="400dp"
+        android:layout_height="335dp"
         android:background="@color/dark_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
