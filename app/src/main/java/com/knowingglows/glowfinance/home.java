@@ -7,11 +7,20 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.model.GradientColor;
 import com.google.android.gms.tasks.Task;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -32,6 +41,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.auth.User;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -46,7 +58,18 @@ public class home extends AppCompatActivity
 {
     //creating variables
 
+        String CentreText;
+        double AvailableBalance;
+     double finalTotalIncome, finalTotalExpense;
 
+     AppCompatTextView
+             Income_src_1, Income_date_1,
+             Income_amount_1, Expense_src_1,
+             Expense_src_2, Expense_date_1,
+             Expense_date_2,Expense_amount_1,
+             Expense_amount_2;
+
+    public double income, expense;
     AppCompatImageView transaction1, transaction2, transaction3;
     int count = 1;
     FirebaseUser firebaseUser;
@@ -57,6 +80,9 @@ public class home extends AppCompatActivity
 
     PieChart userspendchart;
 
+    public home() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,10 +91,10 @@ public class home extends AppCompatActivity
 
         Initialize();
         homePage();
-        DynamicPieChart();
         BasicUserImplementation();
+        DynamicPieChart();
         count+=1;
-        uIstuff();
+        UIstuff();
     }
 
     public void BasicUserImplementation()
@@ -164,39 +190,88 @@ public class home extends AppCompatActivity
 
     public void DynamicPieChart()
     {
-        ArrayList<PieEntry> test_data = new ArrayList<>();
-        test_data.add(new PieEntry(10f, "Income"));
-        test_data.add(new PieEntry(20f, "Expense"));
+        String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        db.collection("users").document(userId).collection("Income").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> incomeTask) {
+                if (incomeTask.isSuccessful())
+                {
+                    double totalIncome = 0;
+                    for (QueryDocumentSnapshot document : incomeTask.getResult())
+                    {
+                        Double amountNumber = document.getDouble("amount");
+                        if (amountNumber != null) {
+                            totalIncome += amountNumber;
+                        }
 
-        PieDataSet dataSet = new PieDataSet(test_data, "PieEntry");
-        List<Integer> customColors = new ArrayList<>();
-        customColors.add(Color.parseColor("#61DE70"));
-        customColors.add(Color.parseColor("#FF0000"));
-        PieData data = new PieData(dataSet);
-        dataSet.setColors(customColors);
-        userspendchart.setTransparentCircleColor(Color.TRANSPARENT); // Set the color of the transparent circle to transparent
-        userspendchart.setTransparentCircleAlpha(0);
-        userspendchart.setData(data);
+                        finalTotalIncome = totalIncome;
+                    }
 
-        userspendchart.getDescription().setEnabled(false);
-        userspendchart.setDrawHoleEnabled(true);
-        userspendchart.setTransparentCircleRadius(150f);
-        userspendchart.setHoleRadius(75f);
-        userspendchart.setDrawCenterText(true);
-        int holecolour = ContextCompat.getColor(home.this, R.color.dark_bg);
-        userspendchart.setHoleColor(holecolour);
-        userspendchart.setCenterText("777.70 \n Available Balance");
-        int centre_text_colour = ContextCompat.getColor(home.this, R.color.colourpalette_white);
-        userspendchart.setCenterTextColor(centre_text_colour);
-        userspendchart.setCenterTextSize(16);
-        Typeface centre_text_font = ResourcesCompat.getFont(home.this, R.font.poppins_bold);
-        userspendchart.setCenterTextTypeface(centre_text_font);
-        userspendchart.animateY(1000, Easing.EaseInOutCubic);
+                    db.collection("users").document(userId).collection("Expense").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> expenseTask) {
+                            if (expenseTask.isSuccessful()) {
+                                double totalExpense = 0;
+                                for (QueryDocumentSnapshot document : expenseTask.getResult()) {
+                                    Double amountNumber = document.getDouble("amount");
+                                    if (amountNumber != null) {
+                                        totalExpense += amountNumber;
+                                    }
 
-        userspendchart.invalidate();
+                                    finalTotalExpense = totalExpense;
+                                }
 
-
+                                AvailableBalance = finalTotalExpense-finalTotalIncome;
+                                // Display pie chart only after both income and expense data are fetched
+                                displayPieChart(userspendchart, finalTotalIncome, finalTotalExpense);
+                            } else {
+                                Log.e("Expense Fetch", "Failed to fetch expenses", expenseTask.getException());
+                            }
+                        }
+                    });
+                } else {
+                    Log.e("Income Fetch", "Failed to fetch income", incomeTask.getException());
+                }
+            }
+        });
     }
+    private void displayPieChart(@NonNull PieChart pieChart, double totalIncome, double totalExpense) {
+        List<PieEntry> entries = new ArrayList<>();
+        entries.add(new PieEntry((float) totalIncome, ""));
+        entries.add(new PieEntry((float) totalExpense, ""));
+
+        int incomeColor = ContextCompat.getColor(home.this, R.color.colourpalette_moderngreen);
+        int expenseColor = ContextCompat.getColor(home.this, R.color.expense_piechart_colour2);
+
+        AvailableBalance = totalIncome-totalExpense;
+        // Create PieDataSet
+        PieDataSet dataSet = new PieDataSet(entries,"");
+        // Create PieData and set it to the PieChart
+        PieData data = new PieData(dataSet);
+        pieChart.setData(data);
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setHoleRadius(60f);
+        pieChart.setHoleColor(Color.TRANSPARENT);
+        pieChart.setDrawCenterText(true);
+        dataSet.setValueTextSize(16f);
+        pieChart.setCenterTextColor(ContextCompat.getColor(home.this, R.color.unselected_txt_btn));
+        pieChart.setCenterTextTypeface(ResourcesCompat.getFont(home.this, R.font.poppins_semibold));
+        CentreText = "Available Balance" + "\n" + String.valueOf(AvailableBalance);
+        pieChart.setCenterText(CentreText);
+        Typeface LabelFont = ResourcesCompat.getFont(home.this, R.font.poppins_semibold);
+        dataSet.setValueTypeface(LabelFont);
+        int LabelTextColour = ContextCompat.getColor(home.this, R.color.colourpalette_white);
+        dataSet.setValueTextColor(LabelTextColour);
+
+        // pieChart.setCenterText(generateCenterText(AvailableBalance)); // Set the text in the center of the pie chart
+        pieChart.setCenterTextSize(16f);
+
+        dataSet.setColors(incomeColor, expenseColor);
+
+        // Refresh the PieChart
+        pieChart.invalidate();
+    }
+
 
 
     public void Initialize()
@@ -293,12 +368,13 @@ public class home extends AppCompatActivity
         });
     }
 
-    public void uIstuff()
+    public void UIstuff()
     {
         transaction1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                
+            public void onClick(View v)
+            {
+
             }
         });
 

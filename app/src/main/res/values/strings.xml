@@ -6,6 +6,10 @@
     <color name="piechart_incomegradient">#0DA6C2</color>
     <color name="colourpalette_lightgreen">#61DE70</color>
     <color name="unselected_txt_btn">#7B78AA</color>
+    <color name="expense_piechart_colour1">#FF0000</color>
+    <color name="expense_piechart_colour2">#FF4C00</color>
+    <color name="income_piechart_colour1">#0DA6C2</color>
+    <color name="income_piechart_colour2">#61DE70</color>
     <color name="dark_bg">#19173D</color>
     <color name="light_bg">#262450</color>
     <color name="colourpalette_red">#FF0000</color>

@@ -46,7 +46,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintCircleRadius="7dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.148">
@@ -300,6 +300,7 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="169dp"
         android:layout_height="33dp"
+        android:id="@+id/Expense_src_1"
         android:fontFamily="@font/poppins_semibold"
         android:text="Grilled Chicken"
         android:textColor="@color/colourpalette_white"
@@ -315,6 +316,7 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="106dp"
         android:layout_height="29dp"
+        android:id="@+id/Expense_date_1"
         android:fontFamily="@font/poppins_medium"
         android:text="13-4-2024"
         android:layout_marginTop="5dp"
@@ -331,11 +333,13 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="76dp"
+
         android:layout_height="43dp"
         android:text="$16"
         android:textColor="@color/colourpalette_white"
         android:fontFamily="@font/poppins_bold"
         android:gravity="center"
+        android:id="@+id/Expense_amount_1"
         android:paddingTop="3dp"
         android:background="@drawable/background_box_filled"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -367,7 +371,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/money_icon"
-        android:backgroundTint="@color/colourpalette_lightgreen"
+        android:backgroundTint="@color/colourpalette_red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.149"
@@ -380,6 +384,7 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="106dp"
         android:layout_height="29dp"
+        android:id="@+id/Expense_date_2"
         android:layout_marginTop="5dp"
         android:fontFamily="@font/poppins_medium"
         android:text="13-4-2024"
@@ -397,6 +402,7 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="169dp"
         android:layout_height="33dp"
+        android:id="@+id/Expense_src_2"
         android:fontFamily="@font/poppins_semibold"
         android:text="Bonus"
         android:textColor="@color/colourpalette_white"
@@ -412,6 +418,7 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="76dp"
         android:layout_height="43dp"
+        android:id="@+id/Expense_amount_2"
         android:background="@drawable/background_box_filled"
         android:fontFamily="@font/poppins_bold"
         android:gravity="center"
@@ -448,6 +455,7 @@
         android:layout_height="33dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Big Sale"
+        android:id="@+id/Income_src_1"
         android:textColor="@color/colourpalette_white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -475,6 +483,7 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="106dp"
         android:layout_height="29dp"
+        android:id="@+id/Income_date_1"
         android:layout_marginTop="5dp"
         android:fontFamily="@font/poppins_medium"
         android:text="13-4-2024"
@@ -496,6 +505,7 @@
         android:fontFamily="@font/poppins_bold"
         android:gravity="center"
         android:paddingTop="3dp"
+        android:id="@+id/Income_amount_1"
         android:text="$200"
         android:textColor="@color/colourpalette_white"
         app:layout_constraintBottom_toBottomOf="parent"
