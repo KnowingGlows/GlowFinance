@@ -1,5 +1,7 @@
 package com.knowingglows.glowfinance;
 
+import static androidx.fragment.app.FragmentManager.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -8,44 +10,33 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.model.GradientColor;
 import com.google.android.gms.tasks.Task;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.nfc.Tag;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.auth.User;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -53,21 +44,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class home extends AppCompatActivity
-
-{
+public class home extends AppCompatActivity {
     //creating variables
 
-        String CentreText;
-        double AvailableBalance;
-     double finalTotalIncome, finalTotalExpense;
+    String CentreText;
+    double AvailableBalance;
+    double finalTotalIncome, finalTotalExpense;
 
-     AppCompatTextView
-             Income_src_1, Income_date_1,
-             Income_amount_1, Expense_src_1,
-             Expense_src_2, Expense_date_1,
-             Expense_date_2,Expense_amount_1,
-             Expense_amount_2;
+    AppCompatTextView
+            Income_src_1, Income_date_1,
+            Income_amount_1, Expense_src_1,
+            Expense_src_2, Expense_date_1,
+            Expense_date_2, Expense_amount_1,
+            Expense_amount_2;
 
     public double income, expense;
     AppCompatImageView transaction1, transaction2, transaction3;
@@ -93,12 +82,13 @@ public class home extends AppCompatActivity
         homePage();
         BasicUserImplementation();
         DynamicPieChart();
-        count+=1;
+        count += 1;
         UIstuff();
+        LatestIncomeRecords(Income_src_1, Income_amount_1, Income_date_1);
+        LatestExpenseRecords(Expense_src_1, Expense_date_1, Expense_amount_1, Expense_src_2, Expense_date_2, Expense_amount_2);
     }
 
-    public void BasicUserImplementation()
-    {
+    public void BasicUserImplementation() {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (firebaseUser != null) {
             String userId = firebaseUser.getUid();
@@ -134,16 +124,14 @@ public class home extends AppCompatActivity
         }
     }
 
-    public void UserIncome(String userId)
-    {
+    public void UserIncome(String userId) {
         Map<String, Object> initialIncome = new HashMap<>();
         initialIncome.put("name", "Initial Income");
         initialIncome.put("date", new Date());
         initialIncome.put("amount", 0.0);
         initialIncome.put("description", "");
 
-        if (count==1)
-        {
+        if (count == 1) {
             db.collection("users").document(userId).collection("Income")
                     .add(initialIncome)
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -161,10 +149,8 @@ public class home extends AppCompatActivity
         }
     }
 
-    public void UserExpense(String userId)
-    {
-        if (count==1)
-        {
+    public void UserExpense(String userId) {
+        if (count == 1) {
             Map<String, Object> initialExpense = new HashMap<>();
             initialExpense.put("name", "Initial Expense");
             initialExpense.put("date", new Date());
@@ -188,17 +174,14 @@ public class home extends AppCompatActivity
         }
     }
 
-    public void DynamicPieChart()
-    {
+    public void DynamicPieChart() {
         String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         db.collection("users").document(userId).collection("Income").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> incomeTask) {
-                if (incomeTask.isSuccessful())
-                {
+                if (incomeTask.isSuccessful()) {
                     double totalIncome = 0;
-                    for (QueryDocumentSnapshot document : incomeTask.getResult())
-                    {
+                    for (QueryDocumentSnapshot document : incomeTask.getResult()) {
                         Double amountNumber = document.getDouble("amount");
                         if (amountNumber != null) {
                             totalIncome += amountNumber;
@@ -221,7 +204,7 @@ public class home extends AppCompatActivity
                                     finalTotalExpense = totalExpense;
                                 }
 
-                                AvailableBalance = finalTotalExpense-finalTotalIncome;
+                                AvailableBalance = finalTotalExpense - finalTotalIncome;
                                 // Display pie chart only after both income and expense data are fetched
                                 displayPieChart(userspendchart, finalTotalIncome, finalTotalExpense);
                             } else {
@@ -235,6 +218,7 @@ public class home extends AppCompatActivity
             }
         });
     }
+
     private void displayPieChart(@NonNull PieChart pieChart, double totalIncome, double totalExpense) {
         List<PieEntry> entries = new ArrayList<>();
         entries.add(new PieEntry((float) totalIncome, ""));
@@ -243,9 +227,9 @@ public class home extends AppCompatActivity
         int incomeColor = ContextCompat.getColor(home.this, R.color.colourpalette_moderngreen);
         int expenseColor = ContextCompat.getColor(home.this, R.color.expense_piechart_colour2);
 
-        AvailableBalance = totalIncome-totalExpense;
+        AvailableBalance = totalIncome - totalExpense;
         // Create PieDataSet
-        PieDataSet dataSet = new PieDataSet(entries,"");
+        PieDataSet dataSet = new PieDataSet(entries, "");
         // Create PieData and set it to the PieChart
         PieData data = new PieData(dataSet);
         pieChart.setData(data);
@@ -273,9 +257,17 @@ public class home extends AppCompatActivity
     }
 
 
+    public void Initialize() {
 
-    public void Initialize()
-    {
+        Income_amount_1 = findViewById(R.id.Income_amount_1);
+        Income_src_1 = findViewById(R.id.Income_src_1);
+        Income_date_1 = findViewById(R.id.Income_date_1);
+        Expense_amount_1 = findViewById(R.id.Expense_amount_1);
+        Expense_amount_2 = findViewById(R.id.Expense_amount_2);
+        Expense_src_1 = findViewById(R.id.Expense_src_1);
+        Expense_src_2 = findViewById(R.id.Expense_src_2);
+        Expense_date_1 = findViewById(R.id.Expense_date_1);
+        Expense_date_2 = findViewById(R.id.Expense_date_2);
         transaction1 = findViewById(R.id.transaction1);
         transaction2 = findViewById(R.id.transaction2);
         transaction3 = findViewById(R.id.transaction3);
@@ -293,13 +285,11 @@ public class home extends AppCompatActivity
         db = FirebaseFirestore.getInstance();
         user_profilename.setText(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getDisplayName());
     }
-    public void homePage()
-    {
-        home_btn.setOnClickListener(new View.OnClickListener()
-        {
+
+    public void homePage() {
+        home_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
                 home_btn.setBackgroundTintList(ContextCompat.getColorStateList(home.this, R.color.colourpalette_moderngreen));
                 startActivity(new Intent(home.this, home.class));
@@ -307,89 +297,228 @@ public class home extends AppCompatActivity
         });
 
 
-        transactions_btn.setOnClickListener(new View.OnClickListener()
-        {
+        transactions_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 transactions_btn.setBackgroundTintList(ContextCompat.getColorStateList(home.this, R.color.colourpalette_moderngreen));
                 startActivity(new Intent(home.this, transactions.class));
             }
         });
 
-        addrecords_btn.setOnClickListener(new View.OnClickListener()
-        {
+        addrecords_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 addrecords_btn.setBackgroundTintList(ContextCompat.getColorStateList(home.this, R.color.colourpalette_moderngreen));
                 startActivity(new Intent(home.this, income_description.class));
             }
         });
 
-        profilepage_btn.setOnClickListener(new View.OnClickListener()
-        {
+        profilepage_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
                 profilepage_btn.setBackgroundTintList(ContextCompat.getColorStateList(home.this, R.color.colourpalette_moderngreen));
                 startActivity(new Intent(home.this, profile.class));
             }
         });
 
-        report_btn.setOnClickListener(new View.OnClickListener()
-        {
+        report_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
                 report_btn.setBackgroundTintList(ContextCompat.getColorStateList(home.this, R.color.colourpalette_moderngreen));
                 startActivity(new Intent(home.this, report.class));
             }
         });
 
-        profile_btn.setOnClickListener(new View.OnClickListener()
-        {
+        profile_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 startActivity(new Intent(home.this, profile.class));
             }
         });
 
-        glowcoins_btn.setOnClickListener(new View.OnClickListener()
-        {
+        glowcoins_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 startActivity(new Intent(home.this, glowcoinspage.class));
             }
         });
     }
 
-    public void UIstuff()
-    {
+    public void UIstuff() {
         transaction1.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("UseCompatLoadingForDrawables")
             @Override
-            public void onClick(View v)
-            {
-
+            public void onClick(View v) {
+                if (Objects.equals(v.getBackground().getConstantState(), getResources().getDrawable(R.drawable.background_box_filled).getConstantState())) {
+                    v.setBackgroundResource(R.drawable.background_hover_effect);
+                } else {
+                    v.setBackgroundResource(R.drawable.background_box_filled);
+                }
             }
         });
 
         transaction2.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("UseCompatLoadingForDrawables")
             @Override
             public void onClick(View v) {
-
+                if (Objects.equals(v.getBackground().getConstantState(), getResources().getDrawable(R.drawable.background_box_filled).getConstantState())) {
+                    v.setBackgroundResource(R.drawable.background_hover_effect);
+                } else {
+                    v.setBackgroundResource(R.drawable.background_box_filled);
+                }
             }
         });
 
         transaction3.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("UseCompatLoadingForDrawables")
             @Override
             public void onClick(View v) {
-
+                if (Objects.equals(v.getBackground().getConstantState(), getResources().getDrawable(R.drawable.background_box_filled).getConstantState())) {
+                    v.setBackgroundResource(R.drawable.background_hover_effect);
+                } else {
+                    v.setBackgroundResource(R.drawable.background_box_filled);
+                }
             }
         });
     }
-}
+
+    private void LatestExpenseRecords(AppCompatTextView srcTextView1, AppCompatTextView dateTextView1, AppCompatTextView amountTextView1,
+                                      AppCompatTextView srcTextView2, AppCompatTextView dateTextView2, AppCompatTextView amountTextView2) {
+        String userId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+
+        // Query to get the two latest expense records
+        db.collection("users").document(userId).collection("Expense")
+                .orderBy("date", Query.Direction.DESCENDING)
+                .limit(2)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @SuppressLint("RestrictedApi")
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            int count = 0;
+                            String src1 = "", date1 = "", src2 = "", date2 = "";
+                            double amount1 = 0.0, amount2 = 0.0;
+
+                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                                // Retrieve data from Firestore document
+                                String src = document.getString("source");
+                                String date = document.getString("date");
+                                Double amountDouble = document.getDouble("amount");
+
+                                // Check if amountDouble is not null
+                                if (amountDouble != null) {
+                                    double amount = amountDouble;
+
+                                    // Update variables based on count
+                                    if (count == 0) {
+                                        src1 = src;
+                                        date1 = date;
+                                        amount1 = amount;
+                                    } else if (count == 1) {
+                                        src2 = src;
+                                        date2 = date;
+                                        amount2 = amount;
+                                    }
+
+                                    count++;
+                                }
+                            }
+
+                            // Update the TextViews with the retrieved data
+                            updateExpenseData(src1, date1, amount1, src2, date2, amount2,
+                                    srcTextView1, dateTextView1, amountTextView1,
+                                    srcTextView2, dateTextView2, amountTextView2);
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
+    private void updateExpenseData(String src1, String date1, double amount1,
+                                   String src2, String date2, double amount2,
+                                   AppCompatTextView srcTextView1, AppCompatTextView dateTextView1, AppCompatTextView amountTextView1,
+                                   AppCompatTextView srcTextView2, AppCompatTextView dateTextView2, AppCompatTextView amountTextView2) {
+        // Check if any of the fields are empty or the amount is zero for the first set
+        if (TextUtils.isEmpty(src1) || TextUtils.isEmpty(date1) || amount1 == 0.0) {
+            srcTextView1.setText("");
+            dateTextView1.setText("");
+            amountTextView1.setText("");
+        } else {
+            // Set the data to the first set of TextViews
+            srcTextView1.setText(src1);
+            dateTextView1.setText(date1);
+            amountTextView1.setText(String.valueOf(amount1));
+        }
+
+        // Check if any of the fields are empty or the amount is zero for the second set
+        if (TextUtils.isEmpty(src2) || TextUtils.isEmpty(date2) || amount2 == 0.0) {
+            srcTextView2.setText("");
+            dateTextView2.setText("");
+            amountTextView2.setText("");
+        } else {
+            // Set the data to the second set of TextViews
+            srcTextView2.setText(src2);
+            dateTextView2.setText(date2);
+            amountTextView2.setText(String.valueOf(amount2));
+        }
+    }
+
+    @SuppressLint("RestrictedApi")
+    public void LatestIncomeRecords(AppCompatTextView income_src_1, AppCompatTextView income_amount_1, AppCompatTextView income_date_1)
+    {
+        String userId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+
+        // Query to get the two latest expense records
+        db.collection("users").document(userId).collection("Income")
+                .orderBy("date", Query.Direction.DESCENDING)
+                .limit(2)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>()
+                {
+                    @SuppressLint("RestrictedApi")
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful())
+                        {
+                            String src1 = "", date1 = "";
+                            double amount1 = 0.0;
+
+                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                                // Retrieve data from Firestore document
+                                String src = document.getString("source");
+                                String date = document.getString("date");
+                                Double amountDouble = document.getDouble("amount");
+
+                                src1 = src;
+                                date1= date;
+                                amount1 = amountDouble;
+                            }
+                            UpdateIncomeData(src1, date1, amount1,
+                                    income_src_1, income_date_1, income_amount_1);
+                        }
+                        }
+                    });
+
+        }
+
+        public void UpdateIncomeData(String src1, String date1, Double amount1,
+                                      AppCompatTextView income_src_1,
+                                      AppCompatTextView income_date_1, AppCompatTextView income_amount_1)
+        {
+            if (TextUtils.isEmpty(src1) || TextUtils.isEmpty(date1) || amount1 == 0.0) {
+                income_src_1.setText("");
+                income_date_1.setText("");
+                income_amount_1.setText("");
+            } else {
+                // Set the data to the first set of TextViews
+                income_src_1.setText(src1);
+                income_date_1.setText(date1);
+                income_amount_1.setText(String.valueOf(amount1));
+            }
+        }
+    }
+
