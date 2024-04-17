@@ -1,31 +1,43 @@
 package com.knowingglows.glowfinance;
 
+import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.auth.User;
 
+import java.util.Calendar;
 import java.util.Objects;
 
 public class add_expense extends AppCompatActivity
 {
 
-
+public Double Amount;
+    AppCompatEditText
+            Expense_amount, Expense_date, Expense_src, Expense_desc;
     AppCompatTextView
-            user_profilename;
-
+        user_profilename;
+FirebaseFirestore db;
     AppCompatButton
 
             save_expense,
@@ -43,24 +55,27 @@ public class add_expense extends AppCompatActivity
         Instantiate();
         BottomNavigationBarFunctionality();
         Toolbar();
-        SaveRecord();
         UserSetup();
-    }
-
-    public void SaveRecord()
-    {
+        ExpenseRecord();
+        Intent intent = getIntent();
+        Expense_amount.setText(intent.getStringExtra("AMOUNT_STRING"));
         save_expense.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                Toast.makeText(add_expense.this, "Record Added Successfully!", Toast.LENGTH_SHORT).show();
+                SaveRecord();
             }
         });
+
     }
 
     public void Instantiate()
     {
+        Expense_amount = findViewById(R.id.Expense_amount);
+        Expense_date = findViewById(R.id.Expense_date);
+        Expense_src = findViewById(R.id.Expense_src);
+        Expense_desc = findViewById(R.id.Expense_desc);
         user_profilename = findViewById(R.id.user_username);
         save_expense = findViewById(R.id.add_expense_record);
         addexpense_toolbar_btn=findViewById(R.id.addexpense_toolbar_btn);
@@ -146,5 +161,81 @@ public class add_expense extends AppCompatActivity
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         String firebaseUser = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getDisplayName();
         user_profilename.setText(firebaseUser);
+    }
+
+    public void ExpenseRecord()
+    {
+
+        Expense_date.setFocusable(false);
+        Expense_date.setClickable(true);
+        Expense_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePicker();
+            }
+        });
+    }
+
+    public void DatePicker()
+    {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+        // Create a DatePickerDialog and set initial date
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int selectedYear, int monthOfYear, int dayOfMonth) {
+                        // Update the EditText with the selected date
+                        @SuppressLint("DefaultLocale") String selectedDate = String.format("%d-%02d-%02d", selectedYear, monthOfYear + 1, dayOfMonth);
+                        Expense_date.setText(selectedDate);
+                    }
+                },
+                year, month, dayOfMonth
+        );
+
+        // Show the DatePickerDialog
+        datePickerDialog.show();
+    }
+
+    public void SaveRecord()
+    {
+        db = FirebaseFirestore.getInstance();
+        String amountStr = Objects.requireNonNull(Expense_amount.getText()).toString();
+        if (!amountStr.isEmpty()) {
+            Amount = Double.parseDouble(amountStr);
+        } else {
+
+        }
+        Double ExpenseAmount = Amount;
+        String Expense_Date = Objects.requireNonNull(Expense_date.getText()).toString();
+        String Expense_Src = Objects.requireNonNull(Expense_src.getText()).toString();
+        String Expense_Desc = Objects.requireNonNull(Expense_desc.getText()).toString();
+
+        String UserId = FirebaseAuth.getInstance().getUid();
+        Expense ExpenseRecord = new Expense(ExpenseAmount, Expense_Date, Expense_Src, Expense_Desc);
+        assert UserId!=null;
+        db.collection("users").document(UserId).collection("Expense")
+                .add(ExpenseRecord)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference)
+                    {
+                        Toast.makeText(add_expense.this, "Added!", Toast.LENGTH_SHORT).show();
+                        Expense_amount.setText("");
+                        Expense_date.setText("");
+                        Expense_desc.setText("");
+                        Expense_src.setText("");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e)
+                    {
+
+                    }
+                });
     }
 }

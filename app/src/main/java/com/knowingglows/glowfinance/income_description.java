@@ -10,6 +10,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
@@ -24,14 +25,17 @@ public class income_description extends AppCompatActivity
 {
 
     AppCompatTextView
-            user_profilename,
-            AmountDisplay;
+            AmountDisplay,
+            user_profilename;
 
     public Double previousOperand;
     public Character currentOperation;
     AppCompatButton
-
-            btn0,btn1, btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btn_decimal,btn_substract,btn_add,btn_divide,btn_multiply,btn_delete,
+            btn0,btn1, btn2,btn3,
+            btn4,btn5,btn6,btn7
+            ,btn8,btn9,btn_decimal,
+            btn_substract,btn_add,btn_divide,
+            btn_multiply,btn_delete,
             add_income_btn,
             addincome_toolbar_btn,addexpense_toolbar_btn,
             bottom_navigation_home,

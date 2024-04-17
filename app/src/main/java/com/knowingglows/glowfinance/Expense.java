@@ -2,30 +2,34 @@ package com.knowingglows.glowfinance;
 import com.google.firebase.firestore.PropertyName;
 import java.util.Date;
 
-public class Expense {
-    @PropertyName("name")
-    private String name;
-
-    @PropertyName("date")
-    private Date date;
-
-    @PropertyName("amount")
-    private double amount;
-
-    @PropertyName("description")
+public class Expense
+{
+    private Double amount;
+    private String date;
+    private String source;
     private String description;
 
-    // Constructors, getters, and setters
-
-    public Expense() {
+    public Expense(Double amount, String date, String source, String description) {
+        this.amount = amount;
+        this.date = date;
+        this.source = source;
+        this.description = description;
     }
 
-    // Constructor with parameters
-    public Expense(String name, Date date, double amount, String description) {
-        this.name = name;
-        this.date = date;
-        this.amount = amount;
-        this.description = description;
+    public Double getAmount() {
+        return amount;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }
 
