@@ -24,16 +24,17 @@
     </androidx.appcompat.widget.AppCompatButton>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="22dp"
-        android:layout_height="25dp"
         android:id="@+id/user_glowcoins_num"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
         android:fontFamily="@font/poppins_bold"
-        android:text="70"
+        android:gravity="right"
+        android:text=""
         android:textColor="@color/colourpalette_white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.861"
+        app:layout_constraintHorizontal_bias="0.826"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.022">
@@ -214,12 +215,32 @@
 
     </androidx.appcompat.widget.AppCompatTextView>
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="300dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="16dp"
+        android:id="@+id/AvailableGlowCoins"
+        android:fontFamily="@font/poppins_bold"
+        android:gravity="center"
+        android:text="GlowCoins = 70"
+        android:textColor="@color/colourpalette_white"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.432"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.16">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="315dp"
         android:layout_height="57dp"
         android:background="@drawable/background_box_filled"
         android:fontFamily="@font/poppins_bold"
         android:paddingLeft="10dp"
+        android:id="@+id/glowcoins_ad"
         android:paddingTop="3dp"
         android:textSize="16sp"
         android:textColorHint="@color/unselected_txt_btn"
@@ -244,6 +265,7 @@
         android:text="50 Glow Coins = 0.69$"
         android:paddingTop="3dp"
         android:textAllCaps="false"
+        android:id="@+id/purchase_50glowcoins"
         android:textSize="16sp"
         android:textColor="@color/unselected_txt_btn"
         android:textColorHint="@color/unselected_txt_btn"
@@ -262,6 +284,7 @@
         android:fontFamily="@font/poppins_bold"
         android:paddingTop="2dp"
         android:textAllCaps="false"
+        android:id="@+id/purchase_250glowcoins"
         android:text="250 Glow Coins = 1.7$"
         android:layout_marginTop="2dp"
         android:textSize="16sp"
@@ -278,6 +301,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="315dp"
         android:layout_height="57dp"
+        android:id="@+id/purchase_500glowcoins"
         android:background="@drawable/background_box_filled"
         android:fontFamily="@font/poppins_bold"
         android:textSize="16sp"

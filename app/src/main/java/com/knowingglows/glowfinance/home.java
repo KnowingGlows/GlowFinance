@@ -32,6 +32,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -65,7 +66,7 @@ public class home extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseFirestore db;
     AppCompatButton profile_btn, glowcoins_btn, home_btn, transactions_btn, addrecords_btn, profilepage_btn, report_btn;
-    AppCompatTextView user_profilename, user_glowcoins_num;
+    AppCompatTextView user_profilename, User_GlowCoins;
 
     PieChart userspendchart;
 
@@ -80,99 +81,87 @@ public class home extends AppCompatActivity {
 
         Initialize();
         homePage();
-        BasicUserImplementation();
+        checkAndUpdateUserFields(firebaseAuth.getUid());
         DynamicPieChart();
-        count += 1;
         UIstuff();
         LatestIncomeRecords(Income_src_1, Income_amount_1, Income_date_1);
         LatestExpenseRecords(Expense_src_1, Expense_date_1, Expense_amount_1, Expense_src_2, Expense_date_2, Expense_amount_2);
     }
 
-    public void BasicUserImplementation() {
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (firebaseUser != null) {
-            String userId = firebaseUser.getUid();
-            String username = firebaseUser.getDisplayName(); // Get the real-time username
+    private void checkAndUpdateUserFields(String userId)
+    {
+        DocumentReference userRef = db.collection("users").document(userId);
 
-            db = FirebaseFirestore.getInstance(); // Initialize FirebaseFirestore instance
-
-            // Create a HashMap to represent the user's data
-            HashMap<String, Object> userData = new HashMap<>();
-            userData.put("username", username);
-            userData.put("balance", 0.0);
-
-            // Add the user document with username and balance fields
-            db.collection("users").document(userId)
-                    .set(userData)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-                            Toast.makeText(home.this, "User document created successfully!", Toast.LENGTH_SHORT).show();
-                            UserIncome(userId);
-                            UserExpense(userId);
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(home.this, "Failed to create user document: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        } else {
-            // Handle the case where the user is not authenticated
-            Toast.makeText(home.this, "User not authenticated!", Toast.LENGTH_SHORT).show();
-        }
+        userRef.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                // User document exists, no need to initialize fields
+                Log.d("HomeActivity", "User document exists");
+            } else {
+                // User document doesn't exist, initialize fields
+                Log.d("HomeActivity", "User document does not exist, initializing fields");
+                BasicUserImplementation();
+            }
+        }).addOnFailureListener(e -> {
+            // Handle failure
+            Log.e("HomeActivity", "Error checking user document", e);
+        });
     }
 
-    public void UserIncome(String userId) {
-        Map<String, Object> initialIncome = new HashMap<>();
-        initialIncome.put("name", "Initial Income");
-        initialIncome.put("date", new Date());
-        initialIncome.put("amount", 0.0);
-        initialIncome.put("description", "");
 
-        if (count == 1) {
-            db.collection("users").document(userId).collection("Income")
-                    .add(initialIncome)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
+    public void BasicUserImplementation()
+    {
+            firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+            if (firebaseUser != null) {
+                String userId = firebaseUser.getUid();
+                String username = firebaseUser.getDisplayName(); // Get the real-time username
 
-                            Toast.makeText(home.this, "Successful!", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(home.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        }
+                db = FirebaseFirestore.getInstance(); // Initialize FirebaseFirestore instance
+
+                // Create a HashMap to represent the user's data
+                HashMap<String, Object> userData = new HashMap<>();
+                userData.put("username", username);
+                userData.put("GlowCoins", 100.0);
+
+                // Add the user document with username and balance fields
+                db.collection("users").document(userId)
+                        .set(userData)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(home.this, "", Toast.LENGTH_SHORT).show();
+                                db.collection("users").document(userId).get()
+                                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                            @SuppressLint("SetTextI18n")
+                                            @Override
+                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                if (documentSnapshot.exists()) {
+                                                    Long glowCoins = documentSnapshot.getLong("GlowCoins");
+                                                    if (glowCoins != null) {
+                                                        User_GlowCoins.setText(glowCoins.toString());
+                                                        Toast.makeText(home.this, "SignUp Bonus Claimed!", Toast.LENGTH_SHORT).show();
+                                                    } else {
+                                                        // GlowCoins field is not present or is null
+                                                    }
+                                                } else {
+                                                    // Document does not exist
+                                                }
+                                            }
+                                        });
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(home.this, "Failed to create user document: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            } else {
+                // Handle the case where the user is not authenticated
+                Toast.makeText(home.this, "User not authenticated!", Toast.LENGTH_SHORT).show();
+            }
+
     }
 
-    public void UserExpense(String userId) {
-        if (count == 1) {
-            Map<String, Object> initialExpense = new HashMap<>();
-            initialExpense.put("name", "Initial Expense");
-            initialExpense.put("date", new Date());
-            initialExpense.put("amount", 0.0);
-            initialExpense.put("description", "");
-
-            db.collection("users").document(userId).collection("Expense")
-                    .add(initialExpense)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-
-                        }
-                    });
-        }
-    }
 
     public void DynamicPieChart() {
         String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
@@ -275,8 +264,8 @@ public class home extends AppCompatActivity {
     }
 
 
-    public void Initialize() {
-
+    public void Initialize()
+    {
         Income_amount_1 = findViewById(R.id.Income_amount_1);
         Income_src_1 = findViewById(R.id.Income_src_1);
         Income_date_1 = findViewById(R.id.Income_date_1);
@@ -292,7 +281,7 @@ public class home extends AppCompatActivity {
         profile_btn = findViewById(R.id.user_profile);
         glowcoins_btn = findViewById(R.id.glowcoin_btn);
         user_profilename = findViewById(R.id.user_username);
-        user_glowcoins_num = findViewById(R.id.user_glowcoins_num);
+        User_GlowCoins= findViewById(R.id.user_glowcoins_num);
         profilepage_btn = findViewById(R.id.profilepage_btn);
         home_btn = findViewById(R.id.home_btn);
         transactions_btn = findViewById(R.id.transactionpage_btn);
@@ -302,6 +291,20 @@ public class home extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         user_profilename.setText(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getDisplayName());
+        GlowCoins.getGlowCoins(firebaseAuth.getUid(), new GlowCoins.OnGlowCoinsLoadedListener()
+        {
+            @Override
+            public void onGlowCoinsLoaded(long glowCoins)
+            {
+                User_GlowCoins.setText(String.valueOf(glowCoins));
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
+
     }
 
     public void homePage() {
