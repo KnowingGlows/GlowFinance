@@ -288,7 +288,7 @@
     </androidx.appcompat.widget.AppCompatTextView>
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/appCompatEditText2"
+        android:id="@+id/report_username"
         android:layout_width="315dp"
         android:layout_height="57dp"
         android:layout_marginTop="2dp"
@@ -311,6 +311,7 @@
         android:layout_width="315dp"
         android:layout_height="57dp"
         android:layout_marginTop="2dp"
+        android:id="@+id/report_deliverydate"
         android:background="@drawable/background_box_filled"
         android:fontFamily="@font/poppins_semibold"
         android:hint="By When Would You Like To Get It?"
@@ -328,7 +329,7 @@
     </androidx.appcompat.widget.AppCompatEditText>
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/appCompatEditText"
+        android:id="@+id/report_specificinfo"
         android:layout_width="315dp"
         android:layout_height="57dp"
         android:layout_marginTop="2dp"
@@ -349,16 +350,15 @@
     </androidx.appcompat.widget.AppCompatEditText>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="201dp"
+        android:id="@+id/report_cost"
+        android:layout_width="140dp"
         android:layout_height="62dp"
         android:background="@drawable/background_box_filled"
         android:fontFamily="@font/poppins_semibold"
         android:gravity="center"
-        android:id="@+id/report_cost"
-        android:hint="Cost = 250"
-        android:paddingLeft="3dp"
+        android:text="250"
         android:paddingTop="3dp"
-        android:paddingRight="50dp"
+        android:paddingRight="40dp"
         android:textColor="@color/unselected_txt_btn"
         android:textColorHint="@color/unselected_txt_btn"
         android:textSize="16sp"
@@ -367,14 +367,15 @@
         app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.707">
+        app:layout_constraintVertical_bias="0.708">
 
     </androidx.appcompat.widget.AppCompatTextView>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="45dp"
         android:layout_height="42dp"
-        android:layout_marginTop="1dp"
+        android:translationX="-25dp"
+        android:layout_marginTop="3dp"
         android:layout_marginLeft="6dp"
         android:background="@drawable/glowcoin"
         app:layout_constraintBottom_toBottomOf="parent"

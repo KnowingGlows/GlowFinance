@@ -7,17 +7,24 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.protobuf.NullValue;
 
@@ -26,7 +33,8 @@ import java.util.Objects;
 public class report extends AppCompatActivity
 {
 
-
+AppCompatEditText
+        report_username, report_deliverydate, report_specificinfo;
     AppCompatButton
 
             create_report_btn,
@@ -49,10 +57,14 @@ public class report extends AppCompatActivity
         BottomNavigationBarFunctionality();
         FinancialReport();
         UserSetup();
+        CreateReport();
     }
 
     public void Instantiate()
     {
+        report_username = findViewById(R.id.report_username);
+        report_deliverydate = findViewById(R.id.report_deliverydate);
+        report_specificinfo = findViewById(R.id.report_specificinfo);
         user_profilename = findViewById(R.id.user_username);
         report_cost = findViewById(R.id.report_cost);
         create_report_btn = findViewById(R.id.create_report_btn);
@@ -119,7 +131,7 @@ public class report extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                report_cost.setText("Cost = 250");
+                report_cost.setText("250");
                 report_7_days.setBackgroundTintList(null);
                 report_14_days.setBackgroundTintList(ContextCompat.getColorStateList(report.this, R.color.dark_bg));
                 report_30_days.setBackgroundTintList(ContextCompat.getColorStateList(report.this, R.color.dark_bg));
@@ -130,7 +142,7 @@ public class report extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                report_cost.setText("Cost = 500");
+                report_cost.setText("500");
                 report_14_days.setBackgroundTintList(null);
                 report_7_days.setBackgroundTintList(ContextCompat.getColorStateList(report.this, R.color.dark_bg));
                 report_30_days.setBackgroundTintList(ContextCompat.getColorStateList(report.this, R.color.dark_bg));
@@ -141,17 +153,10 @@ public class report extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                report_cost.setText("Cost = 700");
+                report_cost.setText("700");
                 report_30_days.setBackgroundTintList(null);
                 report_7_days.setBackgroundTintList(ContextCompat.getColorStateList(report.this, R.color.dark_bg));
                 report_14_days.setBackgroundTintList(ContextCompat.getColorStateList(report.this, R.color.dark_bg));
-            }
-        });
-
-        create_report_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(report.this, "Report Is Being Created!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -162,5 +167,87 @@ public class report extends AppCompatActivity
         FirebaseFirestore db =FirebaseFirestore.getInstance();
         String firebaseUser = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getDisplayName();
         user_profilename.setText(firebaseUser);
+    }
+
+    public void CreateReport()
+    {
+        create_report_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (report_cost.getText().toString().equals(String.valueOf(250))) {
+                    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                    GlowCoins.getGlowCoins(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid(), new GlowCoins.OnGlowCoinsLoadedListener() {
+                        @Override
+                        public void onGlowCoinsLoaded(long glowCoins) {
+                            if (glowCoins >= Long.parseLong(report_cost.getText().toString())) {
+                                financialreport.composeEmail(report.this, report_username.getText().toString(), report_deliverydate.getText().toString(), report_specificinfo.getText().toString());
+                                GlowCoins glowCoins_new = new GlowCoins();
+                                glowCoins_new.updateGlowCoins(firebaseAuth.getCurrentUser().getUid(), glowCoins - 250, new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                    }
+                                });
+                            } else {
+                                Toast.makeText(report.this, "Insufficient Glow Coins", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onError(String errorMessage) {
+
+                        }
+                    });
+                }
+                else if (report_cost.getText().toString().equals("500")) {
+                    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                    GlowCoins.getGlowCoins(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid(), new GlowCoins.OnGlowCoinsLoadedListener() {
+                        @Override
+                        public void onGlowCoinsLoaded(long glowCoins) {
+                            if (glowCoins >= Long.parseLong(report_cost.getText().toString())) {
+                                financialreport.composeEmail(report.this, report_username.getText().toString(), report_deliverydate.getText().toString(), report_specificinfo.getText().toString());
+                                GlowCoins glowCoins_new = new GlowCoins();
+                                glowCoins_new.updateGlowCoins(firebaseAuth.getCurrentUser().getUid(), glowCoins - 500, new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                    }
+                                });
+                            } else {
+                                Toast.makeText(report.this, "Insufficient Glow Coins", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onError(String errorMessage) {
+
+                        }
+                    });
+                }
+                    else if (report_cost.getText().toString().equals("700"))
+                    {
+                        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                        GlowCoins.getGlowCoins(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid(), new GlowCoins.OnGlowCoinsLoadedListener() {
+                            @Override
+                            public void onGlowCoinsLoaded(long glowCoins) {
+                                if (glowCoins >= Long.parseLong(report_cost.getText().toString())) {
+                                    financialreport.composeEmail(report.this, Objects.requireNonNull(report_username.getText()).toString(), Objects.requireNonNull(report_deliverydate.getText()).toString(), Objects.requireNonNull(report_specificinfo.getText()).toString());
+                                    GlowCoins glowCoins_new = new GlowCoins();
+                                    glowCoins_new.updateGlowCoins(firebaseAuth.getCurrentUser().getUid(), glowCoins - 750, new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                        }
+                                    });
+                                } else {
+                                    Toast.makeText(report.this, "Insufficient Glow Coins", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onError(String errorMessage) {
+
+                            }
+                        });
+                    }
+                }
+            });
     }
 }

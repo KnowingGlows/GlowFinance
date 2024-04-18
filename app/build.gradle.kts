@@ -52,6 +52,8 @@ android {
 
 dependencies {
 
+    implementation ("com.sun.mail:android-mail:1.6.5")
+    implementation ("com.sun.mail:android-activation:1.6.5")
     implementation ("com.android.billingclient:billing:6.2.1")
     implementation ("com.google.android.gms:play-services-ads:23.0.0")
     implementation ("com.google.android.material:material:1.11.0")

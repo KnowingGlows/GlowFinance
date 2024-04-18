@@ -1,0 +1,39 @@
+[debug] [2024-04-18T18:01:34.519Z] ----------------------------------------------------------------------
+[debug] [2024-04-18T18:01:34.521Z] Command:       /usr/local/bin/firebase /Users/sovansh_07/.cache/firebase/tools/lib/node_modules/firebase-tools/lib/bin/firebase init functions
+[debug] [2024-04-18T18:01:34.521Z] CLI Version:   13.7.3
+[debug] [2024-04-18T18:01:34.521Z] Platform:      darwin
+[debug] [2024-04-18T18:01:34.522Z] Node Version:  v18.5.0
+[debug] [2024-04-18T18:01:34.523Z] Time:          Thu Apr 18 2024 23:46:34 GMT+0545 (Nepal Time)
+[debug] [2024-04-18T18:01:34.523Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-04-18T18:01:34.531Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-04-18T18:01:34.532Z] > authorizing via signed-in user (knowingglows@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/sovansh_07/Documents/Work/Development/GlowFinance/App
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2024-04-18T18:02:11.641Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects [none]
+[debug] [2024-04-18T18:02:11.644Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"projectId":"GlowFinance","name":"GlowFinance"}
+[debug] [2024-04-18T18:02:13.524Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects 400
+[debug] [2024-04-18T18:02:13.524Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"error":{"code":400,"message":"field [project_id] has issue [project_id contains invalid characters]","status":"INVALID_ARGUMENT","details":[{"@type":"type.googleapis.com/google.rpc.BadRequest","fieldViolations":[{"field":"project_id","description":"project_id contains invalid characters"}]},{"@type":"type.googleapis.com/google.rpc.Help","links":[{"url":"https://cloud.google.com/resource-manager/reference/rest/v1/projects"}]}]}}
+[debug] [2024-04-18T18:02:13.781Z] FirebaseError: HTTP Error: 400, field [project_id] has issue [project_id contains invalid characters]
+    at responseToError (/Users/sovansh_07/.cache/firebase/tools/lib/node_modules/firebase-tools/lib/responseToError.js:49:12)
+    at RetryOperation._fn (/Users/sovansh_07/.cache/firebase/tools/lib/node_modules/firebase-tools/lib/apiv2.js:299:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[error] 
+[error] Error: Failed to create project. See firebase-debug.log for more info.
