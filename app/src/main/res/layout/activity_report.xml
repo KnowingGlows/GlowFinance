@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".report">
 
-    <androidx.appcompat.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="54dp"
         android:layout_height="55dp"
         android:id="@+id/user_profile"
@@ -20,19 +20,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.011">
 
-    </androidx.appcompat.widget.AppCompatButton>
+    </androidx.appcompat.widget.AppCompatImageView>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="22dp"
-        android:layout_height="25dp"
         android:id="@+id/user_glowcoins_num"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
         android:fontFamily="@font/poppins_bold"
-        android:text="70"
+        android:gravity="right"
+        android:text=""
         android:textColor="@color/colourpalette_white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.861"
+        app:layout_constraintHorizontal_bias="0.826"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.022">
@@ -311,6 +312,8 @@
         android:layout_width="315dp"
         android:layout_height="57dp"
         android:layout_marginTop="2dp"
+        android:focusable="false"
+        android:clickable="true"
         android:id="@+id/report_deliverydate"
         android:background="@drawable/background_box_filled"
         android:fontFamily="@font/poppins_semibold"

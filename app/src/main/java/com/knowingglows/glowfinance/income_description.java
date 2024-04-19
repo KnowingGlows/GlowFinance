@@ -1,7 +1,9 @@
 package com.knowingglows.glowfinance;
 
 import android.animation.AnimatorSet;
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -11,12 +13,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
@@ -26,10 +30,12 @@ public class income_description extends AppCompatActivity
 
     AppCompatTextView
             AmountDisplay,
-            user_profilename;
+            user_profilename,User_GlowCoins;
 
     public Double previousOperand;
     public Character currentOperation;
+    FirebaseAuth user;
+    AppCompatImageView userdp;
     AppCompatButton
             btn0,btn1, btn2,btn3,
             btn4,btn5,btn6,btn7
@@ -55,6 +61,19 @@ public class income_description extends AppCompatActivity
         UserSetup();
         AddRecord();
         AmountInput();
+        UserSetupGlowCoins();
+        user = FirebaseAuth.getInstance();
+        userdp = findViewById(R.id.user_profile);
+        if (user.getCurrentUser() != null) {
+            Uri photoUrl = user.getCurrentUser().getPhotoUrl();
+
+            if (photoUrl != null) {
+                // Load the profile picture into the ImageView using Glide
+                Glide.with(this)
+                        .load(photoUrl)
+                        .into(userdp);
+            }
+        }
     }
 
 public void UpdateAmount()
@@ -363,6 +382,28 @@ public void ArithmeticOperation(Character Operation)
                     AmountString.deleteCharAt(AmountString.length() - 1);
                     UpdateAmount();
                 }
+            }
+        });
+    }
+
+    public void UserSetupGlowCoins()
+    {
+        User_GlowCoins = findViewById(R.id.user_glowcoins_num);
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String firebaseUser = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getDisplayName();
+        user_profilename.setText(firebaseUser);
+        GlowCoins glowCoins = new GlowCoins();
+        GlowCoins.getGlowCoins(firebaseAuth.getCurrentUser().getUid(), new GlowCoins.OnGlowCoinsLoadedListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onGlowCoinsLoaded(long glowCoins) {
+                String GlowCoins = String.valueOf(glowCoins);
+                User_GlowCoins.setText(GlowCoins);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
             }
         });
     }

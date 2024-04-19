@@ -38,6 +38,9 @@ import java.util.Objects;
 public class signup extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseFirestore db;
+
+
+    AppCompatEditText username, useremail, userpassword;
     public static final int RC_SIGN_IN = 100;
     GoogleSignInClient googleSignInClient;
 
@@ -55,6 +58,7 @@ public class signup extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
+
         // Calling activity
         AppCompatButton signupbtn = findViewById(R.id.user_signupbtn);
         AppCompatEditText username = findViewById(R.id.user_username);
@@ -62,6 +66,8 @@ public class signup extends AppCompatActivity {
         AppCompatEditText userpassword = findViewById(R.id.user_password);
         AppCompatButton loginbtn = findViewById(R.id.signin_btn);
         AppCompatButton google_signupbtn = findViewById(R.id.google_signupbtn);
+
+
 
         // Google Sign In configuration
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -210,6 +216,35 @@ public class signup extends AppCompatActivity {
             startActivity(new Intent(signup.this, home.class));
         }
     }
+
+    public void DynamicUI()
+    {
+        username = findViewById(R.id.user_username);
+        useremail = findViewById(R.id.user_email);
+        userpassword = findViewById(R.id.user_password);
+
+        username.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        useremail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        userpassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
 }
 
 

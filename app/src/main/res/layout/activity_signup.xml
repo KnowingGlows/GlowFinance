@@ -103,6 +103,8 @@
 
     </androidx.appcompat.widget.AppCompatEditText>
 
+
+
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/user_username"
         android:layout_width="315dp"
@@ -166,8 +168,6 @@
 
     </androidx.appcompat.widget.AppCompatButton>
 
-
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/google_signupbtn"
         android:layout_width="315dp"
@@ -187,5 +187,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.764">
     </androidx.appcompat.widget.AppCompatButton>
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

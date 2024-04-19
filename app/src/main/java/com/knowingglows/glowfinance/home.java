@@ -10,12 +10,14 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Task;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -70,14 +72,16 @@ public class home extends AppCompatActivity {
 
     PieChart userspendchart;
 
+    AppCompatImageView userdp;
+
     public home() {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
 
         Initialize();
         homePage();
@@ -86,6 +90,18 @@ public class home extends AppCompatActivity {
         UIstuff();
         LatestIncomeRecords(Income_src_1, Income_amount_1, Income_date_1);
         LatestExpenseRecords(Expense_src_1, Expense_date_1, Expense_amount_1, Expense_src_2, Expense_date_2, Expense_amount_2);
+
+        userdp = findViewById(R.id.user_profile);
+        if (firebaseAuth.getCurrentUser() != null) {
+            Uri photoUrl = firebaseAuth.getCurrentUser().getPhotoUrl();
+
+            if (photoUrl != null) {
+                // Load the profile picture into the ImageView using Glide
+                Glide.with(this)
+                        .load(photoUrl)
+                        .into(userdp);
+            }
+        }
     }
 
     private void checkAndUpdateUserFields(String userId)
@@ -278,7 +294,6 @@ public class home extends AppCompatActivity {
         transaction1 = findViewById(R.id.transaction1);
         transaction2 = findViewById(R.id.transaction2);
         transaction3 = findViewById(R.id.transaction3);
-        profile_btn = findViewById(R.id.user_profile);
         glowcoins_btn = findViewById(R.id.glowcoin_btn);
         user_profilename = findViewById(R.id.user_username);
         User_GlowCoins= findViewById(R.id.user_glowcoins_num);
@@ -310,7 +325,8 @@ public class home extends AppCompatActivity {
     public void homePage() {
         home_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
 
                 home_btn.setBackgroundTintList(ContextCompat.getColorStateList(home.this, R.color.colourpalette_moderngreen));
                 startActivity(new Intent(home.this, home.class));
@@ -320,16 +336,20 @@ public class home extends AppCompatActivity {
 
         transactions_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 transactions_btn.setBackgroundTintList(ContextCompat.getColorStateList(home.this, R.color.colourpalette_moderngreen));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 startActivity(new Intent(home.this, transactions.class));
             }
         });
 
         addrecords_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 addrecords_btn.setBackgroundTintList(ContextCompat.getColorStateList(home.this, R.color.colourpalette_moderngreen));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 startActivity(new Intent(home.this, income_description.class));
             }
         });
@@ -339,6 +359,7 @@ public class home extends AppCompatActivity {
             public void onClick(View v) {
 
                 profilepage_btn.setBackgroundTintList(ContextCompat.getColorStateList(home.this, R.color.colourpalette_moderngreen));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 startActivity(new Intent(home.this, profile.class));
             }
         });
@@ -348,20 +369,16 @@ public class home extends AppCompatActivity {
             public void onClick(View v) {
 
                 report_btn.setBackgroundTintList(ContextCompat.getColorStateList(home.this, R.color.colourpalette_moderngreen));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 startActivity(new Intent(home.this, report.class));
-            }
-        });
-
-        profile_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(home.this, profile.class));
             }
         });
 
         glowcoins_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 startActivity(new Intent(home.this, glowcoinspage.class));
             }
         });

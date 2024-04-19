@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".home">
 
-    <androidx.appcompat.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="54dp"
         android:layout_height="55dp"
         android:id="@+id/user_profile"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.011">
 
-    </androidx.appcompat.widget.AppCompatButton>
+    </androidx.appcompat.widget.AppCompatImageView>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/user_glowcoins_num"
@@ -238,18 +238,18 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/Expense_src_1"
         android:layout_width="169dp"
-        android:layout_marginBottom="3dp"
         android:layout_height="33dp"
+        android:layout_marginBottom="4dp"
         android:fontFamily="@font/poppins_semibold"
         android:text=""
         android:textColor="@color/colourpalette_white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.475"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.577">
+        app:layout_constraintVertical_bias="0.576">
 
     </androidx.appcompat.widget.AppCompatTextView>
 
@@ -258,6 +258,7 @@
         android:layout_width="125dp"
         android:layout_marginBottom="3dp"
         android:layout_height="29dp"
+        android:layout_marginTop="7dp"
         android:fontFamily="@font/poppins_medium"
         android:text=""
         android:textColor="@color/unselected_txt_btn"
@@ -279,7 +280,7 @@
         android:background="@drawable/background_box_filled"
         android:fontFamily="@font/poppins_bold"
         android:gravity="center"
-        android:text="$16"
+        android:text=""
         android:textColor="@color/colourpalette_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -347,7 +348,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.697">
@@ -362,7 +363,7 @@
         android:fontFamily="@font/poppins_bold"
         android:gravity="center"
         android:paddingTop="3dp"
-        android:text="$16"
+        android:text=""
         android:textColor="@color/colourpalette_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

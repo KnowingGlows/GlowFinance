@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +19,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
@@ -25,6 +27,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
@@ -68,7 +71,10 @@ public class transactions extends AppCompatActivity
 
     FirebaseFirestore db;
     LineChart lineChart;
-    AppCompatTextView user_profilename,AvailableBalance;
+
+    FirebaseAuth user;
+    AppCompatImageView userdp;
+    AppCompatTextView user_profilename,AvailableBalance,User_GlowCoins;
 
     AppCompatButton
             bottom_navigation_home,
@@ -88,7 +94,22 @@ public class transactions extends AppCompatActivity
         BottomNavigationBarFunctionality();
         TransactionsFunctionality();
         UserSetup();
+        UserSetupGlowCoins();
         fetchDataForLineChart(7, "Income");
+
+
+        user = FirebaseAuth.getInstance();
+        userdp = findViewById(R.id.user_profile);
+        if (user.getCurrentUser() != null) {
+            Uri photoUrl = user.getCurrentUser().getPhotoUrl();
+
+            if (photoUrl != null) {
+                // Load the profile picture into the ImageView using Glide
+                Glide.with(this)
+                        .load(photoUrl)
+                        .into(userdp);
+            }
+        }
     }
 
     public void BottomNavigationBarFunctionality()
@@ -304,7 +325,8 @@ public class transactions extends AppCompatActivity
 
         // Construct the Firestore query
         CollectionReference dataCollection;
-        if (dataType.equals("Income")) {
+        if (dataType.equals("Income"))
+        {
             dataCollection = FirebaseFirestore.getInstance().collection("users")
                     .document(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
                     .collection("Income");
@@ -407,6 +429,28 @@ public class transactions extends AppCompatActivity
             Log.e(TAG, "Error parsing date: " + dateString, e);
             return null;
         }
+    }
+
+    public void UserSetupGlowCoins()
+    {
+        User_GlowCoins = findViewById(R.id.user_glowcoins_num);
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String firebaseUser = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getDisplayName();
+        user_profilename.setText(firebaseUser);
+        GlowCoins glowCoins = new GlowCoins();
+        GlowCoins.getGlowCoins(firebaseAuth.getCurrentUser().getUid(), new GlowCoins.OnGlowCoinsLoadedListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onGlowCoinsLoaded(long glowCoins) {
+                String GlowCoins = String.valueOf(glowCoins);
+                User_GlowCoins.setText(GlowCoins);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
     }
 
 }

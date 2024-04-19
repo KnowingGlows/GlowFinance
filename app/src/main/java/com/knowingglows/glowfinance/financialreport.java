@@ -11,10 +11,11 @@ import android.content.Intent;
 import android.net.Uri;
 
 public class financialreport {
-    public static void composeEmail(Context context, String name, String date, String specificInfo) {
-        String subject = "Financial Report Request";
+    public static void composeEmail(Context context, String name, String date, String specificInfo, String email) {
+        String subject = "Create Financial Report";
         String body = "Name: " + name + "\n" +
                 "Date for the report: " + date + "\n" +
+                "Email : " + email + "\n" +
                 "Specific Info: " + specificInfo;
 
         Intent intent = new Intent(Intent.ACTION_SEND);

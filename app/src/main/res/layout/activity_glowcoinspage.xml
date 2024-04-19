@@ -9,7 +9,7 @@
     android:background="@color/dark_bg"
     tools:context=".glowcoinspage">
 
-    <androidx.appcompat.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="54dp"
         android:layout_height="55dp"
         android:id="@+id/user_profile"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.011">
 
-    </androidx.appcompat.widget.AppCompatButton>
+    </androidx.appcompat.widget.AppCompatImageView>
 
 
 
@@ -217,24 +217,24 @@
         android:layout_height="34dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/poppins_bold"
-        android:gravity="left"
+        android:gravity="center"
         android:text="Earn Glow Coins"
         android:textColor="@color/colourpalette_white"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.34"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.337">
+        app:layout_constraintVertical_bias="0.362">
 
     </androidx.appcompat.widget.AppCompatTextView>
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/AvailableGlowCoins"
         android:layout_width="300dp"
         android:layout_height="34dp"
         android:layout_marginTop="16dp"
-        android:id="@+id/AvailableGlowCoins"
         android:fontFamily="@font/poppins_bold"
         android:gravity="center"
         android:text=""
@@ -242,10 +242,10 @@
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.432"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.16">
+        app:layout_constraintVertical_bias="0.255">
 
     </androidx.appcompat.widget.AppCompatTextView>
 
@@ -258,7 +258,7 @@
         android:fontFamily="@font/poppins_bold"
         android:paddingLeft="10dp"
         android:paddingTop="3dp"
-        android:text="Click Me!"
+        android:text="Earn Free Glow Coins!"
         android:textAllCaps="false"
         android:textColor="@color/unselected_txt_btn"
         android:textColorHint="@color/unselected_txt_btn"

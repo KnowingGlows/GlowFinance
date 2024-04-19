@@ -3,6 +3,7 @@ package com.knowingglows.glowfinance;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.widget.DatePicker;
@@ -14,12 +15,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,19 +37,21 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class add_income extends AppCompatActivity
-{
+public class add_income extends AppCompatActivity {
 
     AppCompatTextView
-            user_profilename;
+            user_profilename,User_GlowCoins;
 
     AppCompatEditText
-            Income_amount, Income_date, Income_src,Income_desc;
+            Income_amount, Income_date, Income_src, Income_desc;
 
+
+    AppCompatImageView
+            userdp;
     AppCompatButton
 
             save_income,
-            addincome_toolbar_btn,addexpense_toolbar_btn,
+            addincome_toolbar_btn, addexpense_toolbar_btn,
             bottom_navigation_home,
             bottom_navigation_transactions, bottom_navigation_addrecords,
             bottom_navigation_profile, bottom_navigation_report;
@@ -67,6 +72,7 @@ public class add_income extends AppCompatActivity
         BottomNavigationBarFunctionality();
         UserSetup();
         IncomeRecord();
+        UserSetupGlowCoins();
         Intent intent = getIntent();
         Income_amount.setText(intent.getStringExtra("AMOUNT_STRING"));
         save_income.setOnClickListener(new View.OnClickListener() {
@@ -75,10 +81,21 @@ public class add_income extends AppCompatActivity
                 SaveRecord();
             }
         });
+
+        userdp = findViewById(R.id.user_profile);
+        if (User.getCurrentUser() != null) {
+            Uri photoUrl = User.getCurrentUser().getPhotoUrl();
+
+            if (photoUrl != null) {
+                // Load the profile picture into the ImageView using Glide
+                Glide.with(this)
+                        .load(photoUrl)
+                        .into(userdp);
+            }
+        }
     }
 
-    public void Instantiate()
-    {
+    public void Instantiate() {
         db = FirebaseFirestore.getInstance();
         User = FirebaseAuth.getInstance();
         Income_amount = findViewById(R.id.Income_amount);
@@ -88,7 +105,7 @@ public class add_income extends AppCompatActivity
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         user_profilename = findViewById(R.id.user_username);
         save_income = findViewById(R.id.add_income_record);
-        addexpense_toolbar_btn=findViewById(R.id.addexpense_toolbar_btn);
+        addexpense_toolbar_btn = findViewById(R.id.addexpense_toolbar_btn);
         addincome_toolbar_btn = findViewById(R.id.addincome_toolbar_btn);
         bottom_navigation_home = findViewById(R.id.bottom_navigation_home);
         bottom_navigation_transactions = findViewById(R.id.bottom_navigation_transactions);
@@ -99,22 +116,17 @@ public class add_income extends AppCompatActivity
         Income_date.setClickable(true);
     }
 
-    public void Toolbar()
-    {
-        addincome_toolbar_btn.setOnClickListener(new View.OnClickListener()
-        {
+    public void Toolbar() {
+        addincome_toolbar_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 startActivity(new Intent(add_income.this, add_income.class));
             }
         });
 
-        addexpense_toolbar_btn.setOnClickListener(new View.OnClickListener()
-        {
+        addexpense_toolbar_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 startActivity(new Intent(add_income.this, add_expense.class));
             }
         });
@@ -168,15 +180,13 @@ public class add_income extends AppCompatActivity
         });
     }
 
-    public void UserSetup()
-    {
+    public void UserSetup() {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         String firebaseUser = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getDisplayName();
         user_profilename.setText(firebaseUser);
     }
 
-    public void IncomeRecord()
-    {
+    public void IncomeRecord() {
 
         Income_date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -210,8 +220,7 @@ public class add_income extends AppCompatActivity
         datePickerDialog.show();
     }
 
-    public void SaveRecord()
-    {
+    public void SaveRecord() {
         String amountStr = Objects.requireNonNull(Income_amount.getText()).toString();
         if (!amountStr.isEmpty()) {
             Amount = Double.parseDouble(amountStr);
@@ -224,28 +233,49 @@ public class add_income extends AppCompatActivity
         String Income_Desc = Objects.requireNonNull(Income_desc.getText()).toString();
 
         String UserId = User.getUid();
-        Income IncomeRecord = new Income(IncomeAmount,Income_Date,Income_Src,Income_Desc);
+        Income IncomeRecord = new Income(IncomeAmount, Income_Date, Income_Src, Income_Desc);
         assert UserId != null;
-                db.collection("users")
-                        .document(UserId)
-                        .collection("Income")
-                        .add(IncomeRecord)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference)
-                            {
-                                Toast.makeText(add_income.this, "Added!", Toast.LENGTH_SHORT).show();
-                                Income_amount.setText("");
-                                Income_date.setText("");
-                                Income_desc.setText("");
-                                Income_src.setText("");
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
+        db.collection("users")
+                .document(UserId)
+                .collection("Income")
+                .add(IncomeRecord)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Toast.makeText(add_income.this, "Added!", Toast.LENGTH_SHORT).show();
+                        Income_amount.setText("");
+                        Income_date.setText("");
+                        Income_desc.setText("");
+                        Income_src.setText("");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
 
-                            }
-                        });
-            }
+                    }
+                });
     }
+
+    public void UserSetupGlowCoins()
+    {
+        User_GlowCoins = findViewById(R.id.user_glowcoins_num);
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String firebaseUser = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getDisplayName();
+        user_profilename.setText(firebaseUser);
+        GlowCoins glowCoins = new GlowCoins();
+        GlowCoins.getGlowCoins(firebaseAuth.getCurrentUser().getUid(), new GlowCoins.OnGlowCoinsLoadedListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onGlowCoinsLoaded(long glowCoins) {
+                String GlowCoins = String.valueOf(glowCoins);
+                User_GlowCoins.setText(GlowCoins);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
+    }
+}

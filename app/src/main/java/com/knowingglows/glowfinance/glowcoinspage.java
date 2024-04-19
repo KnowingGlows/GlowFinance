@@ -12,14 +12,17 @@ import com.android.billingclient.api.PurchasesUpdatedListener;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.android.billingclient.api.QueryProductDetailsParams;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdRequest;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -56,6 +59,8 @@ public class glowcoinspage extends AppCompatActivity {
 
     FirebaseFirestore db;
 
+    AppCompatImageView
+    userdp;
     private RewardedAd rewardedAd;
     public int EarnedClowCoins;
     private final String TAG = "glowcoinspage";
@@ -65,6 +70,7 @@ public class glowcoinspage extends AppCompatActivity {
 
     public BillingClient billingClient;
     Boolean success = false;
+    FirebaseAuth user;
 
     ActivityGlowcoinspageBinding binding;
     AppCompatButton
@@ -99,6 +105,19 @@ public class glowcoinspage extends AppCompatActivity {
                 showRewardedVideoAd();
             }
         });
+
+        user = FirebaseAuth.getInstance();
+        userdp = findViewById(R.id.user_profile);
+        if (user.getCurrentUser() != null) {
+            Uri photoUrl = user.getCurrentUser().getPhotoUrl();
+
+            if (photoUrl != null) {
+                // Load the profile picture into the ImageView using Glide
+                Glide.with(this)
+                        .load(photoUrl)
+                        .into(userdp);
+            }
+        }
     }
 
 

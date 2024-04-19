@@ -8,7 +8,7 @@
     android:background="@color/dark_bg"
     tools:context=".profile">
 
-    <androidx.appcompat.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="54dp"
         android:layout_height="55dp"
         android:id="@+id/user_profile"
@@ -20,19 +20,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.011">
 
-    </androidx.appcompat.widget.AppCompatButton>
+    </androidx.appcompat.widget.AppCompatImageView>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="22dp"
-        android:layout_height="25dp"
         android:id="@+id/user_glowcoins_num"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
         android:fontFamily="@font/poppins_bold"
-        android:text="70"
+        android:gravity="right"
+        android:text=""
         android:textColor="@color/colourpalette_white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.861"
+        app:layout_constraintHorizontal_bias="0.826"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.022">
@@ -199,6 +200,7 @@
         android:layout_width="315dp"
         android:layout_height="57dp"
         android:layout_marginTop="2dp"
+        android:id="@+id/spending_report_btn"
         android:background="@drawable/background_box_filled"
         android:fontFamily="@font/poppins_semibold"
         android:paddingTop="4dp"
@@ -220,6 +222,7 @@
         android:layout_width="315dp"
         android:layout_height="57dp"
         android:layout_marginTop="2dp"
+        android:id="@+id/glowcoins_btn"
         android:background="@drawable/background_box_filled"
         android:fontFamily="@font/poppins_semibold"
         android:paddingTop="2dp"
@@ -240,6 +243,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="315dp"
         android:layout_height="57dp"
+        android:id="@+id/contactus_btn"
         android:layout_marginTop="3dp"
         android:background="@drawable/background_box_filled"
         android:fontFamily="@font/poppins_semibold"
@@ -266,6 +270,7 @@
         android:fontFamily="@font/poppins_semibold"
         android:paddingTop="2dp"
         android:text="GlowFinance Roadmap"
+        android:id="@+id/GlowFinanceRoadmap_btn"
         android:textAllCaps="false"
         android:textColor="@color/colourpalette_white"
         android:textColorHint="@color/unselected_txt_btn"
@@ -286,6 +291,7 @@
         android:fontFamily="@font/poppins_semibold"
         android:paddingTop="2dp"
         android:text="About Us"
+        android:id="@+id/AboutUs_btn"
         android:textAllCaps="false"
         android:textColor="@color/colourpalette_white"
         android:textColorHint="@color/unselected_txt_btn"

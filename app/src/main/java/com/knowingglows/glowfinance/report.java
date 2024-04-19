@@ -1,10 +1,13 @@
 package com.knowingglows.glowfinance;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -13,12 +16,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -29,6 +34,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.protobuf.NullValue;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 public class report extends AppCompatActivity
@@ -36,6 +43,9 @@ public class report extends AppCompatActivity
 
 AppCompatEditText
         report_username, report_deliverydate, report_specificinfo;
+
+FirebaseAuth user;
+AppCompatImageView userdp;
     AppCompatButton
 
             create_report_btn,
@@ -46,7 +56,7 @@ AppCompatEditText
 
     AppCompatTextView
             user_profilename,
-            report_cost;
+            report_cost,User_GlowCoins;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -59,6 +69,25 @@ AppCompatEditText
         FinancialReport();
         UserSetup();
         CreateReport();
+        UserSetupGlowCoins();
+        user = FirebaseAuth.getInstance();
+        userdp = findViewById(R.id.user_profile);
+        report_deliverydate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePicker();
+            }
+        });
+        if (user.getCurrentUser() != null) {
+            Uri photoUrl = user.getCurrentUser().getPhotoUrl();
+
+            if (photoUrl != null) {
+                // Load the profile picture into the ImageView using Glide
+                Glide.with(this)
+                        .load(photoUrl)
+                        .into(userdp);
+            }
+        }
     }
 
     public void Instantiate()
@@ -182,7 +211,7 @@ AppCompatEditText
                         @Override
                         public void onGlowCoinsLoaded(long glowCoins) {
                             if (glowCoins >= Long.parseLong(report_cost.getText().toString())) {
-                                financialreport.composeEmail(report.this, Objects.requireNonNull(report_username.getText()).toString(), report_deliverydate.getText().toString(), report_specificinfo.getText().toString());
+                                financialreport.composeEmail(report.this, Objects.requireNonNull(report_username.getText()).toString(), Objects.requireNonNull(report_deliverydate.getText()).toString(), Objects.requireNonNull(report_specificinfo.getText()).toString(), firebaseAuth.getCurrentUser().getEmail());
                                 GlowCoins glowCoins_new = new GlowCoins();
                                 glowCoins_new.updateGlowCoins(firebaseAuth.getCurrentUser().getUid(), glowCoins - 250, new OnCompleteListener<Void>() {
                                     @Override
@@ -206,7 +235,7 @@ AppCompatEditText
                         @Override
                         public void onGlowCoinsLoaded(long glowCoins) {
                             if (glowCoins >= Long.parseLong(report_cost.getText().toString())) {
-                                financialreport.composeEmail(report.this, report_username.getText().toString(), report_deliverydate.getText().toString(), report_specificinfo.getText().toString());
+                                financialreport.composeEmail(report.this, Objects.requireNonNull(report_username.getText()).toString(), Objects.requireNonNull(report_deliverydate.getText()).toString(), Objects.requireNonNull(report_specificinfo.getText()).toString(), firebaseAuth.getCurrentUser().getEmail());
                                 GlowCoins glowCoins_new = new GlowCoins();
                                 glowCoins_new.updateGlowCoins(firebaseAuth.getCurrentUser().getUid(), glowCoins - 500, new OnCompleteListener<Void>() {
                                     @Override
@@ -231,7 +260,7 @@ AppCompatEditText
                             @Override
                             public void onGlowCoinsLoaded(long glowCoins) {
                                 if (glowCoins >= Long.parseLong(report_cost.getText().toString())) {
-                                    financialreport.composeEmail(report.this, Objects.requireNonNull(report_username.getText()).toString(), Objects.requireNonNull(report_deliverydate.getText()).toString(), Objects.requireNonNull(report_specificinfo.getText()).toString());
+                                    financialreport.composeEmail(report.this, Objects.requireNonNull(report_username.getText()).toString(), Objects.requireNonNull(report_deliverydate.getText()).toString(), Objects.requireNonNull(report_specificinfo.getText()).toString(), firebaseAuth.getCurrentUser().getEmail());
                                     GlowCoins glowCoins_new = new GlowCoins();
                                     glowCoins_new.updateGlowCoins(firebaseAuth.getCurrentUser().getUid(), glowCoins - 750, new OnCompleteListener<Void>() {
                                         @Override
@@ -251,5 +280,52 @@ AppCompatEditText
                     }
                 }
             });
+    }
+
+    public void UserSetupGlowCoins()
+    {
+        User_GlowCoins = findViewById(R.id.user_glowcoins_num);
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String firebaseUser = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getDisplayName();
+        user_profilename.setText(firebaseUser);
+        GlowCoins glowCoins = new GlowCoins();
+        GlowCoins.getGlowCoins(firebaseAuth.getCurrentUser().getUid(), new GlowCoins.OnGlowCoinsLoadedListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onGlowCoinsLoaded(long glowCoins) {
+                String GlowCoins = String.valueOf(glowCoins);
+                User_GlowCoins.setText(GlowCoins);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
+    }
+
+    public void DatePicker()
+    {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+        // Create a DatePickerDialog and set initial date
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int selectedYear, int monthOfYear, int dayOfMonth) {
+                        // Update the EditText with the selected date
+                        @SuppressLint("DefaultLocale") String selectedDate = String.format("%d-%02d-%02d", selectedYear, monthOfYear + 1, dayOfMonth);
+                        report_deliverydate.setText(selectedDate);
+                    }
+                },
+                year, month, dayOfMonth
+        );
+
+        // Show the DatePickerDialog
+        datePickerDialog.show();
     }
 }
