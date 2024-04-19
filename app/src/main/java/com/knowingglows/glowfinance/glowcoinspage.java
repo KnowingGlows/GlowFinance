@@ -165,9 +165,6 @@ public class glowcoinspage extends AppCompatActivity {
 
     public void Instantiate()
     {
-        Purchase_50gc = findViewById(R.id.purchase_50glowcoins);
-        Purchase_250gc = findViewById(R.id.purchase_250glowcoins);
-        Purchase_500gc = findViewById(R.id.purchase_500glowcoins);
         User_GlowCoins = findViewById(R.id.user_glowcoins_num);
         AvailableGlowCoins = findViewById(R.id.AvailableGlowCoins);
         glowcoins_ad = findViewById(R.id.glowcoins_ad);

@@ -5,10 +5,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -39,7 +42,8 @@ public class signup extends AppCompatActivity {
     GoogleSignInClient googleSignInClient;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
@@ -66,25 +70,37 @@ public class signup extends AppCompatActivity {
                 .build();
         googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
 
-        google_signupbtn.setOnClickListener(new View.OnClickListener() {
+        google_signupbtn.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
+                Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.alpha_animation);
+                google_signupbtn.startAnimation(anim);
                 Intent googleSignInClientSignInIntent = googleSignInClient.getSignInIntent();
                 startActivityForResult(googleSignInClientSignInIntent, RC_SIGN_IN);
             }
         });
 
-        loginbtn.setOnClickListener(new View.OnClickListener() {
+        loginbtn.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
+                Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.alpha_animation);
+                loginbtn.startAnimation(anim);
                 startActivity(new Intent(signup.this, login.class));
             }
         });
 
         // Signup process
-        signupbtn.setOnClickListener(new View.OnClickListener() {
+        signupbtn.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
+                Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.alpha_animation);
+                signupbtn.startAnimation(anim);
                 String user_name = Objects.requireNonNull(username.getText()).toString();
                 String user_password = Objects.requireNonNull(userpassword.getText()).toString();
                 String user_email = Objects.requireNonNull(useremail.getText()).toString();

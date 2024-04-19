@@ -1,5 +1,6 @@
 package com.knowingglows.glowfinance;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -128,6 +129,7 @@ AppCompatEditText
     public void FinancialReport()
     {
         report_7_days.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v)
             {
@@ -180,7 +182,7 @@ AppCompatEditText
                         @Override
                         public void onGlowCoinsLoaded(long glowCoins) {
                             if (glowCoins >= Long.parseLong(report_cost.getText().toString())) {
-                                financialreport.composeEmail(report.this, report_username.getText().toString(), report_deliverydate.getText().toString(), report_specificinfo.getText().toString());
+                                financialreport.composeEmail(report.this, Objects.requireNonNull(report_username.getText()).toString(), report_deliverydate.getText().toString(), report_specificinfo.getText().toString());
                                 GlowCoins glowCoins_new = new GlowCoins();
                                 glowCoins_new.updateGlowCoins(firebaseAuth.getCurrentUser().getUid(), glowCoins - 250, new OnCompleteListener<Void>() {
                                     @Override
