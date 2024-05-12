@@ -40,7 +40,6 @@ public class signup extends AppCompatActivity {
     FirebaseFirestore db;
 
 
-    AppCompatEditText username, useremail, userpassword;
     public static final int RC_SIGN_IN = 100;
     GoogleSignInClient googleSignInClient;
 
@@ -59,11 +58,6 @@ public class signup extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
 
-        // Calling activity
-        AppCompatButton signupbtn = findViewById(R.id.user_signupbtn);
-        AppCompatEditText username = findViewById(R.id.user_username);
-        AppCompatEditText useremail = findViewById(R.id.user_email);
-        AppCompatEditText userpassword = findViewById(R.id.user_password);
         AppCompatButton loginbtn = findViewById(R.id.signin_btn);
         AppCompatButton google_signupbtn = findViewById(R.id.google_signupbtn);
 
@@ -99,57 +93,6 @@ public class signup extends AppCompatActivity {
             }
         });
 
-        // Signup process
-        signupbtn.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.alpha_animation);
-                signupbtn.startAnimation(anim);
-                String user_name = Objects.requireNonNull(username.getText()).toString();
-                String user_password = Objects.requireNonNull(userpassword.getText()).toString();
-                String user_email = Objects.requireNonNull(useremail.getText()).toString();
-
-                if (user_name.isEmpty()) {
-                    username.setError("User Name Cannot Be Empty");
-                } else if (user_email.isEmpty()) {
-                    useremail.setError("Email Cannot Be Empty");
-                } else if (user_password.isEmpty()) {
-                    userpassword.setError("Password Cannot Be Empty");
-                } else {
-                    auth.createUserWithEmailAndPassword(user_email, user_password)
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(signup.this, "Signup Successful!", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(signup.this, home.class));
-                                        users.put("user_name", user_name);
-                                        db.collection("users").add(users).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                            @Override
-                                            public void onSuccess(DocumentReference documentReference)
-                                            {
-                                                Toast.makeText(signup.this, "User Created!", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener()
-                                        {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e)
-                                            {
-                                                Toast.makeText(signup.this, "User Creation Failed", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-
-                                    } else {
-                                        Toast.makeText(signup.this, "Signup Failed. Please Try Again!" +
-                                                Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                }
-            }
-        });
     }
 
     @Override
@@ -182,7 +125,7 @@ public class signup extends AppCompatActivity {
                     public void onSuccess(AuthResult authResult)
                     {
                         FirebaseUser firebaseUser = auth.getCurrentUser();
-                        if (authResult.getAdditionalUserInfo().isNewUser())
+                        if (Objects.requireNonNull(authResult.getAdditionalUserInfo()).isNewUser())
                         {
                             Toast.makeText(signup.this, "Account Created!", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(signup.this, home.class));
@@ -215,34 +158,6 @@ public class signup extends AppCompatActivity {
         {
             startActivity(new Intent(signup.this, home.class));
         }
-    }
-
-    public void DynamicUI()
-    {
-        username = findViewById(R.id.user_username);
-        useremail = findViewById(R.id.user_email);
-        userpassword = findViewById(R.id.user_password);
-
-        username.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        useremail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        userpassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
 
 }

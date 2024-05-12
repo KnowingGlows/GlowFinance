@@ -33,7 +33,6 @@ public class login extends AppCompatActivity {
 
     private FirebaseAuth login;
     private int RC_SIGN_IN = 100;
-    private EditText username, userpassword, useremail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +48,9 @@ public class login extends AppCompatActivity {
 
         login = FirebaseAuth.getInstance(); // Initialize Firebase instance
 
-        username = findViewById(R.id.user_username);
-        userpassword = findViewById(R.id.user_password);
-        useremail = findViewById(R.id.user_email);
-        AppCompatButton redirect_signup_page = findViewById(R.id.redirect_signup_page);
-        AppCompatButton loginbtn = findViewById(R.id.user_loginbtn);
-        AppCompatButton login_google = findViewById(R.id.login_google);
+
+        AppCompatButton redirect_signup_page = findViewById(R.id.signin_btn);
+        AppCompatButton login_google = findViewById(R.id.google_signupbtn);
 
 
         redirect_signup_page.setOnClickListener(new View.OnClickListener()
@@ -72,34 +68,8 @@ public class login extends AppCompatActivity {
                 startActivityForResult(googleSignInClientSignInIntent, RC_SIGN_IN);
             }
         });
-
-        loginbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Retrieve values when login button is clicked
-                String user_name = username.getText().toString();
-                String user_email = useremail.getText().toString();
-                String user_password = userpassword.getText().toString();
-
-                if (!user_name.isEmpty()) {
-                    login.signInWithEmailAndPassword(user_email, user_password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                        @Override
-                        public void onSuccess(AuthResult authResult) {
-                            Toast.makeText(login.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(login.this, home.class));
-                            finish();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(login.this, "Login Failed!", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            }
-        });
-
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -124,22 +94,25 @@ public class login extends AppCompatActivity {
                     public void onSuccess(AuthResult authResult) {
                         FirebaseUser firebaseUser = login.getCurrentUser();
                         if (Objects.requireNonNull(authResult.getAdditionalUserInfo()).isNewUser()) {
+
                             Toast.makeText(login.this, "Account Created!", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(login.this, home.class));
-                        } else {
+                        } else
+                        {
                             Toast.makeText(login.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(login.this, home.class));
                         }
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
+                .addOnFailureListener(new OnFailureListener()
+                {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(login.this, "Signup Failed!", Toast.LENGTH_SHORT).show();
                     }
                 });
-
     }
+
 
     @Override
     public void onStart()

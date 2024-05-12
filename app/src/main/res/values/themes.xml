@@ -53,4 +53,8 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
+    <style name="CustomShapeAppearanceOverlay" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50dp</item>
+    </style>
 </resources>
