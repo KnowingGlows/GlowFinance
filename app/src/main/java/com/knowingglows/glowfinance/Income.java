@@ -2,7 +2,8 @@ package com.knowingglows.glowfinance;
 import com.google.firebase.firestore.PropertyName;
 import java.util.Date;
 
-public class Income {
+public class Income
+{
     private Double amount;
     private String date;
     private String source;

@@ -51,7 +51,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.148">
-
     </com.github.mikephil.charting.charts.PieChart>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -187,11 +186,12 @@
     </ImageView>
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/appCompatTextView"
         android:layout_width="180dp"
         android:layout_height="33dp"
+        android:layout_marginTop="60dp"
         android:fontFamily="@font/poppins_bold"
         android:text="Transactions"
-        android:layout_marginTop="60dp"
         android:textColor="@color/colourpalette_white"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -203,258 +203,16 @@
 
     </androidx.appcompat.widget.AppCompatTextView>
 
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/transaction1"
-        android:layout_width="348dp"
-        android:layout_height="79dp"
-        android:background="@drawable/background_box_filled"
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="398dp"
+        android:id="@+id/recyclerview"
+        android:layout_height="271dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.592">
+        app:layout_constraintVertical_bias="0.819" />
 
 
-    </androidx.appcompat.widget.AppCompatImageView>
-
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="3dp"
-        android:background="@drawable/money_icon"
-        android:backgroundTint="@color/colourpalette_red"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.149"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.591">
-
-    </androidx.appcompat.widget.AppCompatImageView>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/Expense_src_1"
-        android:layout_width="169dp"
-        android:layout_height="33dp"
-        android:layout_marginBottom="4dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text=""
-        android:textColor="@color/colourpalette_white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.576">
-
-    </androidx.appcompat.widget.AppCompatTextView>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/Expense_date_1"
-        android:layout_width="125dp"
-        android:layout_marginBottom="3dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="7dp"
-        android:fontFamily="@font/poppins_medium"
-        android:text=""
-        android:textColor="@color/unselected_txt_btn"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.395"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.601">
-
-    </androidx.appcompat.widget.AppCompatTextView>
-
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/Expense_amount_1"
-        android:layout_width="76dp"
-        android:layout_height="43dp"
-        android:background="@drawable/background_box_filled"
-        android:fontFamily="@font/poppins_bold"
-        android:gravity="center"
-        android:text=""
-        android:textColor="@color/colourpalette_white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.865"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.59">
-
-    </androidx.appcompat.widget.AppCompatTextView>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/transaction2"
-        android:layout_width="348dp"
-        android:layout_height="79dp"
-        android:background="@drawable/background_box_filled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.725">
-
-
-    </androidx.appcompat.widget.AppCompatImageView>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/money_icon"
-        android:backgroundTint="@color/colourpalette_red"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.149"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.715">
-
-    </androidx.appcompat.widget.AppCompatImageView>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="125dp"
-        android:layout_height="29dp"
-        android:id="@+id/Expense_date_2"
-        android:layout_marginTop="5dp"
-        android:fontFamily="@font/poppins_medium"
-        android:text=""
-        android:textColor="@color/unselected_txt_btn"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.396"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.721">
-
-    </androidx.appcompat.widget.AppCompatTextView>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/Expense_src_2"
-        android:layout_width="169dp"
-        android:layout_height="33dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text=""
-        android:textColor="@color/colourpalette_white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.697">
-
-    </androidx.appcompat.widget.AppCompatTextView>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="76dp"
-        android:layout_height="43dp"
-        android:id="@+id/Expense_amount_2"
-        android:background="@drawable/background_box_filled"
-        android:fontFamily="@font/poppins_bold"
-        android:gravity="center"
-        android:paddingTop="3dp"
-        android:text=""
-        android:textColor="@color/colourpalette_white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.865"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.718">
-
-    </androidx.appcompat.widget.AppCompatTextView>
-
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/transaction3"
-        android:layout_width="348dp"
-        android:layout_height="79dp"
-        android:background="@drawable/background_box_filled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.863">
-
-
-    </androidx.appcompat.widget.AppCompatImageView>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/Income_src_1"
-        android:layout_width="169dp"
-        android:layout_height="33dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text=""
-        android:textColor="@color/colourpalette_white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.475"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.826">
-
-    </androidx.appcompat.widget.AppCompatTextView>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/money_icon"
-        android:backgroundTint="@color/colourpalette_lightgreen"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.149"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.847">
-
-    </androidx.appcompat.widget.AppCompatImageView>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="125dp"
-        android:layout_height="29dp"
-        android:id="@+id/Income_date_1"
-        android:layout_marginTop="5dp"
-        android:fontFamily="@font/poppins_medium"
-        android:text=""
-        android:textColor="@color/unselected_txt_btn"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.396"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.853">
-
-    </androidx.appcompat.widget.AppCompatTextView>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="76dp"
-        android:layout_height="43dp"
-        android:background="@drawable/background_box_filled"
-        android:fontFamily="@font/poppins_bold"
-        android:gravity="center"
-        android:paddingTop="3dp"
-        android:id="@+id/Income_amount_1"
-        android:text=""
-        android:textColor="@color/colourpalette_white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.865"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.848">
-
-    </androidx.appcompat.widget.AppCompatTextView>
 </androidx.constraintlayout.widget.ConstraintLayout>

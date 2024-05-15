@@ -3,17 +3,21 @@ package com.knowingglows.glowfinance;
 import static androidx.fragment.app.FragmentManager.TAG;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Task;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -31,16 +35,25 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.auth.User;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -48,21 +61,18 @@ import java.util.Map;
 import java.util.Objects;
 
 public class home extends AppCompatActivity {
-    //creating variables
 
     String CentreText;
+    String UserId;
     double AvailableBalance;
     double finalTotalIncome, finalTotalExpense;
 
-    AppCompatTextView
-            Income_src_1, Income_date_1,
-            Income_amount_1, Expense_src_1,
-            Expense_src_2, Expense_date_1,
-            Expense_date_2, Expense_amount_1,
-            Expense_amount_2;
+    ArrayList<transaction_records> transactionRecords;
+    RecyclerView recyclerView;
+    MyAdapter myAdapter;
 
-    public double income, expense;
-    AppCompatImageView transaction1, transaction2, transaction3;
+
+
     int count = 1;
     FirebaseUser firebaseUser;
     FirebaseAuth firebaseAuth;
@@ -71,25 +81,31 @@ public class home extends AppCompatActivity {
     AppCompatTextView user_profilename, User_GlowCoins;
 
     PieChart userspendchart;
+    ProgressDialog progressDialog;
 
     AppCompatImageView userdp;
 
     public home() {
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+
         Initialize();
         homePage();
         checkAndUpdateUserFields(firebaseAuth.getUid());
         DynamicPieChart();
-        UIstuff();
-        LatestIncomeRecords(Income_src_1, Income_amount_1, Income_date_1);
-        LatestExpenseRecords(Expense_src_1, Expense_date_1, Expense_amount_1, Expense_src_2, Expense_date_2, Expense_amount_2);
 
         userdp = findViewById(R.id.user_profile);
         if (firebaseAuth.getCurrentUser() != null) {
@@ -102,10 +118,23 @@ public class home extends AppCompatActivity {
                         .into(userdp);
             }
         }
+
+        UserId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+
+        recyclerView = findViewById(R.id.recyclerview);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        transactionRecords = new ArrayList<transaction_records>();
+        myAdapter = new MyAdapter(home.this, transactionRecords);
+        recyclerView.setAdapter(myAdapter);
+        FetchTransactions();
+
+   
+
     }
 
-    private void checkAndUpdateUserFields(String userId)
-    {
+
+    private void checkAndUpdateUserFields(String userId) {
         DocumentReference userRef = db.collection("users").document(userId);
 
         userRef.get().addOnSuccessListener(documentSnapshot -> {
@@ -124,57 +153,57 @@ public class home extends AppCompatActivity {
     }
 
 
-    public void BasicUserImplementation()
-    {
-            firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-            if (firebaseUser != null) {
-                String userId = firebaseUser.getUid();
-                String username = firebaseUser.getDisplayName(); // Get the real-time username
+    public void BasicUserImplementation() {
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser != null)
+        {
+            String userId = firebaseUser.getUid();
+            String username = firebaseUser.getDisplayName(); // Get the real-time username
 
-                db = FirebaseFirestore.getInstance(); // Initialize FirebaseFirestore instance
+            db = FirebaseFirestore.getInstance(); // Initialize FirebaseFirestore instance
 
-                // Create a HashMap to represent the user's data
-                HashMap<String, Object> userData = new HashMap<>();
-                userData.put("username", username);
-                userData.put("GlowCoins", 100.0);
+            // Create a HashMap to represent the user's data
+            HashMap<String, Object> userData = new HashMap<>();
+            userData.put("username", username);
+            userData.put("GlowCoins", 100.0);
 
-                // Add the user document with username and balance fields
-                db.collection("users").document(userId)
-                        .set(userData)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                Toast.makeText(home.this, "", Toast.LENGTH_SHORT).show();
-                                db.collection("users").document(userId).get()
-                                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                            @SuppressLint("SetTextI18n")
-                                            @Override
-                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                if (documentSnapshot.exists()) {
-                                                    Long glowCoins = documentSnapshot.getLong("GlowCoins");
-                                                    if (glowCoins != null) {
-                                                        User_GlowCoins.setText(glowCoins.toString());
-                                                        Toast.makeText(home.this, "SignUp Bonus Claimed!", Toast.LENGTH_SHORT).show();
-                                                    } else {
-                                                        // GlowCoins field is not present or is null
-                                                    }
+            // Add the user document with username and balance fields
+            db.collection("users").document(userId)
+                    .set(userData)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Toast.makeText(home.this, "", Toast.LENGTH_SHORT).show();
+                            db.collection("users").document(userId).get()
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                        @SuppressLint("SetTextI18n")
+                                        @Override
+                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                            if (documentSnapshot.exists()) {
+                                                Long glowCoins = documentSnapshot.getLong("GlowCoins");
+                                                if (glowCoins != null) {
+                                                    User_GlowCoins.setText(glowCoins.toString());
+                                                    Toast.makeText(home.this, "SignUp Bonus Claimed!", Toast.LENGTH_SHORT).show();
                                                 } else {
-                                                    // Document does not exist
+                                                    // GlowCoins field is not present or is null
                                                 }
+                                            } else {
+                                                // Document does not exist
                                             }
-                                        });
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(home.this, "Failed to create user document: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-            } else {
-                // Handle the case where the user is not authenticated
-                Toast.makeText(home.this, "User not authenticated!", Toast.LENGTH_SHORT).show();
-            }
+                                        }
+                                    });
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(home.this, "Failed to create user document: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        } else {
+            // Handle the case where the user is not authenticated
+            Toast.makeText(home.this, "User not authenticated!", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -280,23 +309,10 @@ public class home extends AppCompatActivity {
     }
 
 
-    public void Initialize()
-    {
-        Income_amount_1 = findViewById(R.id.Income_amount_1);
-        Income_src_1 = findViewById(R.id.Income_src_1);
-        Income_date_1 = findViewById(R.id.Income_date_1);
-        Expense_amount_1 = findViewById(R.id.Expense_amount_1);
-        Expense_amount_2 = findViewById(R.id.Expense_amount_2);
-        Expense_src_1 = findViewById(R.id.Expense_src_1);
-        Expense_src_2 = findViewById(R.id.Expense_src_2);
-        Expense_date_1 = findViewById(R.id.Expense_date_1);
-        Expense_date_2 = findViewById(R.id.Expense_date_2);
-        transaction1 = findViewById(R.id.transaction1);
-        transaction2 = findViewById(R.id.transaction2);
-        transaction3 = findViewById(R.id.transaction3);
+    public void Initialize() {
         glowcoins_btn = findViewById(R.id.glowcoin_btn);
         user_profilename = findViewById(R.id.user_username);
-        User_GlowCoins= findViewById(R.id.user_glowcoins_num);
+        User_GlowCoins = findViewById(R.id.user_glowcoins_num);
         profilepage_btn = findViewById(R.id.profilepage_btn);
         home_btn = findViewById(R.id.home_btn);
         transactions_btn = findViewById(R.id.transactionpage_btn);
@@ -306,11 +322,9 @@ public class home extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         user_profilename.setText(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getDisplayName());
-        GlowCoins.getGlowCoins(firebaseAuth.getUid(), new GlowCoins.OnGlowCoinsLoadedListener()
-        {
+        GlowCoins.getGlowCoins(firebaseAuth.getUid(), new GlowCoins.OnGlowCoinsLoadedListener() {
             @Override
-            public void onGlowCoinsLoaded(long glowCoins)
-            {
+            public void onGlowCoinsLoaded(long glowCoins) {
                 User_GlowCoins.setText(String.valueOf(glowCoins));
             }
 
@@ -325,8 +339,7 @@ public class home extends AppCompatActivity {
     public void homePage() {
         home_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
                 home_btn.setBackgroundTintList(ContextCompat.getColorStateList(home.this, R.color.colourpalette_moderngreen));
                 startActivity(new Intent(home.this, home.class));
@@ -336,8 +349,7 @@ public class home extends AppCompatActivity {
 
         transactions_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 transactions_btn.setBackgroundTintList(ContextCompat.getColorStateList(home.this, R.color.colourpalette_moderngreen));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 startActivity(new Intent(home.this, transactions.class));
@@ -346,8 +358,7 @@ public class home extends AppCompatActivity {
 
         addrecords_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 addrecords_btn.setBackgroundTintList(ContextCompat.getColorStateList(home.this, R.color.colourpalette_moderngreen));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 startActivity(new Intent(home.this, income_description.class));
@@ -376,187 +387,57 @@ public class home extends AppCompatActivity {
 
         glowcoins_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 startActivity(new Intent(home.this, glowcoinspage.class));
             }
         });
     }
 
-    public void UIstuff() {
-        transaction1.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("UseCompatLoadingForDrawables")
-            @Override
-            public void onClick(View v) {
-                if (Objects.equals(v.getBackground().getConstantState(), getResources().getDrawable(R.drawable.background_box_filled).getConstantState())) {
-                    v.setBackgroundResource(R.drawable.background_hover_effect);
-                } else {
-                    v.setBackgroundResource(R.drawable.background_box_filled);
-                }
-            }
-        });
+    @SuppressLint({"RestrictedApi", "NotifyDataSetChanged"})
+    private void FetchTransactions()
+    {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
-        transaction2.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("UseCompatLoadingForDrawables")
-            @Override
-            public void onClick(View v) {
-                if (Objects.equals(v.getBackground().getConstantState(), getResources().getDrawable(R.drawable.background_box_filled).getConstantState())) {
-                    v.setBackgroundResource(R.drawable.background_hover_effect);
-                } else {
-                    v.setBackgroundResource(R.drawable.background_box_filled);
-                }
-            }
-        });
+        List<Task<QuerySnapshot>> tasks = new ArrayList<>();
+        tasks.add(db.collection("users").document(userId).collection("Income").orderBy("date", Query.Direction.ASCENDING).get());
+        tasks.add(db.collection("users").document(userId).collection("Expense").orderBy("date", Query.Direction.DESCENDING).get());
 
-        transaction3.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("UseCompatLoadingForDrawables")
-            @Override
-            public void onClick(View v) {
-                if (Objects.equals(v.getBackground().getConstantState(), getResources().getDrawable(R.drawable.background_box_filled).getConstantState())) {
-                    v.setBackgroundResource(R.drawable.background_hover_effect);
-                } else {
-                    v.setBackgroundResource(R.drawable.background_box_filled);
-                }
-            }
-        });
-    }
+        Tasks.whenAllComplete(tasks)
+                .addOnSuccessListener(tasksResults -> {
+                    List<transaction_records> allTransactions = new ArrayList<>();
 
-    private void LatestExpenseRecords(AppCompatTextView srcTextView1, AppCompatTextView dateTextView1, AppCompatTextView amountTextView1,
-                                      AppCompatTextView srcTextView2, AppCompatTextView dateTextView2, AppCompatTextView amountTextView2) {
-        String userId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+                    // Use a regular for loop to iterate through tasksResults
+                    for (int i = 0; i < tasksResults.size(); i++) {
+                        Task<QuerySnapshot> task = (Task<QuerySnapshot>) tasksResults.get(i);
 
-        // Query to get the two latest expense records
-        db.collection("users").document(userId).collection("Expense")
-                .orderBy("date", Query.Direction.DESCENDING)
-                .limit(2)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @SuppressLint("RestrictedApi")
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            int count = 0;
-                            String src1 = "", date1 = "", src2 = "", date2 = "";
-                            double amount1 = 0.0, amount2 = 0.0;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                transaction_records transaction = document.toObject(transaction_records.class);
 
-                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                                // Retrieve data from Firestore document
-                                String src = document.getString("source");
-                                String date = document.getString("date");
-                                Double amountDouble = document.getDouble("amount");
-
-                                // Check if amountDouble is not null
-                                if (amountDouble != null) {
-                                    double amount = amountDouble;
-
-                                    // Update variables based on count
-                                    if (count == 0) {
-                                        src1 = src;
-                                        date1 = date;
-                                        amount1 = amount;
-                                    } else if (count == 1) {
-                                        src2 = src;
-                                        date2 = date;
-                                        amount2 = amount;
-                                    }
-
-                                    count++;
+                                if (document.getReference().getParent().getId().equals("Income")) {
+                                    transaction.setType("Income");
+                                } else {
+                                    transaction.setType("Expense");
                                 }
-                            }
 
-                            // Update the TextViews with the retrieved data
-                            updateExpenseData(src1, date1, amount1, src2, date2, amount2,
-                                    srcTextView1, dateTextView1, amountTextView1,
-                                    srcTextView2, dateTextView2, amountTextView2);
+                                allTransactions.add(transaction);
+                            }
                         } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
+                            Log.w(TAG, "Error getting documents: ", task.getException());
                         }
                     }
+
+                    Collections.sort(allTransactions, (t1, t2) -> t1.getDate().compareTo(t2.getDate()));
+
+                    myAdapter.transactionRecords.clear();
+                    myAdapter.transactionRecords.addAll(allTransactions);
+                    myAdapter.notifyDataSetChanged();
+
+                    if (progressDialog.isShowing())
+                        progressDialog.dismiss();
                 });
     }
-
-    private void updateExpenseData(String src1, String date1, double amount1,
-                                   String src2, String date2, double amount2,
-                                   AppCompatTextView srcTextView1, AppCompatTextView dateTextView1, AppCompatTextView amountTextView1,
-                                   AppCompatTextView srcTextView2, AppCompatTextView dateTextView2, AppCompatTextView amountTextView2) {
-        // Check if any of the fields are empty or the amount is zero for the first set
-        if (TextUtils.isEmpty(src1) || TextUtils.isEmpty(date1) || amount1 == 0.0) {
-            srcTextView1.setText("");
-            dateTextView1.setText("");
-            amountTextView1.setText("");
-        } else {
-            // Set the data to the first set of TextViews
-            srcTextView1.setText(src1);
-            dateTextView1.setText(date1);
-            amountTextView1.setText(String.valueOf(amount1));
-        }
-
-        // Check if any of the fields are empty or the amount is zero for the second set
-        if (TextUtils.isEmpty(src2) || TextUtils.isEmpty(date2) || amount2 == 0.0) {
-            srcTextView2.setText("");
-            dateTextView2.setText("");
-            amountTextView2.setText("");
-        } else {
-            // Set the data to the second set of TextViews
-            srcTextView2.setText(src2);
-            dateTextView2.setText(date2);
-            amountTextView2.setText(String.valueOf(amount2));
-        }
-    }
-
-    @SuppressLint("RestrictedApi")
-    public void LatestIncomeRecords(AppCompatTextView income_src_1, AppCompatTextView income_amount_1, AppCompatTextView income_date_1)
-    {
-        String userId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
-
-        // Query to get the two latest expense records
-        db.collection("users").document(userId).collection("Income")
-                .orderBy("date", Query.Direction.DESCENDING)
-                .limit(2)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>()
-                {
-                    @SuppressLint("RestrictedApi")
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful())
-                        {
-                            String src1 = "", date1 = "";
-                            double amount1 = 0.0;
-
-                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                                // Retrieve data from Firestore document
-                                String src = document.getString("source");
-                                String date = document.getString("date");
-                                Double amountDouble = document.getDouble("amount");
-
-                                src1 = src;
-                                date1= date;
-                                amount1 = amountDouble;
-                            }
-                            UpdateIncomeData(src1, date1, amount1,
-                                    income_src_1, income_date_1, income_amount_1);
-                        }
-                        }
-                    });
-
-        }
-
-        public void UpdateIncomeData(String src1, String date1, Double amount1,
-                                      AppCompatTextView income_src_1,
-                                      AppCompatTextView income_date_1, AppCompatTextView income_amount_1)
-        {
-            if (TextUtils.isEmpty(src1) || TextUtils.isEmpty(date1) || amount1 == 0.0) {
-                income_src_1.setText("");
-                income_date_1.setText("");
-                income_amount_1.setText("");
-            } else {
-                // Set the data to the first set of TextViews
-                income_src_1.setText(src1);
-                income_date_1.setText(date1);
-                income_amount_1.setText(String.valueOf(amount1));
-            }
-        }
-    }
+}
 
