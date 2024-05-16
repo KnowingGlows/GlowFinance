@@ -77,6 +77,7 @@ public class transactions extends AppCompatActivity
     AppCompatTextView user_profilename,AvailableBalance,User_GlowCoins;
 
     AppCompatButton
+            glowcoin_btn,
             bottom_navigation_home,
             seven_days_data, fourteen_days_data, thirty_days_data,
             income_chart_btn, expense_chart_btn,
@@ -101,6 +102,7 @@ public class transactions extends AppCompatActivity
         user = FirebaseAuth.getInstance();
         userdp = findViewById(R.id.user_profile);
         CircularProfilePic.loadCircularImage(this, userdp);
+        GlowCoinsPageOpener.setButtonClickListener(transactions.this, glowcoin_btn);
     }
 
     public void BottomNavigationBarFunctionality()
@@ -159,6 +161,7 @@ public class transactions extends AppCompatActivity
 
     public void Initialize()
     {
+        glowcoin_btn = findViewById(R.id.glowcoin_btn);
         AvailableBalance = findViewById(R.id.AvailableBalance);
         user_profilename = findViewById(R.id.user_username);
         income_chart_btn = findViewById(R.id.income_chart_btn);

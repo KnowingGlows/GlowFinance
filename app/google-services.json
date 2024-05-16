@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "659999499020-qn930jh4hsnf44v314oa27u8ruokq5ig.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.knowingglows.glowfinance",
+            "certificate_hash": "46b2162f0b51db73848d68ec69528fb1707caf81"
+          }
+        },
+        {
           "client_id": "659999499020-commqfhr40668elsj8s3m4pqmcqk5agu.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -32,7 +40,8 @@
             }
           ]
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-9082390422569348~8889901311"
     }
   ],
   "configuration_version": "1"

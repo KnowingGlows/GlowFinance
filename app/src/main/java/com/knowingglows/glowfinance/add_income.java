@@ -49,6 +49,7 @@ public class add_income extends AppCompatActivity {
     AppCompatImageView
             userdp;
     AppCompatButton
+            glowcoin_btn,
 
             save_income,
             addincome_toolbar_btn, addexpense_toolbar_btn,
@@ -84,9 +85,11 @@ public class add_income extends AppCompatActivity {
 
         userdp = findViewById(R.id.user_profile);
         CircularProfilePic.loadCircularImage(this, userdp);
+        GlowCoinsPageOpener.setButtonClickListener(add_income.this, glowcoin_btn);
     }
 
     public void Instantiate() {
+        glowcoin_btn = findViewById(R.id.glowcoin_btn);
         db = FirebaseFirestore.getInstance();
         User = FirebaseAuth.getInstance();
         Income_amount = findViewById(R.id.Income_amount);

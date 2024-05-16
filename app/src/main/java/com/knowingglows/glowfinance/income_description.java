@@ -37,6 +37,7 @@ public class income_description extends AppCompatActivity
     FirebaseAuth user;
     AppCompatImageView userdp;
     AppCompatButton
+            glowcoin_btn,
             btn0,btn1, btn2,btn3,
             btn4,btn5,btn6,btn7
             ,btn8,btn9,btn_decimal,
@@ -65,6 +66,7 @@ public class income_description extends AppCompatActivity
         user = FirebaseAuth.getInstance();
         userdp = findViewById(R.id.user_profile);
         CircularProfilePic.loadCircularImage(this, userdp);
+        GlowCoinsPageOpener.setButtonClickListener(income_description.this, glowcoin_btn);
     }
 
 public void UpdateAmount()
@@ -138,6 +140,7 @@ public void ArithmeticOperation(Character Operation)
     }
     public void Instantiate()
     {
+        glowcoin_btn = findViewById(R.id.glowcoin_btn);
         previousOperand = 0d;
         currentOperation = ' ';
         AmountString = new StringBuilder();

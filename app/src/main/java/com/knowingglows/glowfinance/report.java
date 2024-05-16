@@ -48,6 +48,8 @@ FirebaseAuth user;
 AppCompatImageView userdp;
     AppCompatButton
 
+            glowcoins_btn,
+
             create_report_btn,
             report_7_days, report_14_days, report_30_days,
             bottom_navigation_home,
@@ -79,10 +81,12 @@ AppCompatImageView userdp;
             }
         });
         CircularProfilePic.loadCircularImage(this, userdp);
+        GlowCoinsPageOpener.setButtonClickListener(report.this, glowcoins_btn);
     }
 
     public void Instantiate()
     {
+        glowcoins_btn = findViewById(R.id.glowcoin_btn);
         report_username = findViewById(R.id.report_username);
         report_deliverydate = findViewById(R.id.report_deliverydate);
         report_specificinfo = findViewById(R.id.report_specificinfo);

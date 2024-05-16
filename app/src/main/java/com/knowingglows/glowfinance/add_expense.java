@@ -47,7 +47,7 @@ FirebaseFirestore db;
 FirebaseAuth User;
     AppCompatButton
 
-            save_expense,
+            save_expense, glowcoin_btn,
             addincome_toolbar_btn,addexpense_toolbar_btn,
             bottom_navigation_home,
             bottom_navigation_transactions, bottom_navigation_addrecords,
@@ -79,10 +79,12 @@ FirebaseAuth User;
         User = FirebaseAuth.getInstance();
         userdp = findViewById(R.id.user_profile);
         CircularProfilePic.loadCircularImage(this, userdp);
+        GlowCoinsPageOpener.setButtonClickListener(add_expense.this, glowcoin_btn);
     }
 
     public void Instantiate()
     {
+        glowcoin_btn = findViewById(R.id.glowcoin_btn);
         Expense_amount = findViewById(R.id.Expense_amount);
         Expense_date = findViewById(R.id.Expense_date);
         Expense_src = findViewById(R.id.Expense_src);

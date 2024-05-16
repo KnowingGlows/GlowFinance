@@ -49,6 +49,8 @@ public class expense_description extends AppCompatActivity {
             btn_multiply, btn_delete;
     AppCompatButton
 
+            glowcoin_btn,
+
             addexpense,
             addincome_toolbar_btn, addexpense_toolbar_btn,
             bottom_navigation_home,
@@ -82,9 +84,12 @@ public class expense_description extends AppCompatActivity {
         user = FirebaseAuth.getInstance();
         userdp = findViewById(R.id.user_profile);
         CircularProfilePic.loadCircularImage(this, userdp);
+        GlowCoinsPageOpener.setButtonClickListener(expense_description.this, glowcoin_btn);
     }
 
     public void Instantiate() {
+
+        glowcoin_btn = findViewById(R.id.glowcoin_btn);
         previousOperand = 0d;
         currentOperation = ' ';
         AmountString = new StringBuilder();

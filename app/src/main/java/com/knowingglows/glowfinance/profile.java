@@ -37,6 +37,7 @@ public class profile extends AppCompatActivity
     AppCompatTextView
             User_GlowCoins;
     AppCompatButton
+            glowcoins_btn,
             CreateSpendingReport, GlowFinanceRoadmap,Glowcoins, ContactUs, AboutUs,
             bottom_navigation_home,
             bottom_navigation_transactions, bottom_navigation_addrecords,
@@ -57,11 +58,13 @@ public class profile extends AppCompatActivity
         user = FirebaseAuth.getInstance();
         userdp = findViewById(R.id.user_profile);
         CircularProfilePic.loadCircularImage(this, userdp);
+        GlowCoinsPageOpener.setButtonClickListener(profile.this, glowcoins_btn);
     }
 
 
     public void Instantiate()
     {
+        glowcoins_btn = findViewById(R.id.glowcoin_btn);
         AboutUs = findViewById(R.id.AboutUs_btn);
         GlowFinanceRoadmap = findViewById(R.id.GlowFinanceRoadmap_btn);
         Glowcoins = findViewById(R.id.glowcoins_btn);
