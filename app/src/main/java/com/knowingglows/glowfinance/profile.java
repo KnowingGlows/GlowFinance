@@ -56,16 +56,7 @@ public class profile extends AppCompatActivity
 
         user = FirebaseAuth.getInstance();
         userdp = findViewById(R.id.user_profile);
-        if (user.getCurrentUser() != null) {
-            Uri photoUrl = user.getCurrentUser().getPhotoUrl();
-
-            if (photoUrl != null) {
-                // Load the profile picture into the ImageView using Glide
-                Glide.with(this)
-                        .load(photoUrl)
-                        .into(userdp);
-            }
-        }
+        CircularProfilePic.loadCircularImage(this, userdp);
     }
 
 

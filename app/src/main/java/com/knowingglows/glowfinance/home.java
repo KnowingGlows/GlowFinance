@@ -76,8 +76,9 @@ public class home extends AppCompatActivity {
     int count = 1;
     FirebaseUser firebaseUser;
     FirebaseAuth firebaseAuth;
+    CircularProfilePic circularProfilePic;
     FirebaseFirestore db;
-    AppCompatButton profile_btn, glowcoins_btn, home_btn, transactions_btn, addrecords_btn, profilepage_btn, report_btn;
+    AppCompatButton  glowcoins_btn, home_btn, transactions_btn, addrecords_btn, profilepage_btn, report_btn;
     AppCompatTextView user_profilename, User_GlowCoins;
 
     PieChart userspendchart;
@@ -128,6 +129,9 @@ public class home extends AppCompatActivity {
         myAdapter = new MyAdapter(home.this, transactionRecords);
         recyclerView.setAdapter(myAdapter);
         FetchTransactions();
+
+        CircularProfilePic.loadCircularImage(this, userdp);
+
 
    
 

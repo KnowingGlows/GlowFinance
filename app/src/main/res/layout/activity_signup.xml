@@ -92,8 +92,8 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/signin_btn"
-        android:layout_width="304dp"
-        android:layout_height="58dp"
+        android:layout_width="311dp"
+        android:layout_height="59dp"
         android:layout_marginTop="2dp"
         android:background="@drawable/background_box_filled"
         android:backgroundTint="@color/colourpalette_white"
@@ -106,7 +106,7 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.53"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.597"
@@ -129,18 +129,19 @@
         app:layout_constraintTop_toTopOf="@+id/google_signupbtn"
         app:layout_constraintVertical_bias="0.0">
     </androidx.appcompat.widget.AppCompatImageView>
+
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="34dp"
         android:layout_height="34dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/profile_page_icon"
         android:elevation="3dp"
-        android:layout_marginTop="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.188"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/google_signupbtn"
-        app:layout_constraintVertical_bias="0.108">
+        app:layout_constraintVertical_bias="0.107">
 
     </androidx.appcompat.widget.AppCompatImageView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -52,6 +52,7 @@ android {
 
 dependencies {
 
+    implementation ("com.github.bumptech.glide:glide:4.15.1")
     implementation ("com.sun.mail:android-mail:1.6.5")
     implementation ("androidx.recyclerview:recyclerview:1.3.2")
     implementation ("androidx.cardview:cardview:1.0.0")

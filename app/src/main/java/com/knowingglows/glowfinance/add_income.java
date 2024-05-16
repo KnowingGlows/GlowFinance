@@ -83,16 +83,7 @@ public class add_income extends AppCompatActivity {
         });
 
         userdp = findViewById(R.id.user_profile);
-        if (User.getCurrentUser() != null) {
-            Uri photoUrl = User.getCurrentUser().getPhotoUrl();
-
-            if (photoUrl != null) {
-                // Load the profile picture into the ImageView using Glide
-                Glide.with(this)
-                        .load(photoUrl)
-                        .into(userdp);
-            }
-        }
+        CircularProfilePic.loadCircularImage(this, userdp);
     }
 
     public void Instantiate() {
